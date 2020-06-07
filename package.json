@@ -30,7 +30,7 @@
     "trailingComma": "es5"
   },
   "name": "notify-zh",
-  "author": "Xavi",
+  "author": "Xavier Gonzalez <xavivzla.g@gmail.com>",
   "module": "dist/notify-zh.esm.js",
   "devDependencies": {
     "husky": "^4.2.5",
