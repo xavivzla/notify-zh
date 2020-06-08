@@ -5,11 +5,10 @@ interface PropsNotify {
 }
 
 class Notify {
-  private static instance: Notify
+  instance: Object | undefined = undefined
   container: HTMLElement | undefined = undefined
   divNotification: HTMLElement | undefined = undefined
   index: number = 1
-  // message: string = ""
   arr: {
       message: string,
       time: number,
@@ -17,11 +16,13 @@ class Notify {
       id: number
   }[] = []
   constructor() {
-    Notify.getInstance()
+
     if (typeof window !== 'undefined') {
       this.container = Notify.createContainer()
       this.divNotification = Notify.createContainerNotify()
-      this._init()
+      if (!this.instance) {
+        this._init()
+      }
     }
   }
 
@@ -66,6 +67,7 @@ class Notify {
         `
         container.appendChild(sheet)
         container.appendChild(containnerNotify)
+        this.instance = Notify
       }else {
         throw new Error('Error - Access node element')
       }
@@ -75,12 +77,6 @@ class Notify {
   }
 
   // setters
-  static getInstance() {
-    if (!Notify.instance) {
-      Notify.instance = new Notify()
-    }
-    return Notify.instance
-  }
 
   static createContainer() {
     const container = document.getElementById('notifyContainer')
