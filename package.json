@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.1.0-beta",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -25,12 +25,12 @@
   },
   "prettier": {
     "printWidth": 80,
-    "semi": true,
+    "semi": false,
     "singleQuote": true,
-    "trailingComma": "es5"
+    "trailingComma": "none"
   },
   "name": "notify-zh",
-  "author": "Xavi",
+  "author": "Xavier Gonzalez <xavivzla.g@gmail.com>",
   "module": "dist/notify-zh.esm.js",
   "devDependencies": {
     "husky": "^4.2.5",
