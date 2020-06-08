@@ -8,7 +8,12 @@ class Notify {
   container: HTMLElement | undefined = undefined
   divNotification: HTMLElement | undefined = undefined
   index: number = 1
-  arr: string[] = []
+  arr: {
+      message: string,
+      time: number,
+      type: string,
+      id: number
+  }[] = []
   constructor() {
     if (typeof window !== 'undefined') {
       this.container = Notify.createContainer()
@@ -157,6 +162,40 @@ class Notify {
       }
     }
   }
+
+  subscribe(subscriptor: {
+    message: string,
+    time: number,
+    type: string
+    }) {
+    const data = { ...subscriptor, id: this.index }
+
+    this.arr.push(data)
+    const containner = this.divNotification
+    if(containner) {
+      const element = this.setNotify(subscriptor)
+      if(element) {
+        containner.appendChild(element)
+        this.animateIn()
+        this.unsubscribe(data)
+      }
+    }
+  }
+
+  unsubscribe(subscriptor: {
+    message: string,
+    time: number,
+    type: string,
+    id: number
+  }) {
+    setTimeout(() => {
+      this.arr = this.arr.filter(item => item.id !== subscriptor.id)
+      this.animateOut(subscriptor.id)
+    }, subscriptor.time)
+  }
 }
+
+
+
 
 const tt = new Notify()
