@@ -5,9 +5,11 @@ interface PropsNotify {
 }
 
 class Notify {
+  private static instance: Notify
   container: HTMLElement | undefined = undefined
   divNotification: HTMLElement | undefined = undefined
   index: number = 1
+  // message: string = ""
   arr: {
       message: string,
       time: number,
@@ -15,6 +17,7 @@ class Notify {
       id: number
   }[] = []
   constructor() {
+    Notify.getInstance()
     if (typeof window !== 'undefined') {
       this.container = Notify.createContainer()
       this.divNotification = Notify.createContainerNotify()
@@ -72,6 +75,13 @@ class Notify {
   }
 
   // setters
+  static getInstance() {
+    if (!Notify.instance) {
+      Notify.instance = new Notify()
+    }
+    return Notify.instance
+  }
+
   static createContainer() {
     const container = document.getElementById('notifyContainer')
     if (container) return
@@ -193,9 +203,22 @@ class Notify {
       this.animateOut(subscriptor.id)
     }, subscriptor.time)
   }
+
+  // methods
+
+  success(message: string, option: {time: number} = { time: 2000 }) {
+    this.subscribe({ message, time: option.time, type: 'success' })
+  }
+  warning(message: string, option: {time: number} = { time: 2000 }) {
+    this.subscribe({ message, time: option.time, type: 'warning' })
+  }
+  error(message: string, option: {time: number} = { time: 2000 }) {
+    this.subscribe({ message, time: option.time, type: 'error' })
+  }
 }
 
 
+const notify = new Notify()
 
 
-const tt = new Notify()
+export default notify
