@@ -25,9 +25,9 @@
   },
   "prettier": {
     "printWidth": 80,
-    "semi": true,
+    "semi": false,
     "singleQuote": true,
-    "trailingComma": "es5"
+    "trailingComma": "none"
   },
   "name": "notify-zh",
   "author": "Xavier Gonzalez <xavivzla.g@gmail.com>",

@@ -10,13 +10,12 @@ class Notify {
   divNotification: HTMLElement | undefined = undefined
   index: number = 1
   arr: {
-      message: string,
-      time: number,
-      type: string,
-      id: number
+    message: string
+    time: number
+    type: string
+    id: number
   }[] = []
   constructor() {
-
     if (typeof window !== 'undefined') {
       this.container = Notify.createContainer()
       this.divNotification = Notify.createContainerNotify()
