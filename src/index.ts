@@ -1,6 +1,33 @@
-export const sum = (a: number, b: number) => {
-  if ('development' === process.env.NODE_ENV) {
-    console.log('boop');
+
+
+class Notify {
+  container: HTMLElement | undefined = undefined
+  divNotification: HTMLElement | undefined = undefined
+  constructor() {
+    if (typeof window !== 'undefined') {
+      this.container = Notify.createContainer()
+
+      // this.index = 1
+      // this.arr = []
+    }
   }
-  return a + b;
-};
+
+  // init
+
+
+  // setters
+  static createContainer() {
+    const container = document.getElementById('notifyContainer')
+    if (container) return
+
+    const notifyContainer = Object.assign(document.createElement('div'), {
+      id: 'notifyContainer'
+    })
+
+    return notifyContainer
+  }
+
+
+}
+
+const tt = new Notify()
