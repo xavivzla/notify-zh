@@ -17,7 +17,9 @@
     "lint": "tsdx lint",
     "prepare": "tsdx build"
   },
-  "peerDependencies": {},
+  "peerDependencies": {
+    "react": ">=16"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "tsdx lint"
@@ -33,7 +35,12 @@
   "author": "Xavier Gonzalez <xavivzla.g@gmail.com>",
   "module": "dist/notify-zh.esm.js",
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.10.1",
+    "@types/react": "^16.9.36",
+    "@types/react-dom": "^16.9.8",
     "husky": "^4.2.5",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "tsdx": "^0.13.2",
     "tslib": "^2.0.0",
     "typescript": "^3.9.5"

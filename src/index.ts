@@ -1,20 +1,11 @@
-interface PropsNotify {
-  message: string
-  time: number
-  type: string
-}
+import {PropsOptions} from './types'
 
 class Notify {
   instance: Object | undefined = undefined
   container: HTMLElement | undefined = undefined
   divNotification: HTMLElement | undefined = undefined
   index: number = 1
-  arr: {
-    message: string
-    time: number
-    type: string
-    id: number
-  }[] = []
+  arr: PropsOptions[] = []
   constructor() {
     if (typeof window !== 'undefined') {
       this.container = Notify.createContainer()
@@ -99,9 +90,15 @@ class Notify {
     return divNotification
   }
 
-  setNotify(data: PropsNotify) {
+  setNotify(data: PropsOptions) {
+    const {
+      type,
+      message,
+      option
+    } = data
+
     let bg = '#07bc0c'
-    switch (data.type) {
+    switch (type) {
       case 'warning':
         bg = '#F09200'
         break
@@ -112,12 +109,15 @@ class Notify {
         bg = '#13BF5F'
         break
     }
+
     const item = Object.assign(document.createElement('div'), {
       className: 'notifyCustom',
       id: `notify-${this.index}`,
-      innerHTML: data.message,
+      innerHTML: option.icon && option.icon.el ? `${option.icon.el} ${message}` : message,
       style: `background-color: ${bg}`
     })
+
+
 
     return item
   }
@@ -148,7 +148,7 @@ class Notify {
   }
 
   animateIn() {
-    const target: HTMLElement | null = document.getElementById(`notify-${this.index}`)
+    const target = document.getElementById(`notify-${this.index}`)
 
     if(target) {
       const targetAnimation = target.animate([
@@ -168,11 +168,7 @@ class Notify {
     }
   }
 
-  subscribe(subscriptor: {
-    message: string,
-    time: number,
-    type: string
-    }) {
+  subscribe(subscriptor: PropsOptions) {
     const data = { ...subscriptor, id: this.index }
 
     this.arr.push(data)
@@ -187,28 +183,23 @@ class Notify {
     }
   }
 
-  unsubscribe(subscriptor: {
-    message: string,
-    time: number,
-    type: string,
-    id: number
-  }) {
+  unsubscribe(subscriptor: PropsOptions) {
     setTimeout(() => {
       this.arr = this.arr.filter(item => item.id !== subscriptor.id)
       this.animateOut(subscriptor.id)
-    }, subscriptor.time)
+    }, subscriptor.option.time)
   }
 
   // methods
 
-  success(message: string, option: {time: number} = { time: 2000 }) {
-    this.subscribe({ message, time: option.time, type: 'success' })
+  success(data: PropsOptions) {
+    this.subscribe({ ...data, type: 'success' })
   }
-  warning(message: string, option: {time: number} = { time: 2000 }) {
-    this.subscribe({ message, time: option.time, type: 'warning' })
+  warning(data: PropsOptions) {
+    this.subscribe({ ...data, type: 'warning' })
   }
-  error(message: string, option: {time: number} = { time: 2000 }) {
-    this.subscribe({ message, time: option.time, type: 'error' })
+  error(data: PropsOptions) {
+    this.subscribe({ ...data, type: 'error' })
   }
 }
 
