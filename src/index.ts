@@ -68,7 +68,7 @@ class Notify {
 
   // setters
 
-  static createContainer() {
+  static createContainer() : HTMLElement | undefined {
     const container = document.getElementById('notifyContainer')
     if (container) return
 
@@ -79,7 +79,7 @@ class Notify {
     return notifyContainer
   }
 
-  static createContainerNotify() {
+  static createContainerNotify(): HTMLElement | undefined {
     const hasDivNotification = document.getElementById('divNotification')
     if (hasDivNotification) return
 
@@ -90,7 +90,7 @@ class Notify {
     return divNotification
   }
 
-  setNotify(data: PropsOptions) {
+  setNotify(data: PropsOptions) : Node {
     const {
       type,
       message,
@@ -113,8 +113,10 @@ class Notify {
     const item = Object.assign(document.createElement('div'), {
       className: 'notifyCustom',
       id: `notify-${this.index}`,
-      innerHTML: option.icon && option.icon.el ? `${option.icon.el} ${message}` : message,
-      style: `background-color: ${bg}`
+      innerHTML: option.icon && option.icon.el ?
+       `${option.icon.el} <p style="margin: 0 5px">${message}</p>` :
+        message,
+      style: `background-color: ${bg}; display: flex; align-items: center`
     })
 
 

@@ -16,9 +16,11 @@ const App = () => {
           Notify.success({
             message: "Click Success",
             option: {
-              time: 5000,
+              time: 50000,
               icon: {
-                el: '<span>ffrf</span>',
+                el: `<span>
+                  <img style="max-width: 20px; display: block" src="https://media.istockphoto.com/vectors/info-icon-stock-vector-illustration-flat-design-vector-id611313138" /> 
+                </span>`,
                 position: 'left'
               }
             }
