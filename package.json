@@ -34,6 +34,22 @@
   "name": "notify-zh",
   "author": "Xavier Gonzalez <xavivzla.g@gmail.com>",
   "module": "dist/notify-zh.esm.js",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xavivzla/notify-zh.git"
+  },
+  "keywords": [
+    "notification",
+    "react",
+    "vue",
+    "angular",
+    "alert",
+    "nessage"
+  ],
+  "description": "Es una pequeña libreria de notificaciones para el FrontEnd. Esta libreria tiene un peso de 1.4 Kb.",
   "devDependencies": {
     "@testing-library/jest-dom": "^5.10.1",
     "@types/react": "^16.9.36",
