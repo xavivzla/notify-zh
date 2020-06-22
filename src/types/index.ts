@@ -1,19 +1,18 @@
-export interface PropsNotify {
-  message: string
-  time: number
-  type: string
-  id: number
-}
-
 export interface PropsOptions {
   message: string,
   option: {
     time: number,
-      icon ?: {
+      icon?: {
         el: string,
-        position: string
+        position?: string
       }
-  },
-  id: number,
+  }
+}
+
+export type PropsOtionsSubscribe = PropsOptions & {
   type: string
+}
+
+export type PropsOtionsUnsubscribe = PropsOptions & {
+  id: number
 }

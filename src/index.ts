@@ -1,11 +1,15 @@
-import {PropsOptions} from './types'
+import {
+  PropsOptions,
+  PropsOtionsSubscribe,
+  PropsOtionsUnsubscribe
+} from './types'
 
 class Notify {
   instance: Object | undefined = undefined
   container: HTMLElement | undefined = undefined
   divNotification: HTMLElement | undefined = undefined
   index: number = 1
-  arr: PropsOptions[] = []
+  arr: PropsOtionsUnsubscribe[] = []
   constructor() {
     if (typeof window !== 'undefined') {
       this.container = Notify.createContainer()
@@ -90,7 +94,7 @@ class Notify {
     return divNotification
   }
 
-  setNotify(data: PropsOptions) : Node {
+  setNotify(data: PropsOtionsSubscribe) : Node {
     const {
       type,
       message,
@@ -170,7 +174,7 @@ class Notify {
     }
   }
 
-  subscribe(subscriptor: PropsOptions) {
+  subscribe(subscriptor: PropsOtionsSubscribe) {
     const data = { ...subscriptor, id: this.index }
 
     this.arr.push(data)
@@ -185,7 +189,7 @@ class Notify {
     }
   }
 
-  unsubscribe(subscriptor: PropsOptions) {
+  unsubscribe(subscriptor: PropsOtionsUnsubscribe) {
     setTimeout(() => {
       this.arr = this.arr.filter(item => item.id !== subscriptor.id)
       this.animateOut(subscriptor.id)

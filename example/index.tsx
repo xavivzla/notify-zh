@@ -5,23 +5,27 @@ import Notify from '../.';
 
 const App = () => {
 
-  // React.useEffect(() => {
-  //   Notify.success("Load Component Success", { time: 5000 })
-  // }, [])
-
   return (
     <div>
       <button
         onClick={() =>
-          Notify.success({
-            message: "Click Success",
+          Notify.error({
+            message: 'Error',
             option: {
               time: 50000,
               icon: {
-                el: `<span>
-                  <img style="max-width: 20px; display: block" src="https://media.istockphoto.com/vectors/info-icon-stock-vector-illustration-flat-design-vector-id611313138" /> 
-                </span>`,
-                position: 'left'
+                el: `<span 
+                  style="width: 20px; 
+                  height: 20px;
+                  background: #C12A09; 
+                  padding: 9px;
+                  border-radius: 50%;
+                  display: flex;
+                  justify-content: center;
+                  box-sizing: border-box;
+                  align-items: center">
+                      <i>!</i>
+                    </span>`
               }
             }
           })

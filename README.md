@@ -2,18 +2,18 @@
 
 This project was bootstrapped with [TSDX](https://github.com/jaredpalmer/tsdx).
 
+Es una pequeña libreria para el FrontEnd. Esta libreria tiene un peso de 1.4 Kb.
 
-It is a small library that can be used in any frontend framework. the library has a weight of 1.4 KB
-Can be used on static websites as well as react js, vue js and angular js.
+Puede ser usada en paginas estaticas como en frameworks (React, Vue js, angular)
 
-## Installation
+## Instalación
 
 
 ```bash
  yarn add notify-zh or npm install notify-zh
 ```
 
-## Usage
+## Uso
 
 ### React js
 
@@ -24,14 +24,29 @@ Can be used on static websites as well as react js, vue js and angular js.
   const MyComponent = () => {
 
     useEffect(() => {
-      Notify.success("Load Component Success", { time: 5000 })
+      Notify.success({
+            message: 'Success',
+            option: {
+              time: 5000
+            }
+          })
     }, [])
 
     return (
       <div>
         <button
         onClick={() =>
-          Notify.success("Click Success", { time: 5000 })
+          Notify.success({
+            message: 'Success',
+            option: {
+              time: 5000,
+              icon: {
+                el: `<span style="background: #ddd; padding: 9px; border-radius: 50%">
+                      <i>!</i>
+                    </span>`
+              }
+            }
+          })
         }
       >
         Success
@@ -77,7 +92,17 @@ export default {
   name: "Component1",
   methods: {
     runError() {
-      this.$notify.error("prueba", { position: "top-center", time: 5000 });
+      this.$notify.error({
+        message: 'Error',
+        option: {
+          time: 5000,
+          icon: {
+            el: `<span style="background: #ddd; padding: 9px; border-radius: 50%">
+                  <i>!</i>
+                </span>`
+          }
+        }
+      });
     }
   }
 }
