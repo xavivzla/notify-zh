@@ -12,7 +12,7 @@ const App = () => {
           Notify.error({
             message: 'Error',
             option: {
-              time: 50000,
+              time: 2000,
               icon: {
                 el: `<span 
                   style="width: 20px; 

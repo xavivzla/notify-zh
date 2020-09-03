@@ -1,11 +1,11 @@
 export interface PropsOptions {
-  message: string,
+  message: string
   option: {
-    time: number,
-      icon?: {
-        el: string,
-        position?: string
-      }
+    time: number
+    icon?: {
+      el: string
+      position?: string
+    }
   }
 }
 
