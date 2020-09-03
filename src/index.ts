@@ -58,6 +58,28 @@ class Notify {
             z-index: 2000;
             pointer-events: none;
           }
+          .animateInOpacity {
+            animation: showOpacity 1s;
+          }
+          .animateOutOpacity {
+            animation: hideOpacity 1s;
+          }
+          @keyframes showOpacity {
+            from {
+              opacity: 0;
+            }
+            to {
+              opacity: 1;
+            }
+          }
+          @keyframes hideOpacity {
+            from {
+              opacity: 1;
+            }
+            to {
+              opacity: 0;
+            }
+          }
         `
         container.appendChild(sheet)
         container.appendChild(containnerNotify)
@@ -132,54 +154,22 @@ class Notify {
     const target: HTMLElement | null = document.getElementById(`notify-${id}`)
 
     if (target) {
-      const targetAnimation = target.animate(
-        [
-          {
-            opacity: '1'
-          },
-          {
-            opacity: '0'
-          }
-        ],
-        {
-          duration: 500
-        }
-      )
-
-      if (targetAnimation) {
-        targetAnimation.addEventListener('finish', () => {
-          target.style.opacity = '0'
-          target.remove()
-        })
-      }
+      target.addEventListener('animationend', () => {
+        target.style.opacity = '0'
+        target.remove()
+      })
+      target.classList.add('animateOutOpacity')
     }
   }
 
   animateIn() {
     const target = document.getElementById(`notify-${this.index}`)
-
     if (target) {
-      const targetAnimation = target.animate(
-        [
-          {
-            opacity: '0'
-          },
-          {
-            opacity: '.9'
-          }
-        ],
-        {
-          duration: 500,
-          id: `notify${this.index}`
-        }
-      )
-
-      if (targetAnimation) {
-        targetAnimation.addEventListener('finish', () => {
-          target.style.opacity = '1'
-        })
-        this.updateIndex()
-      }
+      this.updateIndex()
+      target.addEventListener('animationend', () => {
+        target.style.opacity = '1'
+      })
+      target.classList.add('animateInOpacity')
     }
   }
 
