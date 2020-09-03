@@ -62,7 +62,7 @@ class Notify {
         container.appendChild(sheet)
         container.appendChild(containnerNotify)
         this.instance = Notify
-      }else {
+      } else {
         throw new Error('Error - Access node element')
       }
     } else {
@@ -72,7 +72,7 @@ class Notify {
 
   // setters
 
-  static createContainer() : HTMLElement | undefined {
+  static createContainer(): HTMLElement | undefined {
     const container = document.getElementById('notifyContainer')
     if (container) return
 
@@ -94,12 +94,8 @@ class Notify {
     return divNotification
   }
 
-  setNotify(data: PropsOtionsSubscribe) : Node {
-    const {
-      type,
-      message,
-      option
-    } = data
+  setNotify(data: PropsOtionsSubscribe): Node {
+    const { type, message, option } = data
 
     let bg = '#07bc0c'
     switch (type) {
@@ -117,13 +113,12 @@ class Notify {
     const item = Object.assign(document.createElement('div'), {
       className: 'notifyCustom',
       id: `notify-${this.index}`,
-      innerHTML: option.icon && option.icon.el ?
-       `${option.icon.el} <p style="margin: 0 5px">${message}</p>` :
-        message,
+      innerHTML:
+        option.icon && option.icon.el
+          ? `${option.icon.el} <p style="margin: 0 5px">${message}</p>`
+          : message,
       style: `background-color: ${bg}; display: flex; align-items: center`
     })
-
-
 
     return item
   }
@@ -134,17 +129,24 @@ class Notify {
 
   // animations
   animateOut(id: number) {
-    const target: HTMLElement | null  = document.getElementById(`notify-${id}`)
+    const target: HTMLElement | null = document.getElementById(`notify-${id}`)
 
-    if(target) {
-      const targetAnimation = target.animate([
-        { opacity: '1' },
-        { opacity: '0' }
-      ], {
-        duration: 500
-      })
+    if (target) {
+      const targetAnimation = target.animate(
+        [
+          {
+            opacity: '1'
+          },
+          {
+            opacity: '0'
+          }
+        ],
+        {
+          duration: 500
+        }
+      )
 
-      if(targetAnimation) {
+      if (targetAnimation) {
         targetAnimation.addEventListener('finish', () => {
           target.style.opacity = '0'
           target.remove()
@@ -156,16 +158,23 @@ class Notify {
   animateIn() {
     const target = document.getElementById(`notify-${this.index}`)
 
-    if(target) {
-      const targetAnimation = target.animate([
-        { opacity: '0' },
-        { opacity: '.9' }
-      ], {
-        duration: 500,
-        id: `notify${this.index}`
-      })
+    if (target) {
+      const targetAnimation = target.animate(
+        [
+          {
+            opacity: '0'
+          },
+          {
+            opacity: '.9'
+          }
+        ],
+        {
+          duration: 500,
+          id: `notify${this.index}`
+        }
+      )
 
-      if(targetAnimation) {
+      if (targetAnimation) {
         targetAnimation.addEventListener('finish', () => {
           target.style.opacity = '1'
         })
@@ -179,9 +188,9 @@ class Notify {
 
     this.arr.push(data)
     const containner = this.divNotification
-    if(containner) {
+    if (containner) {
       const element = this.setNotify(subscriptor)
-      if(element) {
+      if (element) {
         containner.appendChild(element)
         this.animateIn()
         this.unsubscribe(data)
@@ -209,8 +218,6 @@ class Notify {
   }
 }
 
-
 const notify = new Notify()
-
 
 export default notify
