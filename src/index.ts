@@ -1,5 +1,6 @@
 import {
   PropsOptions,
+  PropsConfig,
   PropsOtionsSubscribe,
   PropsOtionsUnsubscribe
 } from './types'
@@ -9,6 +10,13 @@ class Notify {
   container: HTMLElement | undefined = undefined
   divNotification: HTMLElement | undefined = undefined
   index: number = 1
+  settings: PropsConfig = {
+    backgrounds: {
+      warning: '#F09200',
+      error: '#DE350B',
+      success: '#13BF5F'
+    }
+  }
   arr: PropsOtionsUnsubscribe[] = []
   constructor() {
     if (typeof window !== 'undefined') {
@@ -118,19 +126,9 @@ class Notify {
 
   setNotify(data: PropsOtionsSubscribe): Node {
     const { type, message, option } = data
-
-    let bg = '#07bc0c'
-    switch (type) {
-      case 'warning':
-        bg = '#F09200'
-        break
-      case 'error':
-        bg = '#FF322C'
-        break
-      default:
-        bg = '#13BF5F'
-        break
-    }
+    let bg = this.settings.backgrounds[type]
+    let maxWidth = this.settings.maxWidth
+    let width = this.settings.width
 
     const item = Object.assign(document.createElement('div'), {
       className: 'notifyCustom',
@@ -139,7 +137,11 @@ class Notify {
         option.icon && option.icon.el
           ? `${option.icon.el} <p style="margin: 0 5px">${message}</p>`
           : message,
-      style: `background-color: ${bg}; display: flex; align-items: center`
+      style: `background-color: ${bg};
+        display: flex;
+        align-items: center;
+        ${maxWidth && 'max-width:' + maxWidth + ';'}
+        ${width && 'width:' + width + ';'}`
     })
 
     return item
@@ -196,7 +198,9 @@ class Notify {
   }
 
   // methods
-
+  config(data: PropsConfig) {
+    this.settings = { ...this.settings, ...data }
+  }
   success(data: PropsOptions) {
     this.subscribe({ ...data, type: 'success' })
   }
