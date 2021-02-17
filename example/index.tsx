@@ -3,6 +3,16 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Notify from '../.';
 
+Notify.config({
+  backgrounds: {
+    warning: 'yellow',
+    error: 'red',
+    success: 'blue'
+  },
+  // width: '100%',
+  // maxWidth: '600px'
+})
+
 const App = () => {
 
   return (
@@ -12,7 +22,7 @@ const App = () => {
           Notify.error({
             message: 'Error',
             option: {
-              time: 2000,
+              time: 200000,
               icon: {
                 el: `<span 
                   style="width: 20px; 
