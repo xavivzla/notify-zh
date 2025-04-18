@@ -1,29 +1,42 @@
 {
-  "version": "0.1.4",
+  "version": "1.0.0",
   "license": "MIT",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "engines": {
-    "node": ">=10"
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "tsup": {
+    "entry": [
+      "src/index.ts"
+    ],
+    "format": [
+      "cjs",
+      "esm"
+    ],
+    "dts": true,
+    "splitting": false,
+    "sourcemap": true,
+    "clean": true,
+    "external": [
+      "react",
+      "react-dom"
+    ],
+    "minify": true
   },
   "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
-    "test": "tsdx test",
-    "lint": "tsdx lint",
-    "prepare": "tsdx build"
-  },
-  "peerDependencies": {
-    "react": ">=16"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "tsdx lint"
-    }
+    "build": "tsup",
+    "watch": "tsup --watch",
+    "start:react": "cd ./example && bun run start"
   },
   "prettier": {
     "printWidth": 80,
@@ -33,7 +46,6 @@
   },
   "name": "notify-zh",
   "author": "Xavier Gonzalez <xavivzla.g@gmail.com>",
-  "module": "dist/notify-zh.esm.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/xavivzla/notify-zh.git"
@@ -44,18 +56,12 @@
     "vue",
     "angular",
     "alert",
-    "nessage"
+    "message"
   ],
   "description": "Es una pequeña libreria de notificaciones para el FrontEnd. Esta libreria tiene un peso de 1.4 Kb.",
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.10.1",
-    "@types/react": "^16.9.49",
-    "@types/react-dom": "^16.9.8",
-    "husky": "^4.2.5",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "tsdx": "^0.13.3",
-    "tslib": "^2.0.1",
-    "typescript": "^4.0.2"
+    "husky": "^9.1.7",
+    "typescript": "^5.8.3",
+    "tsup": "^8.4.0"
   }
 }
