@@ -1,34 +1,49 @@
+export interface ClassNameOptions {
+  base?: string
+  success?: string
+  error?: string
+  warning?: string
+  info?: string
+  animateIn?: string
+  animateOut?: string
+}
+
 export interface PropsOptions {
   message: string
-  option: {
-    time: number
-    icon?: {
-      el: string
-      position?: string
-    }
+  time?: number
+  icon?: {
+    el?: string
   }
+  title?: string
 }
 
 export interface PropsConfig {
+  defaultTime?: number
+  backgrounds?: {
+    warning?: string
+    error?: string
+    success?: string
+    info?: string
+  }
   maxWidth?: string
   width?: string
-  backgrounds: {
-    warning: string
-    error: string
-    success: string
-  }
+
+  disableDefaultStyles?: boolean
+  classNames?: ClassNameOptions
 }
 
 export interface Status {
-  warning: '#F09200'
-  error: '#FF322C'
-  success: '#13BF5F'
+  warning: string
+  error: string
+  success: string
+  info: string
 }
 
-export type PropsOtionsSubscribe = PropsOptions & {
-  type: keyof Status
+export interface PropsOtionsSubscribe extends PropsOptions {
+  type: 'success' | 'error' | 'warning' | 'info'
+  // type: keyof Status
 }
 
-export type PropsOtionsUnsubscribe = PropsOptions & {
+export interface PropsOtionsUnsubscribe extends PropsOtionsSubscribe {
   id: number
 }

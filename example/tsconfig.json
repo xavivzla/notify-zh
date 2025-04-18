@@ -1,10 +1,9 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": false,
     "target": "es5",
-    "module": "commonjs",
+    "module": "NodeNext",
     "jsx": "react",
-    "moduleResolution": "node",
+    "moduleResolution": "nodenext",
     "noImplicitAny": false,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
@@ -14,6 +13,8 @@
     "sourceMap": true,
     "lib": ["es2015", "es2016", "dom"],
     "baseUrl": ".",
-    "types": ["node"]
+    "types": ["node"],
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   }
 }
