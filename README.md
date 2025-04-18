@@ -39,7 +39,8 @@ Install `notify-zh` using your favorite package manager:
 
 ```bash
 npm install notify-zh
-oryarn add notify-zh
+or
+yarn add notify-zh
 ```
 
 🚀 Usage notify-zh exports a single pre-initialized instance, ready to use immediately after import.
