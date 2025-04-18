@@ -2,7 +2,9 @@
   "version": "1.0.0",
   "license": "MIT",
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "LICENSE"
   ],
   "engines": {
     "node": ">=20"
