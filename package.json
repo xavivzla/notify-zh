@@ -38,7 +38,10 @@
   "scripts": {
     "build": "tsup",
     "watch": "tsup --watch",
-    "start:react": "cd ./example && bun run start"
+    "start:react": "cd ./example && bun run start",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "prettier": {
     "printWidth": 80,
@@ -62,8 +65,16 @@
   ],
   "description": "Es una pequeña libreria de notificaciones para el FrontEnd. Esta libreria tiene un peso de 1.4 Kb.",
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.1.4",
+    "@types/jest": "^29.5.8",
     "husky": "^9.1.7",
-    "typescript": "^5.8.3",
-    "tsup": "^8.4.0"
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "ts-jest": "^29.1.1",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "tslib": "^2.8.1"
   }
 }
