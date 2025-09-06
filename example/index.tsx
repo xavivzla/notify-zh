@@ -6,12 +6,12 @@ Notify.config({
   disableDefaultStyles: false,
   defaultTime: 2000,
   classNames: {
-    base: 'p-4 mb-2 rounded-md shadow-lg text-white max-w-sm pointer-events-auto flex items-center',
-    success: 'bg-green-500',
-    error: 'bg-red-600',
-    warning: 'bg-yellow-500',
-    info: 'bg-blue-500',
-    animateIn: 'animate-bounce'
+    // base: 'p-4 mb-2 rounded-md shadow-lg text-white max-w-sm pointer-events-auto flex items-center',
+    // success: 'bg-green-500',
+    // error: 'bg-red-600',
+    // warning: 'bg-yellow-500',
+    // info: 'bg-blue-500',
+    // animateIn: 'animate-bounce'
   }
 })
 
@@ -25,6 +25,7 @@ const App = () => {
         onClick={() =>
           Notify.success({
             // time: 1000,
+            position: 'top-right',
             message: 'Estilizado con Tailwind!',
             icon: {
               el: svgIcon

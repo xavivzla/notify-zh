@@ -1,3 +1,12 @@
+export type NotificationPosition =
+  | 'top-left'
+  | 'top-right'
+  | 'bottom-left'
+  | 'bottom-right'
+  | 'center-bottom'
+  | 'center-top'
+  | 'center'
+
 export interface ClassNameOptions {
   base?: string
   success?: string
@@ -11,6 +20,7 @@ export interface ClassNameOptions {
 export interface PropsOptions {
   message: string
   time?: number
+  position?: NotificationPosition
   icon?: {
     el?: string
   }
@@ -19,6 +29,7 @@ export interface PropsOptions {
 
 export interface PropsConfig {
   defaultTime?: number
+  position?: NotificationPosition
   backgrounds?: {
     warning?: string
     error?: string

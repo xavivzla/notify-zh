@@ -2,7 +2,8 @@ import {
   PropsOptions,
   PropsConfig,
   PropsOtionsSubscribe,
-  PropsOtionsUnsubscribe
+  PropsOtionsUnsubscribe,
+  NotificationPosition
 } from './types'
 
 const NOTIFY_CONTAINER_ID = 'notifyContainer'
@@ -19,6 +20,7 @@ class Notify {
 
   #settings: PropsConfig = {
     defaultTime: 3000,
+    position: 'center-top',
     disableDefaultStyles: false,
     classNames: {},
     backgrounds: {
@@ -32,105 +34,112 @@ class Notify {
 
   arr: PropsOtionsUnsubscribe[] = []
 
-  #initialize () {
-    if (
-      this.#isInitialized ||
-      typeof window === 'undefined' ||
-      typeof document === 'undefined'
-    ) {
-      return
-    }
+  #getPositionStyles(position: NotificationPosition): string {
+    const baseStyles = 'position: fixed; z-index: 2000; pointer-events: none;'
 
-    this.#container = this.#createContainer()
-    this.#notificationWrapper = this.#createNotificationWrapper()
-
-    if (this.#container && this.#notificationWrapper) {
-      document.body.appendChild(this.#container)
-      if (!this.#settings.disableDefaultStyles) {
-        const sheet = document.createElement('style')
-        sheet.textContent = `
-              #${NOTIFICATION_WRAPPER_ID} {
-              display: flex;
-              flex-direction: column-reverse;
-              align-items: center;
-            }
-              .${NOTIFY_CLASS} {
-              z-index: 9999;
-              border-radius: 3px;
-              box-sizing: border-box;
-              color: #fff;
-              font-size: 1rem;
-              background: #000;
-              text-align: center;
-              padding: 12px 40px;
-              opacity: 0;
-              display: inline;
-              margin-bottom: 10px;
-              boxShadow: '0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12)';
-              border-radius: 5px;
-            }
-              #${NOTIFY_CONTAINER_ID} {
-              position: fixed;
-              top: 20px;
-              right: 0;
-              margin: auto;
-              left: 0;
-              z-index: 2000;
-              pointer-events: none;
-            }
-              .${ANIMATE_IN_CLASS} {
-              animation: showOpacity 1s;
-            }
-              .${ANIMATE_OUT_CLASS} {
-              animation: hideOpacity 1s;
-            }
-              @keyframes showOpacity {
-              from {
-                opacity: 0;
-              }
-              to {
-                opacity: 1;
-              }
-            }
-            @keyframes hideOpacity {
-              from {
-                opacity: 1;
-              }
-              to {
-                opacity: 0;
-              }
-            }
-          `
-        this.#container.appendChild(sheet)
-      }
-      this.#container.appendChild(this.#notificationWrapper)
-      this.#isInitialized = true
-    } else {
-      console.error('Notify zh: Could not create container elements.')
+    switch (position) {
+      case 'top-left':
+        return `${baseStyles} top: 20px; left: 20px;`
+      case 'top-right':
+        return `${baseStyles} top: 20px; right: 20px;`
+      case 'bottom-left':
+        return `${baseStyles} bottom: 20px; left: 20px;`
+      case 'bottom-right':
+        return `${baseStyles} bottom: 20px; right: 20px;`
+      case 'center-bottom':
+        return `${baseStyles} bottom: 20px; left: 50%; transform: translateX(-50%);`
+      case 'center-top':
+        return `${baseStyles} top: 20px; left: 50%; transform: translateX(-50%);`
+      case 'center':
+        return `${baseStyles} top: 50%; left: 50%; transform: translate(-50%, -50%);`
+      default:
+        return `${baseStyles} top: 20px; left: 50%; transform: translateX(-50%);`
     }
   }
 
-  #createContainer (): HTMLElement | null {
-    let container = document.getElementById(NOTIFY_CONTAINER_ID)
+
+  
+  #addGlobalStyles() {
+    // Check if styles already exist
+    if (document.getElementById('notify-zh-styles')) {
+      return
+    }
+    
+    const sheet = document.createElement('style')
+    sheet.id = 'notify-zh-styles'
+    sheet.textContent = `
+      .${NOTIFY_CLASS} {
+        z-index: 9999;
+        border-radius: 3px;
+        box-sizing: border-box;
+        color: #fff;
+        font-size: 1rem;
+        background: #000;
+        text-align: center;
+        padding: 12px 40px;
+        opacity: 0;
+        display: inline;
+        margin-bottom: 10px;
+        box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
+        border-radius: 5px;
+      }
+      .${ANIMATE_IN_CLASS} {
+        animation: showOpacity 1s;
+      }
+      .${ANIMATE_OUT_CLASS} {
+        animation: hideOpacity 1s;
+      }
+      @keyframes showOpacity {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes hideOpacity {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
+      }
+    `
+    document.head.appendChild(sheet)
+  }
+
+
+
+
+
+  #getOrCreateContainerForPosition(position: NotificationPosition): HTMLElement {
+    const containerId = `${NOTIFY_CONTAINER_ID}-${position}`
+    let container = document.getElementById(containerId)
+    
     if (!container) {
       container = document.createElement('div')
-      container.id = NOTIFY_CONTAINER_ID
-      // other styles
+      container.id = containerId
+      
+      // Apply position styles
+      const positionStyles = this.#getPositionStyles(position)
+      container.style.cssText = positionStyles
+      
+      // Create wrapper for this position
+      const wrapper = document.createElement('div')
+      wrapper.id = `${NOTIFICATION_WRAPPER_ID}-${position}`
+      wrapper.style.display = 'flex'
+      wrapper.style.flexDirection = position.includes('bottom') ? 'column' : 'column-reverse'
+      wrapper.style.alignItems = 'center'
+      
+      container.appendChild(wrapper)
+      document.body.appendChild(container)
     }
+    
     return container
   }
 
-  #createNotificationWrapper (): HTMLElement | null {
-    let wrapper = document.getElementById(NOTIFICATION_WRAPPER_ID)
-    if (!wrapper) {
-      wrapper = document.createElement('div')
-      wrapper.id = NOTIFICATION_WRAPPER_ID
-      // other styles
-    }
-    return wrapper
-  }
-
-  #setNotify (data: PropsOtionsSubscribe): HTMLElement {
+  #setNotify(data: PropsOtionsSubscribe): HTMLElement {
     const { type, message, icon } = data
     const notificationId = this.#index++
     let bg = this.#settings.backgrounds?.[type] ?? '#000'
@@ -159,7 +168,7 @@ class Notify {
     return item
   }
 
-  #animateOut (element: HTMLElement) {
+  #animateOut(element: HTMLElement) {
     const animateOutClass =
       this.#settings.classNames?.animateOut ?? ANIMATE_OUT_CLASS
     const animateInClass =
@@ -175,7 +184,7 @@ class Notify {
     element.classList.add(animateOutClass)
   }
 
-  #animateIn (element: HTMLElement) {
+  #animateIn(element: HTMLElement) {
     const animateInClass =
       this.#settings.classNames?.animateIn ?? ANIMATE_IN_CLASS
     element.style.opacity = '0'
@@ -192,31 +201,40 @@ class Notify {
     })
   }
 
-  #subscribe (subscriptor: PropsOtionsSubscribe) {
-    this.#initialize()
-
-    if (!this.#notificationWrapper) {
-      console.error('Notify zh: Notification container not available.')
+  #subscribe(subscriptor: PropsOtionsSubscribe) {
+    // Initialize global styles if not done yet
+    if (!this.#isInitialized && !this.#settings.disableDefaultStyles) {
+      this.#addGlobalStyles()
+      this.#isInitialized = true
+    }
+    
+    // Use position from notification or fallback to global setting
+    const position = subscriptor.position ?? this.#settings.position ?? 'center-top'
+    
+    // Get or create container for this specific position
+    const container = this.#getOrCreateContainerForPosition(position)
+    const wrapper = container.querySelector(`#${NOTIFICATION_WRAPPER_ID}-${position}`) as HTMLElement
+    
+    if (!wrapper) {
+      console.error('Notify zh: Notification wrapper not available.')
       return
     }
 
     const element = this.#setNotify(subscriptor)
-    // const notificationId = parseInt(element.id.split('-')[1])
     const time = subscriptor.time ?? this.#settings.defaultTime
 
-    this.#notificationWrapper.appendChild(element)
+    wrapper.appendChild(element)
     this.#animateIn(element)
 
     setTimeout(() => {
       this.#animateOut(element)
-      // this.#activeTimeouts.delete(notificationId);
     }, time)
-
-    // this.#activeTimeouts.set(notificationId, timeoutId);
   }
 
   // methods
-  config (data: Partial<PropsConfig>) {
+  config(data: Partial<PropsConfig>) {
+    const oldPosition = this.#settings.position
+
     this.#settings = {
       ...this.#settings,
       ...data,
@@ -225,18 +243,29 @@ class Notify {
         ...(data.classNames ?? {})
       }
     }
+
+    // Update container position if position changed and container exists
+    if (data.position && data.position !== oldPosition && this.#container) {
+      const positionStyles = this.#getPositionStyles(data.position)
+      this.#container.style.cssText = positionStyles
+
+      // Update notification wrapper flex direction
+      if (this.#notificationWrapper) {
+        this.#notificationWrapper.style.flexDirection = data.position.includes('bottom') ? 'column' : 'column-reverse'
+      }
+    }
   }
 
-  success (data: PropsOptions) {
+  success(data: PropsOptions) {
     this.#subscribe({ ...data, type: 'success' })
   }
-  warning (data: PropsOptions) {
+  warning(data: PropsOptions) {
     this.#subscribe({ ...data, type: 'warning' })
   }
-  error (data: PropsOptions) {
+  error(data: PropsOptions) {
     this.#subscribe({ ...data, type: 'error' })
   }
-  info (data: PropsOptions) {
+  info(data: PropsOptions) {
     this.#subscribe({ ...data, type: 'info' })
   }
 }
