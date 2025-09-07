@@ -4,7 +4,7 @@ describe('Notify Library', () => {
   // Don't reset DOM between tests to avoid breaking the singleton pattern
   afterAll(() => {
     // Clean up only at the end
-    const container = document.getElementById('notifyContainer');
+    const container = document.getElementById('notifyContainer-center-top');
     if (container) {
       container.remove();
     }
@@ -20,7 +20,7 @@ describe('Notify Library', () => {
     it('should create a notification container when first notification is created', () => {
       Notify.success({ message: 'Container test message' });
       
-      const container = document.getElementById('notifyContainer');
+      const container = document.getElementById('notifyContainer-center-top');
       expect(container).toBeTruthy();
     });
 
@@ -168,7 +168,9 @@ describe('Notify Library', () => {
 
   describe('DOM Management', () => {
     it('should create notification wrapper', () => {
-      const wrapper = document.getElementById('divNotification');
+      Notify.success({ message: 'Wrapper test message' });
+      
+      const wrapper = document.getElementById('divNotification-center-top');
       expect(wrapper).toBeTruthy();
     });
 

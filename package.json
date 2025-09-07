@@ -41,7 +41,13 @@
     "start:react": "cd ./example && bun run start",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "prepublishOnly": "npm run test && npm run build",
+    "deploy": "npm run prepublishOnly && npm publish",
+    "deploy:dry": "npm run prepublishOnly && npm publish --dry-run",
+    "version:patch": "npm version patch",
+    "version:minor": "npm version minor",
+    "version:major": "npm version major"
   },
   "prettier": {
     "printWidth": 80,
