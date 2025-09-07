@@ -5,3 +5,4 @@ dist
 example/.cache
 example/.parcel-cache
 .parcel-cache
+website/.gitignore
