@@ -30,7 +30,6 @@ class Notify {
       info: '#4261fb'
     }
   }
-  // #activeTimeouts: Map<number, number> = new Map();
 
   arr: PropsOtionsUnsubscribe[] = []
 
@@ -58,13 +57,12 @@ class Notify {
   }
 
 
-  
+
   #addGlobalStyles() {
-    // Check if styles already exist
     if (document.getElementById('notify-zh-styles')) {
       return
     }
-    
+
     const sheet = document.createElement('style')
     sheet.id = 'notify-zh-styles'
     sheet.textContent = `
@@ -109,33 +107,27 @@ class Notify {
     document.head.appendChild(sheet)
   }
 
-
-
-
-
   #getOrCreateContainerForPosition(position: NotificationPosition): HTMLElement {
     const containerId = `${NOTIFY_CONTAINER_ID}-${position}`
     let container = document.getElementById(containerId)
-    
+
     if (!container) {
       container = document.createElement('div')
       container.id = containerId
-      
-      // Apply position styles
+
       const positionStyles = this.#getPositionStyles(position)
       container.style.cssText = positionStyles
-      
-      // Create wrapper for this position
+
       const wrapper = document.createElement('div')
       wrapper.id = `${NOTIFICATION_WRAPPER_ID}-${position}`
       wrapper.style.display = 'flex'
       wrapper.style.flexDirection = position.includes('bottom') ? 'column' : 'column-reverse'
       wrapper.style.alignItems = 'center'
-      
+
       container.appendChild(wrapper)
       document.body.appendChild(container)
     }
-    
+
     return container
   }
 
@@ -143,8 +135,6 @@ class Notify {
     const { type, message, icon } = data
     const notificationId = this.#index++
     let bg = this.#settings.backgrounds?.[type] ?? '#000'
-    // let maxWidth = this.#settings.maxWidth
-    // let width = this.#settings.width
     const baseClass = this.#settings.classNames?.base ?? NOTIFY_CLASS
     const typeClass = this.#settings.classNames?.[type] ?? `notify-${type}`
 
@@ -202,19 +192,16 @@ class Notify {
   }
 
   #subscribe(subscriptor: PropsOtionsSubscribe) {
-    // Initialize global styles if not done yet
     if (!this.#isInitialized && !this.#settings.disableDefaultStyles) {
       this.#addGlobalStyles()
       this.#isInitialized = true
     }
-    
-    // Use position from notification or fallback to global setting
+
     const position = subscriptor.position ?? this.#settings.position ?? 'center-top'
-    
-    // Get or create container for this specific position
+
     const container = this.#getOrCreateContainerForPosition(position)
     const wrapper = container.querySelector(`#${NOTIFICATION_WRAPPER_ID}-${position}`) as HTMLElement
-    
+
     if (!wrapper) {
       console.error('Notify zh: Notification wrapper not available.')
       return
@@ -244,12 +231,10 @@ class Notify {
       }
     }
 
-    // Update container position if position changed and container exists
     if (data.position && data.position !== oldPosition && this.#container) {
       const positionStyles = this.#getPositionStyles(data.position)
       this.#container.style.cssText = positionStyles
 
-      // Update notification wrapper flex direction
       if (this.#notificationWrapper) {
         this.#notificationWrapper.style.flexDirection = data.position.includes('bottom') ? 'column' : 'column-reverse'
       }
