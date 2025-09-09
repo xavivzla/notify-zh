@@ -2,7 +2,6 @@ import {
   PropsOptions,
   PropsConfig,
   PropsOtionsSubscribe,
-  PropsOtionsUnsubscribe,
   NotificationPosition
 } from './types'
 
@@ -13,8 +12,6 @@ const ANIMATE_IN_CLASS = 'animateInOpacity'
 const ANIMATE_OUT_CLASS = 'animateOutOpacity'
 
 class Notify {
-  #container: HTMLElement | null = null
-  #notificationWrapper: HTMLElement | null = null
   #isInitialized: boolean = false
   #index: number = 1
 
@@ -31,79 +28,27 @@ class Notify {
     }
   }
 
-  arr: PropsOtionsUnsubscribe[] = []
-
   #getPositionStyles(position: NotificationPosition): string {
-    const baseStyles = 'position: fixed; z-index: 2000; pointer-events: none;'
-
-    switch (position) {
-      case 'top-left':
-        return `${baseStyles} top: 20px; left: 20px;`
-      case 'top-right':
-        return `${baseStyles} top: 20px; right: 20px;`
-      case 'bottom-left':
-        return `${baseStyles} bottom: 20px; left: 20px;`
-      case 'bottom-right':
-        return `${baseStyles} bottom: 20px; right: 20px;`
-      case 'center-bottom':
-        return `${baseStyles} bottom: 20px; left: 50%; transform: translateX(-50%);`
-      case 'center-top':
-        return `${baseStyles} top: 20px; left: 50%; transform: translateX(-50%);`
-      case 'center':
-        return `${baseStyles} top: 50%; left: 50%; transform: translate(-50%, -50%);`
-      default:
-        return `${baseStyles} top: 20px; left: 50%; transform: translateX(-50%);`
+    const base = 'position:fixed;z-index:2000;pointer-events:none;'
+    const positions = {
+      'top-left': 'top:20px;left:20px',
+      'top-right': 'top:20px;right:20px',
+      'bottom-left': 'bottom:20px;left:20px',
+      'bottom-right': 'bottom:20px;right:20px',
+      'center-bottom': 'bottom:20px;left:50%;transform:translateX(-50%)',
+      'center-top': 'top:20px;left:50%;transform:translateX(-50%)',
+      'center': 'top:50%;left:50%;transform:translate(-50%,-50%)'
     }
+    return base + (positions[position] || positions['center-top'])
   }
 
 
 
   #addGlobalStyles() {
-    if (document.getElementById('notify-zh-styles')) {
-      return
-    }
-
+    if (document.getElementById('notify-zh-styles')) return
     const sheet = document.createElement('style')
     sheet.id = 'notify-zh-styles'
-    sheet.textContent = `
-      .${NOTIFY_CLASS} {
-        z-index: 9999;
-        border-radius: 3px;
-        box-sizing: border-box;
-        color: #fff;
-        font-size: 1rem;
-        background: #000;
-        text-align: center;
-        padding: 12px 40px;
-        opacity: 0;
-        display: inline;
-        margin-bottom: 10px;
-        box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
-        border-radius: 5px;
-      }
-      .${ANIMATE_IN_CLASS} {
-        animation: showOpacity 1s;
-      }
-      .${ANIMATE_OUT_CLASS} {
-        animation: hideOpacity 1s;
-      }
-      @keyframes showOpacity {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
-      @keyframes hideOpacity {
-        from {
-          opacity: 1;
-        }
-        to {
-          opacity: 0;
-        }
-      }
-    `
+    sheet.textContent = `.${NOTIFY_CLASS}{z-index:9999;border-radius:5px;box-sizing:border-box;color:#fff;font-size:1rem;background:#000;text-align:center;padding:12px 40px;opacity:0;display:inline;margin-bottom:10px;box-shadow:0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)}.${ANIMATE_IN_CLASS}{animation:showOpacity 1s}.${ANIMATE_OUT_CLASS}{animation:hideOpacity 1s}@keyframes showOpacity{from{opacity:0}to{opacity:1}}@keyframes hideOpacity{from{opacity:1}to{opacity:0}}`
     document.head.appendChild(sheet)
   }
 
@@ -220,23 +165,12 @@ class Notify {
 
   // methods
   config(data: Partial<PropsConfig>) {
-    const oldPosition = this.#settings.position
-
     this.#settings = {
       ...this.#settings,
       ...data,
       classNames: {
         ...this.#settings.classNames,
         ...(data.classNames ?? {})
-      }
-    }
-
-    if (data.position && data.position !== oldPosition && this.#container) {
-      const positionStyles = this.#getPositionStyles(data.position)
-      this.#container.style.cssText = positionStyles
-
-      if (this.#notificationWrapper) {
-        this.#notificationWrapper.style.flexDirection = data.position.includes('bottom') ? 'column' : 'column-reverse'
       }
     }
   }

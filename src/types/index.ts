@@ -43,18 +43,6 @@ export interface PropsConfig {
   classNames?: ClassNameOptions
 }
 
-export interface Status {
-  warning: string
-  error: string
-  success: string
-  info: string
-}
-
 export interface PropsOtionsSubscribe extends PropsOptions {
   type: 'success' | 'error' | 'warning' | 'info'
-  // type: keyof Status
-}
-
-export interface PropsOtionsUnsubscribe extends PropsOtionsSubscribe {
-  id: number
 }
