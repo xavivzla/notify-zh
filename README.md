@@ -56,6 +56,30 @@ notify.error({
   message: 'Something went wrong!',
   time: 5000 // Show for 5 seconds
 })
+
+// Using different positions
+notify.info({
+  message: 'Information message',
+  position: 'top-right'
+})
+
+// With custom icon and title
+notify.warning({
+  message: 'Please check your input',
+  title: 'Validation Warning',
+  icon: { el: '⚠️' },
+  position: 'bottom-left'
+})
+
+// Configure global settings
+notify.config({
+  defaultTime: 4000,
+  position: 'top-right',
+  backgrounds: {
+    success: '#10B981',
+    error: '#EF4444'
+  }
+})
 ```
 
 Here are examples for different environments:🍦 Vanilla JavaScript
@@ -184,11 +208,25 @@ The imported **Notify** object provides the following methods to display notific
 
 All notification methods accept an options object:
 
-| Option  | Type   | Default   | Description                                      |
-| ------- | ------ | --------- | ------------------------------------------------ |
-| message | string | ''        | (Required) The text content of the notification. |
-| time    | number | 3000      | Duration in milliseconds before auto-closing.    |
-| icon.el | string | undefined | Optional HTML string for a custom icon element.  |
+| Option   | Type                 | Default   | Description                                      |
+| -------- | -------------------- | --------- | ------------------------------------------------ |
+| message  | string               | ''        | (Required) The text content of the notification. |
+| time     | number               | 3000      | Duration in milliseconds before auto-closing.    |
+| position | NotificationPosition | 'center-top' | Position where the notification appears.      |
+| icon.el  | string               | undefined | Optional HTML string for a custom icon element.  |
+| title    | string               | undefined | Optional title for the notification.             |
+
+#### Available Positions
+
+The `position` option accepts the following values:
+
+- `'top-left'` - Top left corner
+- `'top-right'` - Top right corner  
+- `'bottom-left'` - Bottom left corner
+- `'bottom-right'` - Bottom right corner
+- `'center-top'` - Top center (default)
+- `'center-bottom'` - Bottom center
+- `'center'` - Screen center
 
 #### Configuration (notify.config(options))
 
@@ -208,12 +246,28 @@ classNames: { /_ ... see Styling section ... _/ }
 
 The config method accepts an object (Partial<PropsConfig>) with these properties:
 
-| Option               | Type    | Default | Description                                                                                                         |
-| -------------------- | ------- | ------- | ------------------------------------------------------------------------------------------------------------------- |
-| defaultTime          | number  | 3000    | Default auto-close time in milliseconds.                                                                            |
-| backgrounds          | object  | {}      | Object to override default background colors per type (success, error, warning, info). Ignored if using classNames. |
-| disableDefaultStyles | boolean | false   | If true, prevents the library from injecting its default CSS. Essential for using custom framework classes.         |
-| classNames           | object  | {}      | An object to provide custom CSS class names, replacing the library's defaults. See details below.                   |
+| Option               | Type                 | Default      | Description                                                                                                         |
+| -------------------- | -------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------- |
+| defaultTime          | number               | 3000         | Default auto-close time in milliseconds.                                                                            |
+| position             | NotificationPosition | 'center-top' | Default position for all notifications.                                                                             |
+| backgrounds          | object               | {}           | Object to override default background colors per type (success, error, warning, info). Ignored if using classNames. |
+| maxWidth             | string               | undefined    | Maximum width for notifications.                                                                                    |
+| width                | string               | undefined    | Fixed width for notifications.                                                                                      |
+| disableDefaultStyles | boolean              | false        | If true, prevents the library from injecting its default CSS. Essential for using custom framework classes.         |
+| classNames           | object               | {}           | An object to provide custom CSS class names, replacing the library's defaults. See details below.                   |
+
+#### Default Background Colors
+
+The library comes with these default background colors:
+
+```javascript
+{
+  warning: '#F09200',  // Orange
+  error: '#DE350B',    // Red
+  success: '#13BF5F',  // Green
+  info: '#4261fb'      // Blue
+}
+```
 
 #### 🎨 Styling & CSS Framework Integration
 
