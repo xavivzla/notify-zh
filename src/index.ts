@@ -1,7 +1,7 @@
 import {
   PropsOptions,
   PropsConfig,
-  PropsOtionsSubscribe,
+  PropsOptionsSubscribe,
   NotificationPosition
 } from './types'
 
@@ -76,7 +76,7 @@ class Notify {
     return container
   }
 
-  #setNotify(data: PropsOtionsSubscribe): HTMLElement {
+  #setNotify(data: PropsOptionsSubscribe): HTMLElement {
     const { type, message, icon } = data
     const notificationId = this.#index++
     let bg = this.#settings.backgrounds?.[type] ?? '#000'
@@ -86,6 +86,7 @@ class Notify {
     const item = document.createElement('div')
     item.className = `${baseClass} ${typeClass}`
     item.id = `notify-${notificationId}`
+    item.setAttribute('role', 'alert')
 
     const messageSpan = document.createElement('span')
     messageSpan.textContent = message
@@ -136,7 +137,7 @@ class Notify {
     })
   }
 
-  #subscribe(subscriptor: PropsOtionsSubscribe) {
+  #subscribe(subscriptor: PropsOptionsSubscribe) {
     if (!this.#isInitialized && !this.#settings.disableDefaultStyles) {
       this.#addGlobalStyles()
       this.#isInitialized = true
@@ -164,6 +165,10 @@ class Notify {
   }
 
   // methods
+  /**
+   * Update global configuration for all notifications.
+   * @param data - Configuration object values to update
+   */
   config(data: Partial<PropsConfig>) {
     this.#settings = {
       ...this.#settings,
@@ -175,15 +180,34 @@ class Notify {
     }
   }
 
+  /**
+   * Show a success notification
+   * @param data - Notification options (message, time, position, etc.)
+   */
   success(data: PropsOptions) {
     this.#subscribe({ ...data, type: 'success' })
   }
+
+  /**
+   * Show a warning notification
+   * @param data - Notification options (message, time, position, etc.)
+   */
   warning(data: PropsOptions) {
     this.#subscribe({ ...data, type: 'warning' })
   }
+
+  /**
+   * Show an error notification
+   * @param data - Notification options (message, time, position, etc.)
+   */
   error(data: PropsOptions) {
     this.#subscribe({ ...data, type: 'error' })
   }
+
+  /**
+   * Show an info notification
+   * @param data - Notification options (message, time, position, etc.)
+   */
   info(data: PropsOptions) {
     this.#subscribe({ ...data, type: 'info' })
   }

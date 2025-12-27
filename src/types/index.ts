@@ -43,6 +43,6 @@ export interface PropsConfig {
   classNames?: ClassNameOptions
 }
 
-export interface PropsOtionsSubscribe extends PropsOptions {
+export interface PropsOptionsSubscribe extends PropsOptions {
   type: 'success' | 'error' | 'warning' | 'info'
 }

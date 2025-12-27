@@ -80,3 +80,46 @@ npm run deploy
 - Tener permisos de publicación en el paquete notify-zh
 - Todos los tests deben pasar
 - El build debe ser exitoso
+
+---
+
+# Guía de Deploy para Website (Documentación)
+
+El sitio web de documentación está construido con Astro y se encuentra en la carpeta `website/`.
+
+## Scripts del Website
+
+Desde la carpeta `website/`:
+
+```bash
+# Iniciar servidor de desarrollo
+npm run dev
+
+# Construir para producción
+npm run build
+
+# Previsualizar el build de producción localmente
+npm run preview
+```
+
+## Proceso de Deploy del Website
+
+El sitio es estático, por lo que el proceso general es generar los archivos estáticos y subirlos a tu proveedor de hosting (Hostinger, Vercel, Netlify, GitHub Pages, etc.).
+
+1. **Instalar dependencias (si es necesario)**
+   ```bash
+   cd website
+   npm install
+   ```
+
+2. **Generar el Build de Producción**
+   Esto generará una carpeta `website/dist/` con todos los archivos estáticos (HTML, CSS, JS).
+   ```bash
+   npm run build
+   ```
+
+3. **Publicar**
+   Sube el contenido de la carpeta `website/dist/` al directorio público de tu servidor web (`public_html` en Hostinger cPanel, o root en otros servicios).
+
+### Nota sobre Rutas
+Si vas a deployar en una subcarpeta (ej. `midominio.com/notify-zh`), asegúrate de configurar el `base` path en `website/astro.config.mjs` antes de hacer el build.

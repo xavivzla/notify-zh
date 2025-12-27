@@ -1,0 +1,1178 @@
+<section id="demo" aria-labelledby="demo-title">
+    <div class="config-form">
+        <div class="config-header">
+            <h3 class="config-title" id="demo-title">Interactive Playground</h3>
+            <p class="config-subtitle">
+                Customize your notification in real-time
+            </p>
+        </div>
+
+        <div class="config-sections">
+            <!-- Sección Principal -->
+            <div class="config-section">
+                <h4 class="section-title">
+                    <svg class="section-icon" viewBox="0 0 24 24" fill="none">
+                        <path
+                            d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"></path>
+                    </svg>
+                    Content
+                </h4>
+                <div class="config-grid">
+                    <div class="config-group">
+                        <label for="message-input" class="config-label">
+                            <svg
+                                class="label-icon"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                            >
+                                <path
+                                    d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                            </svg>
+                            Message
+                            <span
+                                class="tooltip"
+                                title="Text that will be displayed in the notification"
+                                >ℹ️</span
+                            >
+                        </label>
+                        <input
+                            type="text"
+                            id="message-input"
+                            class="config-input"
+                            value="Hello from notify-zh!"
+                            placeholder="Enter your message here..."
+                        />
+                    </div>
+                    <div class="config-group">
+                        <label for="type-select" class="config-label">
+                            <svg
+                                class="label-icon"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                            >
+                                <path
+                                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                            </svg>
+                            Type
+                            <span
+                                class="tooltip"
+                                title="Notification type (success, error, warning, info)"
+                                >ℹ️</span
+                            >
+                        </label>
+                        <select id="type-select" class="config-select">
+                            <option value="success">✅ Success</option>
+                            <option value="error">❌ Error</option>
+                            <option value="warning">⚠️ Warning</option>
+                            <option value="info">ℹ️ Info</option>
+                        </select>
+                    </div>
+                    <div class="config-group">
+                        <label for="position-select" class="config-label">
+                            <svg
+                                class="label-icon"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                            >
+                                <path
+                                    d="M4 6h16M4 12h16M4 18h16"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                            </svg>
+                            Position
+                            <span
+                                class="tooltip"
+                                title="Location where the notification will appear"
+                                >ℹ️</span
+                            >
+                        </label>
+                        <select id="position-select" class="config-select">
+                            <option value="top-right">↗️ Top Right</option>
+                            <option value="top-left">↖️ Top Left</option>
+                            <option value="bottom-right">↘️ Bottom Right</option
+                            >
+                            <option value="bottom-left">↙️ Bottom Left</option>
+                            <option value="center-top">⬆️ Top Center</option>
+                            <option value="center-bottom"
+                                >⬇️ Bottom Center</option
+                            >
+                            <option value="center">🎯 Center</option>
+                        </select>
+                    </div>
+                    <div class="config-group">
+                        <label for="duration-input" class="config-label">
+                            <svg
+                                class="label-icon"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                            >
+                                <circle
+                                    cx="12"
+                                    cy="12"
+                                    r="10"
+                                    stroke="currentColor"
+                                    stroke-width="2"></circle>
+                                <polyline
+                                    points="12,6 12,12 16,14"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"></polyline>
+                            </svg>
+                            Duration (ms)
+                            <span
+                                class="tooltip"
+                                title="Time the notification will remain visible"
+                                >ℹ️</span
+                            >
+                        </label>
+                        <input
+                            type="number"
+                            id="duration-input"
+                            class="config-input"
+                            value="3000"
+                            min="1000"
+                            max="10000"
+                            step="500"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customization Section -->
+            <div class="config-section">
+                <h4 class="section-title">
+                    <svg class="section-icon" viewBox="0 0 24 24" fill="none">
+                        <path
+                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"></path>
+                    </svg>
+                    Customization
+                </h4>
+                <div class="config-group full-width">
+                    <label for="icon-input" class="config-label">
+                        <svg class="label-icon" viewBox="0 0 24 24" fill="none">
+                            <path
+                                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"></path>
+                        </svg>
+                        Custom Icon
+                        <span
+                            class="tooltip"
+                            title="HTML code for custom icon (emojis, SVG, etc.)"
+                            >ℹ️</span
+                        >
+                    </label>
+                    <div class="icon-input-wrapper">
+                        <input
+                            type="text"
+                            id="icon-input"
+                            class="config-input icon-input"
+                            value='<span style="margin-right: 10px; display:flex"><svg width="30" height="30" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" rx="120" fill="#E0F2FE"/>
+  <path d="M256 130c-60 0-100 44-100 104v118c0 22 12 40 28 40 10 0 20-6 28-14 8 8 18 14 28 14s20-6 28-14c8 8 18 14 28 14s20-6 28-14c8 8 18 14 28 14 16 0 28-18 28-40V234c0-60-40-104-100-104z"
+        fill="#FFFFFF" stroke="#38BDF8" stroke-width="12" stroke-linejoin="round"/>
+  <circle cx="226" cy="220" r="14" fill="#1E293B"/>
+  <circle cx="286" cy="220" r="14" fill="#1E293B"/>
+  <path d="M228 250q28 24 56 0" stroke="#1E293B" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="338" cy="160" r="28" fill="#EF4444" stroke="#DC2626" stroke-width="6"/>
+</svg></span>'
+                            placeholder="<span>🎉</span> o <svg>...</svg>"
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h4 class="color-section-title">Style Customization</h4>
+
+        <div class="style-toggle">
+            <label class="toggle-label">
+                <input type="checkbox" id="tailwind-toggle" />
+                <span class="toggle-text">Use Tailwind CSS</span>
+            </label>
+        </div>
+
+        <div id="custom-colors" class="color-grid" style="display: grid;">
+            <div class="color-group">
+                <label for="success-color">Success:</label>
+                <input type="color" id="success-color" value="#10b981" />
+            </div>
+            <div class="color-group">
+                <label for="error-color">Error:</label>
+                <input type="color" id="error-color" value="#ef4444" />
+            </div>
+            <div class="color-group">
+                <label for="warning-color">Warning:</label>
+                <input type="color" id="warning-color" value="#f59e0b" />
+            </div>
+            <div class="color-group">
+                <label for="info-color">Information:</label>
+                <input type="color" id="info-color" value="#3b82f6" />
+            </div>
+        </div>
+
+        <div id="tailwind-classes" class="tailwind-grid" style="display: none;">
+            <div class="tailwind-group">
+                <label for="success-classes">Success Classes:</label>
+                <input
+                    type="text"
+                    id="success-classes"
+                    value="bg-green-500 text-white border-green-600"
+                    placeholder="bg-green-500 text-white"
+                />
+            </div>
+            <div class="tailwind-group">
+                <label for="error-classes">Error Classes:</label>
+                <input
+                    type="text"
+                    id="error-classes"
+                    value="bg-red-500 text-white border-red-600"
+                    placeholder="bg-red-500 text-white"
+                />
+            </div>
+            <div class="tailwind-group">
+                <label for="warning-classes">Warning Classes:</label>
+                <input
+                    type="text"
+                    id="warning-classes"
+                    value="bg-yellow-500 text-white border-yellow-600"
+                    placeholder="bg-yellow-500 text-white"
+                />
+            </div>
+            <div class="tailwind-group">
+                <label for="info-classes">Information Classes:</label>
+                <input
+                    type="text"
+                    id="info-classes"
+                    value="bg-blue-500 text-white border-blue-600"
+                    placeholder="bg-blue-500 text-white"
+                />
+            </div>
+        </div>
+
+        <!-- Preview Section -->
+        <div class="preview-section">
+            <h4 class="section-title">
+                <svg class="section-icon" viewBox="0 0 24 24" fill="none">
+                    <path
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                    <path
+                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                </svg>
+                Live Preview
+            </h4>
+            <div class="preview-container">
+                <div
+                    id="notification-preview"
+                    class="notification-preview success"
+                >
+                    <div class="preview-icon" id="preview-icon">
+                        <span style="margin-right: 10px; display:flex"
+                            ><svg
+                                width="30"
+                                height="30"
+                                viewBox="0 0 512 512"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <rect
+                                    width="512"
+                                    height="512"
+                                    rx="120"
+                                    fill="#E0F2FE"></rect>
+                                <path
+                                    d="M256 130c-60 0-100 44-100 104v118c0 22 12 40 28 40 10 0 20-6 28-14 8 8 18 14 28 14s20-6 28-14c8 8 18 14 28 14s20-6 28-14c8 8 18 14 28 14 16 0 28-18 28-40V234c0-60-40-104-100-104z"
+                                    fill="#FFFFFF"
+                                    stroke="#38BDF8"
+                                    stroke-width="12"
+                                    stroke-linejoin="round"></path>
+                                <circle cx="226" cy="220" r="14" fill="#1E293B"
+                                ></circle>
+                                <circle cx="286" cy="220" r="14" fill="#1E293B"
+                                ></circle>
+                                <path
+                                    d="M228 250q28 24 56 0"
+                                    stroke="#1E293B"
+                                    stroke-width="6"
+                                    stroke-linecap="round"></path>
+                                <circle
+                                    cx="338"
+                                    cy="160"
+                                    r="28"
+                                    fill="#EF4444"
+                                    stroke="#DC2626"
+                                    stroke-width="6"></circle>
+                            </svg></span
+                        >
+                    </div>
+                    <div class="preview-content">
+                        <div class="preview-message" id="preview-message">
+                            Hello from notify-zh!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="playground-actions">
+            <button
+                class="action-btn primary-btn"
+                onclick="showNotification()"
+                title="Test your notification with current settings"
+            >
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none">
+                    <path
+                        d="M5 13l4 4L19 7"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                </svg>
+                Test Notification
+            </button>
+            <button
+                class="action-btn secondary-btn"
+                onclick="copyConfigCode()"
+                title="Copy the configuration code to your clipboard"
+            >
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none">
+                    <rect
+                        x="9"
+                        y="9"
+                        width="13"
+                        height="13"
+                        rx="2"
+                        ry="2"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        fill="none"></rect>
+                    <path
+                        d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        fill="none"></path>
+                </svg>
+                Copy Configuration
+            </button>
+        </div>
+    </div>
+</section>
+
+<script is:inline type="module">
+    import notify from '/notify-zh.mjs'
+
+    // Function to update preview
+    function updatePreview() {
+        const preview = document.getElementById('notification-preview')
+        const previewMessage = document.getElementById('preview-message')
+        const previewIcon = document.getElementById('preview-icon')
+
+        if (!preview || !previewMessage || !previewIcon) return
+
+        // Get current values
+        const message =
+            document.getElementById('message-input').value ||
+            'Hello from notify-zh!'
+        const type = document.getElementById('type-select').value
+        const iconInput = document.getElementById('icon-input').value
+        const useTailwind = document.getElementById('tailwind-toggle').checked
+
+        // Update message
+        previewMessage.textContent = message
+
+        // Update icon
+        previewIcon.innerHTML = iconInput
+
+        // Update type class
+        preview.className = `notification-preview ${type}`
+
+        // Apply custom colors or Tailwind classes
+        if (useTailwind) {
+            // Clear inline styles when using Tailwind
+            preview.style.background = ''
+
+            // Apply Tailwind classes
+            const classInput = document.getElementById(`${type}-classes`)
+            if (classInput && classInput.value.trim()) {
+                const classes = classInput.value
+                    .split(' ')
+                    .filter((c) => c.trim())
+                preview.className = `notification-preview ${classes.join(' ')}`
+            } else {
+                // Fallback to default type class if no custom classes
+                preview.className = `notification-preview ${type}`
+            }
+        } else {
+            // Apply custom colors
+            const colorInput = document.getElementById(`${type}-color`)
+            if (colorInput) {
+                const color = colorInput.value
+                preview.style.background = `${color}`
+            }
+        }
+    }
+
+    // Global functions for the playground
+    window.showNotification = function () {
+        // Get form values
+        const message =
+            document.getElementById('message-input').value ||
+            'Hello from notify-zh!'
+        const type = document.getElementById('type-select').value
+        const position = document.getElementById('position-select').value
+        const duration =
+            parseInt(document.getElementById('duration-input').value) || 3000
+        const iconInput = document.getElementById('icon-input').value
+        const useTailwind = document.getElementById('tailwind-toggle').checked
+
+        // Configure notify-zh
+        const config = {
+            position: position,
+            defaultTime: duration
+        }
+
+        if (useTailwind) {
+            // Use Tailwind classes
+            config.disableDefaultStyles = true
+            config.classNames = {
+                base: 'px-6 py-4 rounded-lg mb-4 shadow-lg font-medium text-white transition-all duration-300 transform',
+                success:
+                    document.getElementById('success-classes').value ||
+                    'bg-green-500 text-white border-green-600',
+                error:
+                    document.getElementById('error-classes').value ||
+                    'bg-red-500 text-white border-red-600',
+                warning:
+                    document.getElementById('warning-classes').value ||
+                    'bg-yellow-500 text-white border-yellow-600',
+                info:
+                    document.getElementById('info-classes').value ||
+                    'bg-blue-500 text-white border-blue-600'
+            }
+            // Remove backgrounds completely to prevent override of Tailwind styles
+            config.backgrounds = {
+                success: '',
+                error: '',
+                warning: '',
+                info: ''
+            }
+        } else {
+            // Use custom colors
+            config.disableDefaultStyles = false
+            config.backgrounds = {
+                success:
+                    document.getElementById('success-color').value || '#10b981',
+                error:
+                    document.getElementById('error-color').value || '#ef4444',
+                warning:
+                    document.getElementById('warning-color').value || '#f59e0b',
+                info: document.getElementById('info-color').value || '#3b82f6'
+            }
+        }
+
+        // Apply configuration
+        notify.config(config)
+
+        // Create notification options
+        const options = {
+            message: message,
+            time: duration,
+            position: position
+        }
+
+        // Add icon if provided
+        if (iconInput.trim()) {
+            options.icon = { el: iconInput }
+        }
+
+        // Show notification based on type
+        switch (type) {
+            case 'success':
+                notify.success(options)
+                break
+            case 'error':
+                notify.error(options)
+                break
+            case 'warning':
+                notify.warning(options)
+                break
+            case 'info':
+                notify.info(options)
+                break
+            default:
+                notify.success(options)
+        }
+
+        // If using Tailwind, remove inline background styles after notification is created
+        if (useTailwind) {
+            setTimeout(() => {
+                const notifications =
+                    document.querySelectorAll('[id^="notify-"]')
+                notifications.forEach((notification) => {
+                    notification.style.background = ''
+                })
+            }, 10)
+        }
+    }
+
+    window.copyConfigCode = function () {
+        // Get current form values
+        const message =
+            document.getElementById('message-input').value ||
+            'Hello from notify-zh!'
+        const type = document.getElementById('type-select').value
+        const position = document.getElementById('position-select').value
+        const duration =
+            parseInt(document.getElementById('duration-input').value) || 3000
+        const iconInput = document.getElementById('icon-input').value
+        const useTailwind = document.getElementById('tailwind-toggle').checked
+
+        // Generate configuration code
+        let configCode = `import notify from 'notify-zh';\n\n`
+
+        // Add configuration
+        configCode += `// Configure notify-zh\n`
+        configCode += `notify.config({\n`
+        configCode += `  position: '${position}',\n`
+        configCode += `  defaultTime: ${duration}`
+
+        if (useTailwind) {
+            configCode += `,\n  disableDefaultStyles: true,\n`
+            configCode += `  classNames: {\n`
+            configCode += `    base: 'px-6 py-4 rounded-lg shadow-lg font-medium text-white transition-all duration-300 transform',\n`
+            configCode += `    success: '${document.getElementById('success-classes').value || 'bg-green-500 text-white border-green-600'}',\n`
+            configCode += `    error: '${document.getElementById('error-classes').value || 'bg-red-500 text-white border-red-600'}',\n`
+            configCode += `    warning: '${document.getElementById('warning-classes').value || 'bg-yellow-500 text-white border-yellow-600'}',\n`
+            configCode += `    info: '${document.getElementById('info-classes').value || 'bg-blue-500 text-white border-blue-600'}'\n`
+            configCode += `  },\n`
+            configCode += `  backgrounds: {\n`
+            configCode += `    success: '',\n`
+            configCode += `    error: '',\n`
+            configCode += `    warning: '',\n`
+            configCode += `    info: ''\n`
+            configCode += `  }`
+        } else {
+            configCode += `,\n  backgrounds: {\n`
+            configCode += `    success: '${document.getElementById('success-color').value || '#10b981'}',\n`
+            configCode += `    error: '${document.getElementById('error-color').value || '#ef4444'}',\n`
+            configCode += `    warning: '${document.getElementById('warning-color').value || '#f59e0b'}',\n`
+            configCode += `    info: '${document.getElementById('info-color').value || '#3b82f6'}'\n`
+            configCode += `  }`
+        }
+
+        configCode += `\n});\n\n`
+
+        // Add notification call
+        configCode += `// Show notification\n`
+        configCode += `notify.${type}({\n`
+        configCode += `  message: '${message}',\n`
+        configCode += `  time: ${duration},\n`
+        configCode += `  position: '${position}'`
+
+        if (iconInput.trim()) {
+            configCode += `,\n  icon: { el: \`${iconInput}\` }`
+        }
+
+        configCode += `\n});`
+
+        // Copy to clipboard
+        navigator.clipboard
+            .writeText(configCode)
+            .then(() => {
+                // Show success notification
+                notify.success({
+                    message: '✅ Configuration code copied to clipboard!',
+                    time: 2000,
+                    position: 'top-right'
+                })
+            })
+            .catch(() => {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea')
+                textArea.value = configCode
+                document.body.appendChild(textArea)
+                textArea.select()
+                document.execCommand('copy')
+                document.body.removeChild(textArea)
+                notify.success({
+                    message: '✅ Configuration code copied to clipboard!',
+                    time: 2000,
+                    position: 'top-right'
+                })
+            })
+    }
+
+    // Function to load Tailwind CSS
+    function loadTailwindCSS() {
+        // Check if Tailwind is already loaded
+        if (document.getElementById('tailwind-css')) {
+            console.log('Tailwind CSS already loaded')
+            return
+        }
+
+        console.log('Loading Tailwind CSS...')
+        const link = document.createElement('link')
+        link.id = 'tailwind-css'
+        link.rel = 'stylesheet'
+        link.href = 'https://cdn.tailwindcss.com'
+        link.crossOrigin = 'anonymous'
+
+        // Add load event listener
+        link.onload = function () {
+            console.log('✅ Tailwind CSS loaded successfully')
+            // Force a small delay to ensure styles are applied
+            setTimeout(() => {
+                // Trigger a re-render by toggling a class
+                document.body.classList.add('tailwind-loaded')
+                // Update preview after Tailwind is loaded
+                if (typeof updatePreview === 'function') {
+                    updatePreview()
+                }
+            }, 100)
+        }
+
+        link.onerror = function () {
+            console.error(
+                '❌ Failed to load Tailwind CSS from cdn.tailwindcss.com, trying alternative...'
+            )
+            // Remove failed link
+            link.remove()
+            // Try alternative CDN - using a different approach
+            const altLink = document.createElement('link')
+            altLink.id = 'tailwind-css'
+            altLink.rel = 'stylesheet'
+            altLink.href =
+                'https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css'
+            altLink.crossOrigin = 'anonymous'
+            altLink.onload = function () {
+                console.log('✅ Tailwind CSS loaded from cdnjs')
+                setTimeout(() => {
+                    document.body.classList.add('tailwind-loaded')
+                    // Update preview after Tailwind is loaded
+                    if (typeof updatePreview === 'function') {
+                        updatePreview()
+                    }
+                }, 100)
+            }
+            altLink.onerror = function () {
+                console.error(
+                    '❌ Failed to load from cdnjs, trying final fallback...'
+                )
+                // Final fallback - load via script tag with Play CDN
+                altLink.remove()
+                const script = document.createElement('script')
+                script.id = 'tailwind-css'
+                script.src = 'https://cdn.tailwindcss.com/3.4.0'
+                script.onload = () => {
+                    console.log('✅ Tailwind CSS loaded via script tag')
+                    document.body.classList.add('tailwind-loaded')
+                    // Update preview after Tailwind is loaded
+                    if (typeof updatePreview === 'function') {
+                        updatePreview()
+                    }
+                }
+                script.onerror = () =>
+                    console.error('❌ All Tailwind CSS loading methods failed')
+                document.head.appendChild(script)
+            }
+            document.head.appendChild(altLink)
+        }
+
+        document.head.appendChild(link)
+    }
+
+    // Function to remove Tailwind CSS
+    function removeTailwindCSS() {
+        const tailwindElement = document.getElementById('tailwind-css')
+        if (tailwindElement) {
+            tailwindElement.remove()
+            console.log('🗑️ Tailwind CSS removed')
+        }
+        // Remove the tailwind-loaded class
+        document.body.classList.remove('tailwind-loaded')
+    }
+
+    // Initialize toggle state and preview
+    document.addEventListener('DOMContentLoaded', function () {
+        const toggle = document.getElementById('tailwind-toggle')
+        const customColors = document.getElementById('custom-colors')
+        const tailwindClasses = document.getElementById('tailwind-classes')
+
+        // Event listener for toggle
+        toggle.addEventListener('change', function () {
+            if (this.checked) {
+                customColors.style.display = 'none'
+                tailwindClasses.style.display = 'grid'
+                loadTailwindCSS()
+            } else {
+                customColors.style.display = 'grid'
+                tailwindClasses.style.display = 'none'
+                removeTailwindCSS()
+                if (typeof updatePreview === 'function') {
+                    updatePreview()
+                }
+            }
+        })
+
+        if (toggle.checked) {
+            customColors.style.display = 'none'
+            tailwindClasses.style.display = 'grid'
+            // Load Tailwind CSS if toggle is already checked
+            loadTailwindCSS()
+        } else {
+            customColors.style.display = 'grid'
+            tailwindClasses.style.display = 'none'
+        }
+
+        // Initialize preview
+        updatePreview()
+
+        // Add event listeners for real-time preview updates
+        const inputs = [
+            'message-input',
+            'type-select',
+            'icon-input',
+            'tailwind-toggle',
+            'success-color',
+            'error-color',
+            'warning-color',
+            'info-color',
+            'success-classes',
+            'error-classes',
+            'warning-classes',
+            'info-classes'
+        ]
+
+        inputs.forEach((inputId) => {
+            const element = document.getElementById(inputId)
+            if (element) {
+                const eventType =
+                    element.type === 'checkbox' ? 'change' : 'input'
+                element.addEventListener(eventType, updatePreview)
+            }
+        })
+    })
+</script>
+
+<style>
+    /* Configuration Form */
+    .config-form {
+        max-width: 800px;
+        margin: 40px auto 0;
+        padding: 2rem;
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .config-header {
+        text-align: center;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #f3f4f6;
+    }
+
+    .config-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 0.5rem;
+    }
+
+    .config-subtitle {
+        color: #6b7280;
+        font-size: 0.875rem;
+        margin: 0;
+    }
+
+    .config-sections {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .config-section {
+        padding: 0;
+    }
+
+    .section-title {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 1rem;
+    }
+
+    .section-icon {
+        width: 16px;
+        height: 16px;
+        color: #6b7280;
+    }
+
+    .config-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .config-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .config-group.full-width {
+        grid-column: 1 / -1;
+    }
+
+    .config-label {
+        display: flex;
+        align-items: center;
+        gap: 0.375rem;
+        font-weight: 500;
+        color: #374151;
+        font-size: 0.875rem;
+    }
+
+    .label-icon {
+        width: 14px;
+        height: 14px;
+        color: #9ca3af;
+    }
+
+    .tooltip {
+        cursor: help;
+        margin-left: auto;
+        font-size: 0.75rem;
+        opacity: 0.6;
+        transition: opacity 0.15s ease;
+    }
+
+    .tooltip:hover {
+        opacity: 0.9;
+    }
+
+    .config-input,
+    .config-select {
+        padding: 0.75rem;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        font-size: 0.875rem;
+        transition: border-color 0.15s ease;
+        background: white;
+    }
+
+    .config-input:focus,
+    .config-select:focus {
+        outline: none;
+        border-color: #3b82f6;
+    }
+
+    .icon-input-wrapper {
+        position: relative;
+    }
+
+    .icon-input {
+        padding-bottom: 3rem;
+        min-height: 80px;
+        resize: vertical;
+    }
+
+    .color-section-title {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #374151;
+        margin: 1rem 0 0.75rem 0;
+    }
+
+    .color-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+    }
+
+    .color-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .color-group label {
+        font-size: 0.75rem;
+        font-weight: 400;
+        color: #6b7280;
+    }
+
+    .color-group input[type='color'] {
+        width: 100%;
+        height: 32px;
+        border: 1px solid #d1d5db;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .color-group input[type='color']:hover {
+        border-color: #3b82f6;
+    }
+
+    /* Playground Action Buttons */
+    .playground-actions {
+        display: flex;
+        gap: 16px;
+        margin-top: 32px;
+        padding-top: 24px;
+        border-top: 1px solid #e5e7eb;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .action-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        min-width: 160px;
+        justify-content: center;
+    }
+
+    .primary-btn {
+        background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        color: white;
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+
+    .primary-btn:hover {
+        background: linear-gradient(135deg, #2563eb, #1e40af);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+    }
+
+    .secondary-btn {
+        background: white;
+        color: #374151;
+        border: 2px solid #e5e7eb;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .secondary-btn:hover {
+        background: #f9fafb;
+        border-color: #d1d5db;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-icon {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+    }
+
+    @media (max-width: 768px) {
+        .playground-actions {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .action-btn {
+            width: 100%;
+            max-width: 280px;
+        }
+    }
+
+    /* Preview Section */
+    .preview-section {
+        margin-top: 32px;
+        padding-top: 24px;
+        border-top: 1px solid #e5e7eb;
+    }
+
+    .preview-container {
+        margin-top: 16px;
+        padding: 24px;
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        border-radius: 12px;
+        border: 1px solid #e5e7eb;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 120px;
+    }
+
+    .notification-preview {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 16px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        width: 100%;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+
+    .notification-preview.success {
+        background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+    }
+
+    .notification-preview.error {
+        background: linear-gradient(135deg, #fef2f2 0%, #fecaca 100%);
+    }
+
+    .notification-preview.warning {
+        background: linear-gradient(135deg, #fffbeb 0%, #fed7aa 100%);
+    }
+
+    .notification-preview.info {
+        background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    }
+
+    .preview-icon {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+    }
+
+    .preview-content {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .preview-message {
+        font-size: 16px;
+        font-weight: 500;
+        color: #1f2937;
+        line-height: 1.4;
+        word-wrap: break-word;
+    }
+
+    @media (max-width: 768px) {
+        .preview-container {
+            padding: 16px;
+        }
+
+        .notification-preview {
+            padding: 12px 16px;
+            gap: 8px;
+        }
+
+        .preview-message {
+            font-size: 14px;
+        }
+
+        .config-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .color-grid,
+        .tailwind-grid {
+            grid-template-columns: 1fr;
+        }
+        .config-form {
+            padding: 24px 20px;
+        }
+    }
+
+    .style-toggle {
+        margin-bottom: 20px;
+    }
+
+    .toggle-label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        font-weight: 500;
+        color: #374151;
+    }
+
+    .toggle-label input[type='checkbox'] {
+        width: 18px;
+        height: 18px;
+        accent-color: #6366f1;
+        cursor: pointer;
+    }
+
+    .toggle-text {
+        user-select: none;
+    }
+
+    .tailwind-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .tailwind-group {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .tailwind-group label {
+        font-size: 14px;
+        font-weight: 500;
+        color: #374151;
+    }
+
+    .tailwind-group input[type='text'] {
+        padding: 8px 12px;
+        border: 2px solid #e5e7eb;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: border-color 0.2s ease;
+        font-family: 'Courier New', monospace;
+    }
+
+    .tailwind-group input[type='text']:focus {
+        outline: none;
+        border-color: #6366f1;
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+
+    .tailwind-group input[type='text']:hover {
+        border-color: #d1d5db;
+    }
+</style>

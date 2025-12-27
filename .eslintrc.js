@@ -1,12 +1,17 @@
 module.exports = {
-  "extends": [
-    "react-app",
-    "prettier/@typescript-eslint",
-    "plugin:prettier/recommended"
+  root: true,
+  parser: '@typescript-eslint/parser',
+  plugins: ['@typescript-eslint', 'prettier'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
   ],
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
+  rules: {
+    'prettier/prettier': 'error',
+  },
+  env: {
+    node: true,
+    browser: true,
   }
 }

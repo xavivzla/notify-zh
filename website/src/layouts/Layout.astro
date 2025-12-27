@@ -1,36 +1,166 @@
 ---
+import '../styles/global.css'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+
 export interface Props {
-	title: string;
+	title?: string
+	description?: string
 }
 
-const { title } = Astro.props;
+const {
+	title = 'Notify-zh - Lightweight JavaScript Notification Library | Zero Dependencies Toast Notifications',
+	description = 'Notify-zh: Lightweight JavaScript notification library with zero dependencies. Create beautiful, responsive toast notifications for web apps. Easy integration with React, Vue, Angular, Next.js and vanilla JS.'
+} = Astro.props
 ---
 
-<!DOCTYPE html>
-<html lang="es">
+<!doctype html>
+<html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Notify-zh - Librería moderna de notificaciones para JavaScript" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="32x32"
+			href="/favicon-32x32.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="16x16"
+			href="/favicon-16x16.png"
+		/>
+		<link
+			rel="apple-touch-icon"
+			sizes="180x180"
+			href="/apple-touch-icon.png"
+		/>
+		<link rel="manifest" href="/site.webmanifest" />
 		<meta name="generator" content={Astro.generator} />
+
+		<!-- SEO -->
 		<title>{title}</title>
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+		<meta name="description" content={description} />
+		<meta
+			name="keywords"
+			content="javascript notifications, toast notifications, web notifications, notification library, javascript toast, lightweight notifications, zero dependencies, react notifications, vue notifications, angular notifications, web development, frontend library"
+		/>
+		<meta name="author" content="Xavier González" />
+		<meta name="robots" content="index, follow" />
+		<meta name="language" content="English" />
+		<meta name="theme-color" content="#2563eb" />
+		<link rel="canonical" href="https://notify-zh.com" />
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://notify-zh.com" />
+		<meta
+			property="og:title"
+			content="Notify-zh - Lightweight JavaScript Notification Library"
+		/>
+		<meta property="og:description" content={description} />
+		<meta
+			property="og:image"
+			content="https://notify-zh.com/og-image.png"
+		/>
+		<meta property="og:site_name" content="Notify-zh" />
+		<meta property="og:locale" content="en_US" />
+
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content="https://notify-zh.com" />
+		<meta
+			property="twitter:title"
+			content="Notify-zh - Lightweight JavaScript Notification Library"
+		/>
+		<meta
+			property="twitter:description"
+			content="Lightweight JavaScript notification library with zero dependencies. Create beautiful, responsive toast notifications for web apps."
+		/>
+		<meta
+			property="twitter:image"
+			content="https://notify-zh.com/og-image.png"
+		/>
+
+		<!-- Google Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+
+		<!-- Structured Data -->
+		<script type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@type": "SoftwareApplication",
+				"name": "Notify-zh",
+				"description": "Lightweight JavaScript notification library with zero dependencies. Create beautiful, responsive toast notifications for web apps.",
+				"url": "https://notify-zh.com",
+				"author": {
+					"@type": "Person",
+					"name": "Xavier González"
+				},
+				"applicationCategory": "DeveloperApplication",
+				"operatingSystem": "Any",
+				"programmingLanguage": "JavaScript",
+				"offers": {
+					"@type": "Offer",
+					"price": "0",
+					"priceCurrency": "USD"
+				},
+				"keywords": "javascript notifications, toast notifications, web notifications, notification library, zero dependencies",
+				"softwareVersion": "1.0.0",
+				"downloadUrl": "https://github.com/xavivzla/notify-zh",
+				"codeRepository": "https://github.com/xavivzla/notify-zh"
+			}
+		</script>
 	</head>
-	<body class="font-inter bg-gray-50">
-		<slot />
+	<body>
+		<Header />
+		<main>
+			<slot />
+		</main>
+		<Footer />
 	</body>
 </html>
 
-<style>
+<style is:global>
+	:root {
+		--font-family:
+			'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+			sans-serif;
+		--color-primary: #2563eb;
+		--color-text: #333;
+		--color-bg: #fff;
+	}
+
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
 	body {
-		font-family: 'Inter', system-ui, sans-serif;
+		font-family: var(--font-family);
+		line-height: 1.6;
+		color: var(--color-text);
+		background: var(--color-bg);
+		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+	}
+
+	main {
+		flex: 1;
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 20px;
 	}
 </style>
-
-<script>
-	// Importar estilos de Tailwind
-	import '../styles/global.css';
-</script>

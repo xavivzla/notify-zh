@@ -1,8 +1,42 @@
-*.log
-.DS_Store
+# Dependencies
 node_modules
+.pnp
+.pnp.js
+
+# Testing
+coverage
+
+# Build Outputs
 dist
-example/.cache
-example/.parcel-cache
+build
+out
+
+# Framework/Tooling specific
+.astro
+.next
+.nuxt
 .parcel-cache
-website/.gitignore
+.cache
+
+# Environment Variables
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# VS Code (User settings)
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json

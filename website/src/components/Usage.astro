@@ -1,0 +1,598 @@
+---
+
+---
+
+<section class="installation" id="install" aria-labelledby="install-title">
+    <div class="container">
+        <h2 class="installation-title" id="install-title">
+            Get Started in Seconds
+        </h2>
+        <p class="installation-subtitle">
+            Choose your preferred installation method and start building amazing
+            user experiences.
+        </p>
+
+        <div class="install-methods">
+            <div class="install-card">
+                <h3>📦 NPM</h3>
+                <p>Perfect for modern build tools and bundlers</p>
+                <div class="code-block">
+                    <button
+                        class="copy-btn"
+                        onclick="copyToClipboard('npm install notify-zh')"
+                        >Copy</button
+                    >
+                    npm install notify-zh
+                </div>
+            </div>
+
+            <div class="install-card">
+                <h3>🌐 CDN</h3>
+                <p>Quick setup for prototypes and simple projects</p>
+                <div class="code-block">
+                    <button
+                        class="copy-btn"
+                        onclick="copyToClipboard('<script src=&quot;https://unpkg.com/notify-zh@latest/dist/notify-zh.min.js&quot;></script>')"
+                        >Copy</button
+                    >
+                    &lt;script src="https://unpkg.com/notify-zh@latest/dist/notify-zh.min.js"&gt;&lt;/script&gt;
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="usage" id="usage" aria-labelledby="usage-title">
+    <div class="container">
+        <h2 class="usage-title" id="usage-title">Simple & Powerful API</h2>
+        <p class="usage-subtitle">
+            Get up and running with just a few lines of code. No complex
+            configuration needed.
+        </p>
+
+        <div class="tabs-container">
+            <!-- Tab Navigation -->
+            <div class="tabs-nav">
+                <button class="tab-button active" data-tab="vanilla"
+                    >Vanilla HTML</button
+                >
+                <button class="tab-button" data-tab="astro">Astro</button>
+                <button class="tab-button" data-tab="react">React</button>
+                <button class="tab-button" data-tab="vue">Vue.js</button>
+                <button class="tab-button" data-tab="nextjs">Next.js</button>
+                <button class="tab-button" data-tab="angular">Angular</button>
+            </div>
+
+            <!-- Tab Content -->
+            <!-- Vanilla HTML Tab -->
+            <div class="tab-content active" id="vanilla-panel">
+                <div class="code-block">
+                    <button
+                        class="copy-btn"
+                        onclick="copyToClipboard(vanillaCode)">Copy</button
+                    >
+                    <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;script src="https://unpkg.com/notify-zh@latest/dist/notify-zh.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;script&gt;
+    // Basic notification
+    notify('Hello world!');
+    
+    // With specific type
+    notify.success('Operation successful!');
+    notify.error('Something went wrong');
+    notify.warning('Be careful');
+    notify.info('Important information');
+    
+    // With custom options
+    notify('Custom message', &#123;
+      duration: 5000,
+      position: 'top-right'
+    &#125;);
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </div>
+            </div>
+
+            <!-- Astro Tab -->
+            <div class="tab-content" id="astro-panel">
+                <div class="code-block">
+                    <button
+                        class="copy-btn"
+                        onclick="copyToClipboard(astroCode)">Copy</button
+                    >
+                    <pre><code>---
+// src/pages/index.astro
+---
+
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Astro + notify-zh&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;button id="notify-btn"&gt;Show Notification&lt;/button&gt;
+  
+  &lt;script&gt;
+    import notify from 'notify-zh';
+    
+    document.getElementById('notify-btn').addEventListener('click', () =&gt; &#123;
+      notify.success('Hello from Astro!');
+    &#125;);
+    
+    // Basic usage
+    notify('Welcome to Astro!', &#123;
+      position: 'top-right',
+      duration: 3000
+    &#125;);
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </div>
+            </div>
+
+            <!-- React Tab -->
+            <div class="tab-content" id="react-panel">
+                <div class="code-block">
+                    <button
+                        class="copy-btn"
+                        onclick="copyToClipboard(reactCode)">Copy</button
+                    >
+                    <pre><code>import React from 'react';
+import notify from 'notify-zh';
+
+function App() &#123;
+  const handleClick = () =&gt; &#123;
+    notify.success('Hello from React!');
+  &#125;;
+  
+  const showError = () =&gt; &#123;
+    notify.error('Something went wrong!');
+  &#125;;
+  
+  const showCustom = () =&gt; &#123;
+    notify('Custom notification', &#123;
+      duration: 5000,
+      position: 'bottom-right',
+      theme: 'dark'
+    &#125;);
+  &#125;;
+
+  return (
+    &lt;div&gt;
+      &lt;button onClick=&#123;handleClick&#125;&gt;Success&lt;/button&gt;
+      &lt;button onClick=&#123;showError&#125;&gt;Error&lt;/button&gt;
+      &lt;button onClick=&#123;showCustom&#125;&gt;Custom&lt;/button&gt;
+    &lt;/div&gt;
+  );
+&#125;
+
+export default App;</code></pre>
+                </div>
+            </div>
+
+            <!-- Vue.js Tab -->
+            <div class="tab-content" id="vue-panel">
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyToClipboard(vueCode)"
+                        >Copy</button
+                    >
+                    <pre><code>&lt;template&gt;
+  &lt;div&gt;
+    &lt;button @click="showSuccess"&gt;Success&lt;/button&gt;
+    &lt;button @click="showError"&gt;Error&lt;/button&gt;
+    &lt;button @click="showWarning"&gt;Warning&lt;/button&gt;
+    &lt;button @click="showInfo"&gt;Info&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import notify from 'notify-zh';
+
+export default &#123;
+  name: 'NotificationDemo',
+  methods: &#123;
+    showSuccess() &#123;
+      notify.success('Operation completed successfully!');
+    &#125;,
+    showError() &#123;
+      notify.error('An error occurred!');
+    &#125;,
+    showWarning() &#123;
+      notify.warning('Please be careful!');
+    &#125;,
+    showInfo() &#123;
+      notify.info('Here is some information', &#123;
+        position: 'top-left',
+        duration: 4000
+      &#125;);
+    &#125;
+  &#125;
+&#125;;
+&lt;/script&gt;</code></pre>
+                </div>
+            </div>
+
+            <!-- Next.js Tab -->
+            <div class="tab-content" id="nextjs-panel">
+                <div class="code-block">
+                    <button
+                        class="copy-btn"
+                        onclick="copyToClipboard(nextjsCode)">Copy</button
+                    >
+                    <pre><code>// pages/index.js
+import &#123; useEffect &#125; from 'react';
+import notify from 'notify-zh';
+
+export default function Home() &#123;
+  useEffect(() =&gt; &#123;
+    // Show welcome notification on page load
+    notify('Welcome to Next.js!', &#123;
+      position: 'top-center',
+      duration: 3000
+    &#125;);
+  &#125;, []);
+
+  const handleSubmit = async (e) =&gt; &#123;
+    e.preventDefault();
+    
+    try &#123;
+      // Simulate API call
+      await fetch('/api/submit');
+      notify.success('Form submitted successfully!');
+    &#125; catch (error) &#123;
+      notify.error('Failed to submit form');
+    &#125;
+  &#125;;
+
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Next.js + notify-zh&lt;/h1&gt;
+      &lt;form onSubmit=&#123;handleSubmit&#125;&gt;
+        &lt;button type="submit"&gt;Submit&lt;/button&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+  );
+&#125;</code></pre>
+                </div>
+            </div>
+
+            <!-- Angular Tab -->
+            <div class="tab-content" id="angular-panel">
+                <div class="code-block">
+                    <button
+                        class="copy-btn"
+                        onclick="copyToClipboard(angularCode)">Copy</button
+                    >
+                    <pre><code>// app.component.ts
+import &#123; Component &#125; from '@angular/core';
+import notify from 'notify-zh';
+
+@Component(&#123;
+  selector: 'app-root',
+  template: `
+    &lt;div&gt;
+      &lt;h1&gt;Angular + notify-zh&lt;/h1&gt;
+      &lt;button (click)="showSuccess()"&gt;Success&lt;/button&gt;
+      &lt;button (click)="showError()"&gt;Error&lt;/button&gt;
+      &lt;button (click)="showWarning()"&gt;Warning&lt;/button&gt;
+      &lt;button (click)="showInfo()"&gt;Info&lt;/button&gt;
+    &lt;/div&gt;
+  `
+&#125;)
+export class AppComponent &#123;
+  title = 'angular-notify-zh';
+
+  showSuccess() &#123;
+    notify.success('Task completed successfully!');
+  &#125;
+
+  showError() &#123;
+    notify.error('An error has occurred!');
+  &#125;
+
+  showWarning() &#123;
+    notify.warning('Warning: Please check your input!');
+  &#125;
+
+  showInfo() &#123;
+    notify.info('Information: Process started', &#123;
+      duration: 6000,
+      position: 'bottom-center'
+    &#125;);
+  &#125;
+&#125;</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Installation Section */
+    .installation {
+        padding: 60px 0;
+    }
+
+    .installation-title {
+        font-size: 32px;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 40px;
+        color: #1f2937;
+    }
+
+    .install-methods {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 24px;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .install-card {
+        padding: 24px;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        background: white;
+    }
+
+    .install-card h3 {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 12px;
+        color: #1f2937;
+    }
+
+    .code-block {
+        background: #1f2937;
+        color: #f9fafb;
+        padding: 16px;
+        border-radius: 8px;
+        font-family: 'Monaco', 'Menlo', monospace;
+        font-size: 14px;
+        overflow-x: auto;
+        position: relative;
+    }
+
+    .copy-btn {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        padding: 4px 8px;
+        background: #374151;
+        color: #d1d5db;
+        border: none;
+        border-radius: 4px;
+        font-size: 12px;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .copy-btn:hover {
+        background: #4b5563;
+    }
+
+    /* Usage Section */
+    .usage {
+        padding: 60px 0;
+        background: #f9fafb;
+    }
+
+    .usage-title {
+        font-size: 32px;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 40px;
+        color: #1f2937;
+    }
+
+    .usage-example {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    /* Tabs System */
+    .tabs-container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .tabs-nav {
+        display: flex;
+        background: #f8fafc;
+        border-bottom: 1px solid #e2e8f0;
+        overflow-x: auto;
+    }
+
+    .tab-button {
+        flex: 1;
+        min-width: 120px;
+        padding: 12px 16px;
+        background: none;
+        border: none;
+        font-size: 14px;
+        font-weight: 500;
+        color: #64748b;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border-bottom: 2px solid transparent;
+        white-space: nowrap;
+    }
+
+    .tab-button:hover {
+        color: #334155;
+        background: #f1f5f9;
+    }
+
+    .tab-button.active {
+        color: #2563eb;
+        background: white;
+        border-bottom-color: #2563eb;
+    }
+
+    .tab-content {
+        display: none;
+        padding: 0;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+
+    .tab-content pre {
+        margin: 0;
+        border-radius: 0;
+        border: none;
+    }
+
+    .tab-content code {
+        border-radius: 0;
+    }
+
+    /* Responsive tabs */
+    @media (max-width: 768px) {
+        .tabs-nav {
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            flex: none;
+            min-width: auto;
+            padding: 10px 12px;
+            font-size: 13px;
+        }
+    }
+</style>
+
+<script is:inline type="module">
+    import notify from '/notify-zh.mjs'
+
+    // Code snippets for copy functionality
+    window.vanillaCode = `<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://unpkg.com/notify-zh@latest/dist/notify-zh.js"><\/script>
+</head>
+<body>
+  <script>
+    notify('Hello world!');
+    notify.success('Operation successful!');
+  <\/script>
+</body>
+</html>`
+
+    window.astroCode = `---
+// src/pages/index.astro
+---
+<script>
+  import notify from 'notify-zh';
+  notify.success('Hello from Astro!');
+<\/script>`
+
+    window.reactCode = `import notify from 'notify-zh';
+
+function App() {
+  const handleClick = () => {
+    notify.success('Hello from React!');
+  };
+  return <button onClick={handleClick}>Notify</button>;
+}`
+
+    window.vueCode = `<template>
+  <button @click="show">Notify</button>
+</template>
+<script>
+import notify from 'notify-zh';
+export default {
+  methods: {
+    show() { notify.success('Hello!'); }
+  }
+}
+<\/script>`
+
+    window.nextjsCode = `import notify from 'notify-zh';
+
+export default function Home() {
+  return (
+    <button onClick={() => notify.success('Hello!')}>
+      Notify
+    </button>
+  );
+}`
+
+    window.angularCode = `import { Component } from '@angular/core';
+import notify from 'notify-zh';
+
+@Component({
+  selector: 'app-root',
+  template: '<button (click)="show()">Notify</button>'
+})
+export class AppComponent {
+  show() {
+    notify.success('Hello!');
+  }
+}`
+
+    window.copyToClipboard = function (text) {
+        navigator.clipboard
+            .writeText(text)
+            .then(() => {
+                notify.success({
+                    message: '✅ Copied to clipboard!',
+                    time: 1500,
+                    position: 'top-right'
+                })
+            })
+            .catch(() => {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea')
+                textArea.value = text
+                document.body.appendChild(textArea)
+                textArea.select()
+                document.execCommand('copy')
+                document.body.removeChild(textArea)
+                notify.success({
+                    message: '✅ Copied to clipboard!',
+                    time: 1500,
+                    position: 'top-right'
+                })
+            })
+    }
+
+    // Initialize tabs functionality
+    document.addEventListener('DOMContentLoaded', () => {
+        const tabButtons = document.querySelectorAll('.tab-button')
+        const tabContents = document.querySelectorAll('.tab-content')
+
+        // Set first tab as active by default
+        if (tabButtons.length > 0 && tabContents.length > 0) {
+            tabButtons[0].classList.add('active')
+            tabContents[0].classList.add('active')
+        }
+
+        // Add click event listeners to tab buttons
+        tabButtons.forEach((button, index) => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons and contents
+                tabButtons.forEach((btn) => btn.classList.remove('active'))
+                tabContents.forEach((content) =>
+                    content.classList.remove('active')
+                )
+
+                // Add active class to clicked button and corresponding content
+                button.classList.add('active')
+                if (tabContents[index]) {
+                    tabContents[index].classList.add('active')
+                }
+            })
+        })
+    })
+</script>

@@ -1,0 +1,38 @@
+---
+const currentYear = new Date().getFullYear()
+---
+
+<footer>
+    <div class="container">
+        <p>&copy; {currentYear} Notify-zh. MIT License.</p>
+        <p>
+            Created by <a href="https://github.com/xavivzla" target="_blank"
+                >Xavier González</a>
+        </p>
+    </div>
+</footer>
+
+<style>
+    footer {
+        padding: 40px 0;
+        border-top: 1px solid #e5e7eb;
+        text-align: center;
+        color: #6b7280;
+        background: #f9fafb;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    a {
+        color: #2563eb;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
