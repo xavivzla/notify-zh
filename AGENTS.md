@@ -14,7 +14,8 @@ src/types/index.ts  Public TypeScript types (PropsOptions, PropsConfig, ...)
 src/global.ts       CDN entry — assigns window.notify (built to dist/index.global.js)
 test/index.test.ts  Jest + jsdom test suite
 tsup.config.ts      Build config (ESM/CJS + IIFE)
-example/            Minimal demo app (Bun)
+example/            Internal dev playground (Bun, imports ../dist)
+examples/           Public per-framework demos (npm install, StackBlitz-openable)
 website/            Docs site (Astro + Tailwind) deployed at https://notify-zh.com
 ```
 

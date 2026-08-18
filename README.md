@@ -2,26 +2,28 @@
 
 [![CI](https://img.shields.io/github/actions/workflow/status/xavivzla/notify-zh/main.yml?branch=master&style=flat-square&label=CI)](https://github.com/xavivzla/notify-zh/actions/workflows/main.yml)
 [![NPM Version](https://img.shields.io/npm/v/notify-zh?style=flat-square)](https://www.npmjs.com/package/notify-zh)
+[![NPM Downloads](https://img.shields.io/npm/dm/notify-zh?style=flat-square)](https://www.npmjs.com/package/notify-zh)
 [![NPM Bundle Size](https://img.shields.io/bundlephobia/minzip/notify-zh?style=flat-square)](https://bundlephobia.com/result?p=notify-zh)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
-**Notify zh** is an extremely lightweight (≈2.7 KB gzipped), zero-dependency notification library designed for maximum flexibility and compatibility across all frontend projects.
+**Toast notifications in ~2.7 KB gzipped, zero dependencies.** One import that works identically in Vanilla JS, React, Next.js, Vue, Angular, and Svelte — no provider to mount, no CSS file to include, SSR-safe out of the box.
 
-Simple, fast, and easy to integrate, it works seamlessly with:
+![notify-zh demo — success toast, sticky notification with close button, promise loading-to-success, dismissAll](https://raw.githubusercontent.com/xavivzla/notify-zh/master/website/public/demo.gif)
 
-- Vanilla JavaScript
-- React & Next.js
-- Vue.js
-- Angular
-- Svelte
+**[Website](https://notify-zh.com)** · **[Try it on StackBlitz](https://stackblitz.com/github/xavivzla/notify-zh/tree/master/examples/vanilla)** · **[Changelog](CHANGELOG.md)** · **[Docs for AI](https://notify-zh.com/llms.txt)**
 
-and any other framework or library using JavaScript in the browser!
+## Table of contents
 
-It now features enhanced customization options, allowing easy integration with CSS frameworks like **Tailwind CSS**, Bootstrap, Bulma, or your own custom styles.
-
----
-
-**[➡️ View Live Demo ⬅️](https://codesandbox.io/p/sandbox/notify-zh-vh3jk)**
+- [Features](#-features)
+- [Installation](#-installation)
+- [Usage](#-usage)
+- [Examples (StackBlitz)](#-examples)
+- [API Reference](#️-api-reference)
+- [Styling & CSS frameworks](#-styling--css-framework-integration)
+- [Comparison](#-comparison)
+- [FAQ](#-faq)
+- [TypeScript](#-typescript)
+- [Docs for AI assistants](#-docs-for-ai-assistants)
 
 ---
 
@@ -234,6 +236,17 @@ export class MyComponent {
 }
 ```
 
+## 🧪 Examples
+
+Ready-to-run projects in [`examples/`](examples/) — open them in your browser with one click:
+
+| Framework | One click | Local |
+| --- | --- | --- |
+| Vanilla JS | [Open in StackBlitz](https://stackblitz.com/github/xavivzla/notify-zh/tree/master/examples/vanilla) | `cd examples/vanilla && npm i && npm run dev` |
+| React | [Open in StackBlitz](https://stackblitz.com/github/xavivzla/notify-zh/tree/master/examples/react) | `cd examples/react && npm i && npm run dev` |
+| Vue 3 | [Open in StackBlitz](https://stackblitz.com/github/xavivzla/notify-zh/tree/master/examples/vue) | `cd examples/vue && npm i && npm run dev` |
+| Svelte 5 | [Open in StackBlitz](https://stackblitz.com/github/xavivzla/notify-zh/tree/master/examples/svelte) | `cd examples/svelte && npm i && npm run dev` |
+
 ### ⚙️ API Reference
 
 #### Methods
@@ -271,7 +284,7 @@ All notification methods accept an options object:
 
 | Option   | Type                 | Default   | Description                                      |
 | -------- | -------------------- | --------- | ------------------------------------------------ |
-| message  | string               | ''        | (Required) The text content. Rendered as plain text (XSS-safe). |
+| message  | string               | — (required) | The text content. Rendered as plain text (XSS-safe). |
 | time     | number               | 3000      | Duration in ms before auto-closing. `Infinity` = sticky (never auto-closes). |
 | position | NotificationPosition | 'center-top' | Position where the notification appears.      |
 | icon.el  | string               | undefined | Optional HTML string for a custom icon element (emoji or inline SVG). Only pass trusted markup — it is injected as HTML. |
@@ -380,6 +393,43 @@ notify.success({
 - base: Applied to every notification element.
 - success, error, warning, info: Applied in addition to base based on the notification type. When one of these is set, the library skips its inline background color for that type so your class always wins.
 - animateIn, animateOut: Applied during the show/hide animations.
+
+## ⚖️ Comparison
+
+How notify-zh compares to popular alternatives (facts as of v1.1.0; sizes change — [check bundlephobia](https://bundlephobia.com/package/notify-zh)):
+
+| | **notify-zh** | react-hot-toast | sonner | Toastify JS | Notyf |
+| --- | --- | --- | --- | --- | --- |
+| Works without React | ✅ | ❌ React only | ❌ React only | ✅ | ✅ |
+| No component/provider to mount | ✅ | ❌ `<Toaster />` | ❌ `<Toaster />` | ✅ | ✅ |
+| Zero dependencies | ✅ | ❌ | ✅ | ✅ | ✅ |
+| Promise API (loading → result) | ✅ | ✅ | ✅ | ❌ | ❌ |
+| Sticky + close button + hover pause | ✅ | ✅ | ✅ | partial | partial |
+| Queue with visible cap | ✅ | ❌ | ❌ | ❌ | ❌ |
+| SSR-safe without guards | ✅ | — | — | — | — |
+| Size (min+gzip) | **~2.7 KB** | see bundlephobia | see bundlephobia | see bundlephobia | see bundlephobia |
+
+If you're all-in on React and want rich JSX toasts, sonner is excellent. If you want one tiny library that works in every project — including that legacy jQuery page and your Next.js app — that's what notify-zh is for.
+
+## ❓ FAQ
+
+**The toast doesn't appear in Next.js/Nuxt — why?**
+Since v1.1.0 all calls are SSR-safe no-ops on the server, so nothing crashes — but a toast fired *during server render* never shows. Fire notifications from client-side events (clicks, effects), and in the App Router use `'use client'` components.
+
+**Can a notification stay until the user closes it?**
+Yes: `notify.warning({ message: '…', time: Infinity, closable: true })`.
+
+**How do I use Tailwind/Bootstrap classes?**
+Set `disableDefaultStyles: true` and map your classes via `classNames` in `notify.config()` — see [Styling](#-styling--css-framework-integration). When a per-type class is set, the library skips its inline background so your class always wins.
+
+**Is `icon.el` safe?**
+`message` and `title` are always rendered as plain text (XSS-safe). Only `icon.el` is injected as HTML so you can pass inline SVG — never pass user-generated content to it.
+
+**Does it work with a strict CSP (no inline styles)?**
+The default styles are injected as a `<style>` tag, which requires `style-src` to allow it. With a strict CSP, set `disableDefaultStyles: true` and style toasts with your own stylesheet classes via `classNames`.
+
+**Why doesn't the toast auto-close while I hover it?**
+That's `pauseOnHover` (on by default) — the timer resumes when the pointer leaves. Disable with `notify.config({ pauseOnHover: false })`.
 
 ### 📘 TypeScript
 
