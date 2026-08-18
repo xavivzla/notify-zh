@@ -279,6 +279,152 @@ describe('Configuration', () => {
     expect(infoEl?.getAttribute('role')).toBe('status');
   });
 
+  it('should return a numeric id and dismiss that notification', () => {
+    const id = Notify.info({ message: 'Dismiss by id' });
+    expect(typeof id).toBe('number');
+
+    const element = document.getElementById(`notify-${id}`) as HTMLElement;
+    expect(element).toBeTruthy();
+
+    Notify.dismiss(id);
+    expect(element.classList.contains('animateOutOpacity')).toBe(true);
+
+    // Simulate the animation finishing → element is removed from the DOM
+    element.dispatchEvent(new Event('animationend'));
+    expect(document.getElementById(`notify-${id}`)).toBeNull();
+  });
+
+  it('should auto-close after the timeout (full lifecycle)', () => {
+    jest.useFakeTimers();
+    const id = Notify.info({ message: 'Lifecycle test', time: 1000 });
+    const element = document.getElementById(`notify-${id}`) as HTMLElement;
+    expect(element).toBeTruthy();
+
+    jest.advanceTimersByTime(1100);
+    expect(element.classList.contains('animateOutOpacity')).toBe(true);
+
+    element.dispatchEvent(new Event('animationend'));
+    expect(document.getElementById(`notify-${id}`)).toBeNull();
+    jest.useRealTimers();
+  });
+
+  it('should keep sticky notifications open (time: Infinity)', () => {
+    jest.useFakeTimers();
+    const id = Notify.info({ message: 'Sticky test', time: Infinity });
+    const element = document.getElementById(`notify-${id}`) as HTMLElement;
+
+    jest.advanceTimersByTime(60000);
+    expect(element.classList.contains('animateOutOpacity')).toBe(false);
+    expect(document.getElementById(`notify-${id}`)).toBeTruthy();
+
+    Notify.dismiss(id);
+    element.dispatchEvent(new Event('animationend'));
+    jest.useRealTimers();
+  });
+
+  it('should pause the timer on hover and resume on leave', () => {
+    jest.useFakeTimers();
+    const id = Notify.info({ message: 'Hover pause test', time: 1000 });
+    const element = document.getElementById(`notify-${id}`) as HTMLElement;
+
+    jest.advanceTimersByTime(500);
+    element.dispatchEvent(new Event('mouseenter'));
+
+    // Way past the original timeout — still open because it is paused
+    jest.advanceTimersByTime(5000);
+    expect(element.classList.contains('animateOutOpacity')).toBe(false);
+
+    element.dispatchEvent(new Event('mouseleave'));
+    jest.advanceTimersByTime(600);
+    expect(element.classList.contains('animateOutOpacity')).toBe(true);
+
+    element.dispatchEvent(new Event('animationend'));
+    jest.useRealTimers();
+  });
+
+  it('should render a close button when closable and dismiss on click', () => {
+    const id = Notify.info({ message: 'Closable test', closable: true });
+    const element = document.getElementById(`notify-${id}`) as HTMLElement;
+
+    const closeBtn = element.querySelector(
+      'button[aria-label="Close notification"]'
+    ) as HTMLButtonElement;
+    expect(closeBtn).toBeTruthy();
+
+    closeBtn.click();
+    expect(element.classList.contains('animateOutOpacity')).toBe(true);
+    element.dispatchEvent(new Event('animationend'));
+  });
+
+  it('should queue notifications beyond maxVisible and drain the queue', () => {
+    const position = 'bottom-left'; // fresh wrapper for this test
+    Notify.config({ maxVisible: 2 });
+
+    const id1 = Notify.info({ message: 'Queue 1', position, time: Infinity });
+    const id2 = Notify.info({ message: 'Queue 2', position, time: Infinity });
+    const id3 = Notify.info({ message: 'Queue 3', position, time: Infinity });
+
+    const wrapper = document.getElementById(
+      `divNotification-${position}`
+    ) as HTMLElement;
+    expect(wrapper.children.length).toBe(2);
+    expect(document.getElementById(`notify-${id3}`)).toBeNull();
+
+    // Close the first one → the queued third should appear
+    Notify.dismiss(id1);
+    const first = document.getElementById(`notify-${id1}`) as HTMLElement;
+    first?.dispatchEvent(new Event('animationend'));
+
+    expect(document.getElementById(`notify-${id3}`)).toBeTruthy();
+    expect(wrapper.children.length).toBe(2);
+
+    // Cleanup: restore config and close remaining
+    Notify.config({ maxVisible: undefined });
+    [id2, id3].forEach(id => {
+      Notify.dismiss(id);
+      document
+        .getElementById(`notify-${id}`)
+        ?.dispatchEvent(new Event('animationend'));
+    });
+  });
+
+  it('should show loading then success for a resolved promise', async () => {
+    const result = await Notify.promise(
+      Promise.resolve(42),
+      {
+        loading: 'Loading promise test',
+        success: value => `Resolved with ${value}`,
+        error: 'Failed promise test'
+      }
+    );
+    expect(result).toBe(42);
+
+    const notifications = Array.from(document.querySelectorAll('.notifyCustom'));
+    const successToast = notifications.find(n =>
+      n.textContent?.includes('Resolved with 42')
+    );
+    expect(successToast).toBeTruthy();
+    expect(
+      notifications.some(n => n.textContent?.includes('Loading promise test') &&
+        !n.classList.contains('animateOutOpacity'))
+    ).toBe(false);
+  });
+
+  it('should show error and rethrow for a rejected promise', async () => {
+    await expect(
+      Notify.promise(Promise.reject(new Error('boom')), {
+        loading: 'Loading reject test',
+        success: 'Never shown',
+        error: err => `Error: ${(err as Error).message}`
+      })
+    ).rejects.toThrow('boom');
+
+    const notifications = Array.from(document.querySelectorAll('.notifyCustom'));
+    expect(
+      notifications.some(n => n.textContent?.includes('Error: boom'))
+    ).toBeTruthy();
+  });
+
   it('should dismiss all notifications with dismissAll', () => {
     Notify.success({ message: 'Dismiss me 1' });
     Notify.info({ message: 'Dismiss me 2' });

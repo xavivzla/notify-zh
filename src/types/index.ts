@@ -34,8 +34,14 @@ export interface ClassNameOptions {
 export interface PropsOptions {
   /** Text content of the notification. Rendered as plain text (never HTML). */
   message: string
-  /** Duration in milliseconds before auto-closing. Defaults to the configured `defaultTime` (3000). */
+  /**
+   * Duration in milliseconds before auto-closing.
+   * Defaults to the configured `defaultTime` (3000).
+   * Pass `Infinity` for a sticky notification that never auto-closes.
+   */
   time?: number
+  /** Show a close (×) button. Overrides the global `closable` config. */
+  closable?: boolean
   /** Position for this notification. Defaults to the configured `position` ('center-top'). */
   position?: NotificationPosition
   /**
@@ -74,6 +80,26 @@ export interface PropsConfig {
   disableDefaultStyles?: boolean
   /** Custom CSS classes replacing the library defaults. See ClassNameOptions. */
   classNames?: ClassNameOptions
+  /**
+   * Maximum notifications visible at once per position.
+   * Extra notifications wait in a queue and appear as older ones close.
+   * Unlimited when unset.
+   */
+  maxVisible?: number
+  /** Show a close (×) button on every notification. Default false. */
+  closable?: boolean
+  /** Pause the auto-close timer while the pointer hovers a notification. Default true. */
+  pauseOnHover?: boolean
+}
+
+/** Messages for notify.promise(). */
+export interface PromiseMessages<T = unknown> {
+  /** Shown while the promise is pending (sticky info notification). */
+  loading: string
+  /** Shown when the promise resolves. A function receives the resolved value. */
+  success: string | ((value: T) => string)
+  /** Shown when the promise rejects. A function receives the rejection reason. */
+  error: string | ((error: unknown) => string)
 }
 
 /** Internal: PropsOptions plus the resolved notification type. */

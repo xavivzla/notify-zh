@@ -34,7 +34,8 @@ Node >= 20 required. CI (`.github/workflows/main.yml`) runs lint → test → bu
 ## Conventions
 
 - Prettier: no semicolons, single quotes, no trailing commas, 80 cols. Run `npx eslint "src/**/*.{ts,tsx}" --fix` after editing.
-- The public API surface is intentionally tiny: `success`, `error`, `warning`, `info`, `config`, `dismissAll`. Discuss before adding methods.
+- The public API surface is intentionally tiny: `success`, `error`, `warning`, `info` (return numeric ids), `promise`, `dismiss`, `dismissAll`, `config`. Discuss before adding methods.
+- `size-limit` runs in CI with a 3 KB budget for `dist/index.mjs` — check `npm run size` after adding code.
 - All public options must be typed in `src/types/index.ts` with JSDoc, implemented in `src/index.ts`, documented in `README.md`, covered by a test, and reflected in `website/public/llms-full.txt`. Keep these five in sync — options documented but not implemented is the #1 historical bug in this repo.
 - `message` and `title` are rendered with `textContent` (XSS-safe). Only `icon.el` uses `innerHTML` — keep it that way and never route user-supplied strings through innerHTML.
 - Every public method must be SSR-safe: guard DOM access with `typeof document === 'undefined'`.

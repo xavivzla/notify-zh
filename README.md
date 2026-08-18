@@ -4,7 +4,7 @@
 [![NPM Bundle Size](https://img.shields.io/bundlephobia/minzip/notify-zh?style=flat-square)](https://bundlephobia.com/result?p=notify-zh)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
-**Notify zh** is an extremely lightweight (≈2 KB gzipped), zero-dependency notification library designed for maximum flexibility and compatibility across all frontend projects.
+**Notify zh** is an extremely lightweight (≈2.7 KB gzipped), zero-dependency notification library designed for maximum flexibility and compatibility across all frontend projects.
 
 Simple, fast, and easy to integrate, it works seamlessly with:
 
@@ -26,7 +26,8 @@ It now features enhanced customization options, allowing easy integration with C
 
 ## ✨ Features
 
-- **🚀 Extremely Lightweight:** Tiny footprint (≈2 KB gzipped).
+- **🚀 Extremely Lightweight:** Tiny footprint (≈2.7 KB gzipped).
+- **🤝 Promise API:** `notify.promise()` shows loading → success/error automatically.
 - **✅ Zero Dependencies:** No external libraries needed.
 - **🔧 Simple API:** Get started in minutes with an intuitive API.
 - **🎨 Highly Customizable:** Use custom HTML icons and easily integrate with **any CSS framework** (Tailwind, Bootstrap, etc.) or your own styles by providing custom classes and disabling default styles.
@@ -93,6 +94,24 @@ notify.config({
     success: '#10B981',
     error: '#EF4444'
   }
+})
+
+// Track a promise: loading → success/error automatically
+await notify.promise(saveUser(), {
+  loading: 'Saving…',
+  success: 'User saved!',
+  error: (e) => `Failed: ${e.message}`
+})
+
+// Dismiss a specific notification by id
+const id = notify.info({ message: 'Uploading…', time: Infinity })
+notify.dismiss(id)
+
+// Sticky notification with a close button
+notify.warning({
+  message: 'Session about to expire',
+  time: Infinity,
+  closable: true
 })
 
 // Dismiss everything currently on screen
@@ -220,12 +239,30 @@ export class MyComponent {
 
 The imported **Notify** object provides the following methods:
 
-- `notify.success(options)` — green toast, `role="status"`
-- `notify.error(options)` — red toast, `role="alert"`
-- `notify.warning(options)` — orange toast, `role="alert"`
-- `notify.info(options)` — blue toast, `role="status"`
-- `notify.config(config)` — set global defaults (call once at startup)
-- `notify.dismissAll()` — dismiss every visible notification immediately
+- `notify.success(options)` — green toast, `role="status"`. Returns a numeric id.
+- `notify.error(options)` — red toast, `role="alert"`. Returns a numeric id.
+- `notify.warning(options)` — orange toast, `role="alert"`. Returns a numeric id.
+- `notify.info(options)` — blue toast, `role="status"`. Returns a numeric id.
+- `notify.promise(promise, messages, options?)` — sticky loading toast, replaced by success/error when the promise settles. Returns the same promise.
+- `notify.dismiss(id)` — dismiss one notification by its id (also removes queued ones).
+- `notify.dismissAll()` — dismiss every visible notification and clear the queue.
+- `notify.config(config)` — set global defaults (call once at startup).
+
+#### notify.promise()
+
+```js
+const user = await notify.promise(
+  fetch('/api/user').then((r) => r.json()),
+  {
+    loading: 'Loading user…',
+    success: (u) => `Welcome back, ${u.name}!`,
+    error: (e) => `Could not load user: ${e.message}`
+  },
+  { position: 'top-right' } // optional: options applied to all three states
+)
+```
+
+`success` and `error` accept either a plain string or a function that receives the resolved value / rejection reason. The promise is returned as-is, so `await`ing it behaves exactly like awaiting the original — including rethrowing on failure.
 
 #### Options (PropsOptions)
 
@@ -234,10 +271,11 @@ All notification methods accept an options object:
 | Option   | Type                 | Default   | Description                                      |
 | -------- | -------------------- | --------- | ------------------------------------------------ |
 | message  | string               | ''        | (Required) The text content. Rendered as plain text (XSS-safe). |
-| time     | number               | 3000      | Duration in milliseconds before auto-closing.    |
+| time     | number               | 3000      | Duration in ms before auto-closing. `Infinity` = sticky (never auto-closes). |
 | position | NotificationPosition | 'center-top' | Position where the notification appears.      |
 | icon.el  | string               | undefined | Optional HTML string for a custom icon element (emoji or inline SVG). Only pass trusted markup — it is injected as HTML. |
 | title    | string               | undefined | Optional bold title rendered above the message. Rendered as plain text. |
+| closable | boolean              | false     | Show an accessible close (×) button. Overrides the global `closable` config. |
 
 #### Available Positions
 
@@ -278,6 +316,9 @@ The config method accepts an object (Partial<PropsConfig>) with these properties
 | width                | string               | undefined    | Fixed width for notifications.                                                                                      |
 | disableDefaultStyles | boolean              | false        | If true, prevents the library from injecting its default CSS. Essential for using custom framework classes.         |
 | classNames           | object               | {}           | An object to provide custom CSS class names, replacing the library's defaults. See details below.                   |
+| maxVisible           | number               | unlimited    | Max notifications visible at once per position. Extra ones queue and appear as older ones close.                    |
+| closable             | boolean              | false        | Show a close (×) button on every notification.                                                                      |
+| pauseOnHover         | boolean              | true         | Pause the auto-close timer while the pointer hovers a notification.                                                 |
 
 #### Default Background Colors
 
@@ -345,7 +386,12 @@ All public types ship with the package:
 
 ```ts
 import notify from 'notify-zh'
-import type { PropsOptions, PropsConfig, NotificationPosition } from 'notify-zh'
+import type {
+  PropsOptions,
+  PropsConfig,
+  PromiseMessages,
+  NotificationPosition
+} from 'notify-zh'
 ```
 
 ### 🤖 Docs for AI assistants

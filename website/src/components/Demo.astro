@@ -211,6 +211,10 @@
                 <input type="checkbox" id="tailwind-toggle" />
                 <span class="toggle-text">Use Tailwind CSS</span>
             </label>
+            <label class="toggle-label">
+                <input type="checkbox" id="closable-toggle" />
+                <span class="toggle-text">Closable (× button)</span>
+            </label>
         </div>
 
         <div id="custom-colors" class="color-grid" style="display: grid;">
@@ -384,6 +388,41 @@
                 </svg>
                 Copy Configuration
             </button>
+            <button
+                class="action-btn secondary-btn"
+                onclick="promiseDemo()"
+                title="notify.promise(): loading toast that becomes success"
+            >
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none">
+                    <path
+                        d="M12 6v6l4 2"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"></path>
+                    <circle
+                        cx="12"
+                        cy="12"
+                        r="9"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        fill="none"></circle>
+                </svg>
+                Promise Demo
+            </button>
+            <button
+                class="action-btn secondary-btn"
+                onclick="dismissAllDemo()"
+                title="notify.dismissAll(): clear every visible notification"
+            >
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none">
+                    <path
+                        d="M6 6l12 12M18 6L6 18"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"></path>
+                </svg>
+                Dismiss All
+            </button>
         </div>
     </div>
 </section>
@@ -507,7 +546,8 @@
         const options = {
             message: message,
             time: duration,
-            position: position
+            position: position,
+            closable: document.getElementById('closable-toggle').checked
         }
 
         // Add icon if provided
@@ -543,6 +583,23 @@
                 })
             }, 10)
         }
+    }
+
+    window.promiseDemo = function () {
+        const position = document.getElementById('position-select').value
+        notify.promise(
+            new Promise((resolve) => setTimeout(resolve, 2000)),
+            {
+                loading: 'Saving your changes…',
+                success: 'Changes saved successfully!',
+                error: 'Something went wrong'
+            },
+            { position }
+        )
+    }
+
+    window.dismissAllDemo = function () {
+        notify.dismissAll()
     }
 
     window.copyConfigCode = function () {
