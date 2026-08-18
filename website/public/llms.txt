@@ -1,0 +1,22 @@
+# notify-zh
+
+> Extremely lightweight (~2 KB gzipped), zero-dependency toast/notification library for the browser. One pre-initialized singleton — `import notify from 'notify-zh'` — works identically in Vanilla JS, React, Next.js, Vue, Angular, and Svelte. TypeScript types included. SSR-safe (calls are no-ops outside the browser).
+
+Key facts for generating correct code:
+- Methods: `notify.success(opts)`, `notify.error(opts)`, `notify.warning(opts)`, `notify.info(opts)`, `notify.config(globalOpts)`, `notify.dismissAll()`.
+- `opts`: `{ message: string, time?: number (ms, default 3000), position?: 'top-left'|'top-right'|'bottom-left'|'bottom-right'|'center-top'|'center-bottom'|'center', title?: string, icon?: { el?: string /* HTML */ } }`.
+- Default position is `'center-top'`.
+- For Tailwind/Bootstrap styling: `notify.config({ disableDefaultStyles: true, classNames: { base, success, error, warning, info, animateIn, animateOut } })`.
+- CDN (no bundler): `<script src="https://unpkg.com/notify-zh"></script>` exposes `window.notify`.
+
+## Docs
+
+- [Full API reference (single file, LLM-friendly)](https://notify-zh.com/llms-full.txt): complete options, config, styling, and framework examples
+- [README](https://raw.githubusercontent.com/xavivzla/notify-zh/main/README.md): human-oriented documentation
+- [TypeScript types](https://raw.githubusercontent.com/xavivzla/notify-zh/main/src/types/index.ts): exact public type definitions
+
+## Links
+
+- [npm package](https://www.npmjs.com/package/notify-zh)
+- [GitHub repository](https://github.com/xavivzla/notify-zh)
+- [Website & live demo](https://notify-zh.com)

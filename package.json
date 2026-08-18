@@ -13,32 +13,15 @@
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
+  "unpkg": "dist/index.global.js",
+  "jsdelivr": "dist/index.global.js",
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     }
-  },
-  "tsup": {
-    "entry": [
-      "src/index.ts"
-    ],
-    "format": [
-      "cjs",
-      "esm"
-    ],
-    "dts": true,
-    "splitting": false,
-    "sourcemap": false,
-    "clean": true,
-    "external": [
-      "react",
-      "react-dom"
-    ],
-    "minify": true,
-    "treeshake": true,
-    "target": "es2018"
   },
   "scripts": {
     "build": "tsup",
@@ -101,9 +84,7 @@
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
-    "prettier": "^3.2.5"
-  },
-  "dependencies": {
+    "prettier": "^3.2.5",
     "tslib": "^2.8.1"
   }
 }

@@ -4,7 +4,7 @@
 [![NPM Bundle Size](https://img.shields.io/bundlephobia/minzip/notify-zh?style=flat-square)](https://bundlephobia.com/result?p=notify-zh)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
-**Notify zh** is an extremely lightweight (≈1.6 KB gzipped), zero-dependency notification library designed for maximum flexibility and compatibility across all frontend projects.
+**Notify zh** is an extremely lightweight (≈2 KB gzipped), zero-dependency notification library designed for maximum flexibility and compatibility across all frontend projects.
 
 Simple, fast, and easy to integrate, it works seamlessly with:
 
@@ -20,18 +20,21 @@ It now features enhanced customization options, allowing easy integration with C
 
 ---
 
-**[➡️ View Live Demo ⬅️]**(https://codesandbox.io/p/sandbox/notify-zh-vh3jk)
+**[➡️ View Live Demo ⬅️](https://codesandbox.io/p/sandbox/notify-zh-vh3jk)**
 
 ---
 
 ## ✨ Features
 
-- **🚀 Extremely Lightweight:** Tiny footprint (≈1.4 KB gzipped).
+- **🚀 Extremely Lightweight:** Tiny footprint (≈2 KB gzipped).
 - **✅ Zero Dependencies:** No external libraries needed.
 - **🔧 Simple API:** Get started in minutes with an intuitive API.
 - **🎨 Highly Customizable:** Use custom HTML icons and easily integrate with **any CSS framework** (Tailwind, Bootstrap, etc.) or your own styles by providing custom classes and disabling default styles.
-- **🌐 Universal Compatibility:** Works everywhere JavaScript runs in the browser.
+- **🌐 Universal Compatibility:** Works everywhere JavaScript runs in the browser, plus a CDN build for no-bundler setups.
+- **🖥️ SSR-Safe:** Calls are silent no-ops on the server — no `typeof window` guards needed in Next.js/Nuxt.
+- **♿ Accessible:** Errors/warnings render with `role="alert"`, success/info with `role="status"`.
 - **🎯 TypeScript Ready:** Written in TypeScript with types included.
+- **🤖 AI-Friendly Docs:** [llms.txt](https://notify-zh.com/llms.txt) and [llms-full.txt](https://notify-zh.com/llms-full.txt) for coding assistants.
 
 ## 📦 Installation
 
@@ -39,11 +42,22 @@ Install `notify-zh` using your favorite package manager:
 
 ```bash
 npm install notify-zh
-or
+# or
 yarn add notify-zh
 ```
 
-🚀 Usage notify-zh exports a single pre-initialized instance, ready to use immediately after import.
+Or use it directly from a CDN without any bundler (exposes `window.notify`):
+
+```html
+<script src="https://unpkg.com/notify-zh"></script>
+<script>
+  notify.success({ message: 'Hello from the CDN!' })
+</script>
+```
+
+## 🚀 Usage
+
+`notify-zh` exports a single pre-initialized instance, ready to use immediately after import.
 
 ```js
 // Import the default instance
@@ -80,9 +94,14 @@ notify.config({
     error: '#EF4444'
   }
 })
+
+// Dismiss everything currently on screen
+notify.dismissAll()
 ```
 
-Here are examples for different environments:🍦 Vanilla JavaScript
+Here are examples for different environments:
+
+### 🍦 Vanilla JavaScript
 
 ```js
 <!DOCTYPE html>
@@ -117,7 +136,9 @@ Here are examples for different environments:🍦 Vanilla JavaScript
 
 ```
 
-⚛️ React / Next.jsWorks identically in React and Next.js (client-side components).
+### ⚛️ React / Next.js
+
+Works identically in React and Next.js (client-side components). Calls are SSR-safe no-ops on the server, so you don't need `typeof window` guards.
 
 ```jsx
 import React from 'react'
@@ -142,7 +163,7 @@ function MyComponent() {
 export default MyComponent
 ```
 
-💚 Vue.js
+### 💚 Vue.js
 
 ```jsx
 <template>
@@ -169,9 +190,9 @@ export default {
 </script>
 ```
 
-Angular
+### 🅰️ Angular
 
-```jsx
+```ts
 // my-component.component.ts
 import { Component } from '@angular/core'
 import notify from 'notify-zh' // Import the instance
@@ -197,12 +218,14 @@ export class MyComponent {
 
 #### Methods
 
-The imported **Notify** object provides the following methods to display notifications:
+The imported **Notify** object provides the following methods:
 
-- notify.success(options)
-- notify.error(options)
-- notify.warning(options)
-- notify.info(options)
+- `notify.success(options)` — green toast, `role="status"`
+- `notify.error(options)` — red toast, `role="alert"`
+- `notify.warning(options)` — orange toast, `role="alert"`
+- `notify.info(options)` — blue toast, `role="status"`
+- `notify.config(config)` — set global defaults (call once at startup)
+- `notify.dismissAll()` — dismiss every visible notification immediately
 
 #### Options (PropsOptions)
 
@@ -210,11 +233,11 @@ All notification methods accept an options object:
 
 | Option   | Type                 | Default   | Description                                      |
 | -------- | -------------------- | --------- | ------------------------------------------------ |
-| message  | string               | ''        | (Required) The text content of the notification. |
+| message  | string               | ''        | (Required) The text content. Rendered as plain text (XSS-safe). |
 | time     | number               | 3000      | Duration in milliseconds before auto-closing.    |
 | position | NotificationPosition | 'center-top' | Position where the notification appears.      |
-| icon.el  | string               | undefined | Optional HTML string for a custom icon element.  |
-| title    | string               | undefined | Optional title for the notification.             |
+| icon.el  | string               | undefined | Optional HTML string for a custom icon element (emoji or inline SVG). Only pass trusted markup — it is injected as HTML. |
+| title    | string               | undefined | Optional bold title rendered above the message. Rendered as plain text. |
 
 #### Available Positions
 
@@ -313,5 +336,23 @@ notify.success({
 #### **Key classNames Properties:**
 
 - base: Applied to every notification element.
-- success, error, warning, info: Applied in addition to base based on the notification type.
+- success, error, warning, info: Applied in addition to base based on the notification type. When one of these is set, the library skips its inline background color for that type so your class always wins.
 - animateIn, animateOut: Applied during the show/hide animations.
+
+### 📘 TypeScript
+
+All public types ship with the package:
+
+```ts
+import notify from 'notify-zh'
+import type { PropsOptions, PropsConfig, NotificationPosition } from 'notify-zh'
+```
+
+### 🤖 Docs for AI assistants
+
+If you use Claude, Cursor, Copilot, or any other coding assistant, point it at:
+
+- **[llms.txt](https://notify-zh.com/llms.txt)** — compact overview following the [llms.txt spec](https://llmstxt.org)
+- **[llms-full.txt](https://notify-zh.com/llms-full.txt)** — the complete API reference in one plain-text file, ready to paste into a prompt or index as context
+
+The repo also includes an [AGENTS.md](AGENTS.md) with instructions for AI agents contributing to the library itself.

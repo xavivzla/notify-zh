@@ -221,5 +221,80 @@ describe('Configuration', () => {
     // Here we just ensure the method call doesn't crash and hopefully hits coverage.
     expect(true).toBe(true);
   });
+
+  it('should render the title when provided', () => {
+    Notify.info({ message: 'Titled body', title: 'My Title' });
+
+    const notifications = document.querySelectorAll('.notifyCustom');
+    const notification = Array.from(notifications).find(n =>
+      n.textContent?.includes('Titled body')
+    );
+
+    expect(notification).toBeTruthy();
+    const titleEl = notification?.querySelector('strong');
+    expect(titleEl?.textContent).toBe('My Title');
+  });
+
+  it('should apply width and maxWidth from config', () => {
+    Notify.config({ width: '280px', maxWidth: '360px' });
+    Notify.info({ message: 'Sized notification' });
+
+    const notifications = document.querySelectorAll('.notifyCustom');
+    const notification = Array.from(notifications).find(n =>
+      n.textContent?.includes('Sized notification')
+    ) as HTMLElement;
+
+    expect(notification?.style.width).toBe('280px');
+    expect(notification?.style.maxWidth).toBe('360px');
+  });
+
+  it('should not set inline background when a type className is provided', () => {
+    Notify.config({ classNames: { success: 'bg-green-500' } });
+    Notify.success({ message: 'Class-styled notification' });
+
+    const notification = Array.from(
+      document.querySelectorAll('.bg-green-500')
+    ).find(n => n.textContent?.includes('Class-styled notification')) as HTMLElement;
+
+    expect(notification).toBeTruthy();
+    expect(notification?.style.background).toBe('');
+
+    // Types without a custom class keep the inline background
+    Notify.error({ message: 'Inline-styled notification' });
+    const errorNotification = Array.from(
+      document.querySelectorAll('.notify-error')
+    ).find(n => n.textContent?.includes('Inline-styled notification')) as HTMLElement;
+    expect(errorNotification?.style.background).not.toBe('');
+  });
+
+  it('should use role=alert for error/warning and role=status for success/info', () => {
+    Notify.error({ message: 'Role alert check' });
+    Notify.info({ message: 'Role status check' });
+
+    const all = Array.from(document.querySelectorAll('.notifyCustom'));
+    const errorEl = all.find(n => n.textContent?.includes('Role alert check'));
+    const infoEl = all.find(n => n.textContent?.includes('Role status check'));
+
+    expect(errorEl?.getAttribute('role')).toBe('alert');
+    expect(infoEl?.getAttribute('role')).toBe('status');
+  });
+
+  it('should dismiss all notifications with dismissAll', () => {
+    Notify.success({ message: 'Dismiss me 1' });
+    Notify.info({ message: 'Dismiss me 2' });
+
+    Notify.dismissAll();
+
+    const remaining = Array.from(document.querySelectorAll('.notifyCustom')).filter(
+      n =>
+        n.textContent?.includes('Dismiss me 1') ||
+        n.textContent?.includes('Dismiss me 2')
+    );
+    // dismissAll plays the out animation on every visible notification
+    remaining.forEach(n => {
+      expect(n.classList.contains('animateOutOpacity')).toBe(true);
+    });
+    expect(remaining.length).toBeGreaterThan(0);
+  });
 });
 
