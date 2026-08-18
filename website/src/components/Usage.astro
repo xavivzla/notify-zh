@@ -32,10 +32,10 @@
                 <div class="code-block">
                     <button
                         class="copy-btn"
-                        onclick="copyToClipboard('<script src=&quot;https://unpkg.com/notify-zh@latest/dist/notify-zh.min.js&quot;></script>')"
+                        onclick="copyToClipboard('<script src=&quot;https://unpkg.com/notify-zh&quot;></script>')"
                         >Copy</button
                     >
-                    &lt;script src="https://unpkg.com/notify-zh@latest/dist/notify-zh.min.js"&gt;&lt;/script&gt;
+                    &lt;script src="https://unpkg.com/notify-zh"&gt;&lt;/script&gt;
                 </div>
             </div>
         </div>
@@ -74,23 +74,22 @@
                     <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
-  &lt;script src="https://unpkg.com/notify-zh@latest/dist/notify-zh.js"&gt;&lt;/script&gt;
+  &lt;script src="https://unpkg.com/notify-zh"&gt;&lt;/script&gt;
 &lt;/head&gt;
 &lt;body&gt;
   &lt;script&gt;
-    // Basic notification
-    notify('Hello world!');
-    
-    // With specific type
-    notify.success('Operation successful!');
-    notify.error('Something went wrong');
-    notify.warning('Be careful');
-    notify.info('Important information');
-    
+    // window.notify is ready to use
+    notify.success(&#123; message: 'Operation successful!' &#125;);
+    notify.error(&#123; message: 'Something went wrong' &#125;);
+    notify.warning(&#123; message: 'Be careful' &#125;);
+    notify.info(&#123; message: 'Important information' &#125;);
+
     // With custom options
-    notify('Custom message', &#123;
-      duration: 5000,
-      position: 'top-right'
+    notify.success(&#123;
+      message: 'Custom message',
+      time: 5000,
+      position: 'top-right',
+      closable: true
     &#125;);
   &lt;/script&gt;
 &lt;/body&gt;
@@ -118,15 +117,13 @@
   
   &lt;script&gt;
     import notify from 'notify-zh';
-    
+
     document.getElementById('notify-btn').addEventListener('click', () =&gt; &#123;
-      notify.success('Hello from Astro!');
-    &#125;);
-    
-    // Basic usage
-    notify('Welcome to Astro!', &#123;
-      position: 'top-right',
-      duration: 3000
+      notify.success(&#123;
+        message: 'Hello from Astro!',
+        position: 'top-right',
+        time: 3000
+      &#125;);
     &#125;);
   &lt;/script&gt;
 &lt;/body&gt;
@@ -146,18 +143,23 @@ import notify from 'notify-zh';
 
 function App() &#123;
   const handleClick = () =&gt; &#123;
-    notify.success('Hello from React!');
+    notify.success(&#123; message: 'Hello from React!' &#125;);
   &#125;;
-  
+
   const showError = () =&gt; &#123;
-    notify.error('Something went wrong!');
+    notify.error(&#123;
+      message: 'Something went wrong!',
+      time: 5000,
+      position: 'bottom-right'
+    &#125;);
   &#125;;
-  
-  const showCustom = () =&gt; &#123;
-    notify('Custom notification', &#123;
-      duration: 5000,
-      position: 'bottom-right',
-      theme: 'dark'
+
+  // notify.promise(): loading → success/error automatically
+  const saveData = () =&gt; &#123;
+    notify.promise(fetch('/api/save'), &#123;
+      loading: 'Saving…',
+      success: 'Saved!',
+      error: 'Failed to save'
     &#125;);
   &#125;;
 
@@ -165,7 +167,7 @@ function App() &#123;
     &lt;div&gt;
       &lt;button onClick=&#123;handleClick&#125;&gt;Success&lt;/button&gt;
       &lt;button onClick=&#123;showError&#125;&gt;Error&lt;/button&gt;
-      &lt;button onClick=&#123;showCustom&#125;&gt;Custom&lt;/button&gt;
+      &lt;button onClick=&#123;saveData&#125;&gt;Save (promise)&lt;/button&gt;
     &lt;/div&gt;
   );
 &#125;
@@ -196,18 +198,19 @@ export default &#123;
   name: 'NotificationDemo',
   methods: &#123;
     showSuccess() &#123;
-      notify.success('Operation completed successfully!');
+      notify.success(&#123; message: 'Operation completed successfully!' &#125;);
     &#125;,
     showError() &#123;
-      notify.error('An error occurred!');
+      notify.error(&#123; message: 'An error occurred!' &#125;);
     &#125;,
     showWarning() &#123;
-      notify.warning('Please be careful!');
+      notify.warning(&#123; message: 'Please be careful!' &#125;);
     &#125;,
     showInfo() &#123;
-      notify.info('Here is some information', &#123;
+      notify.info(&#123;
+        message: 'Here is some information',
         position: 'top-left',
-        duration: 4000
+        time: 4000
       &#125;);
     &#125;
   &#125;
@@ -223,29 +226,21 @@ export default &#123;
                         class="copy-btn"
                         onclick="copyToClipboard(nextjsCode)">Copy</button
                     >
-                    <pre><code>// pages/index.js
-import &#123; useEffect &#125; from 'react';
+                    <pre><code>// app/page.js (App Router)
+'use client';
+
 import notify from 'notify-zh';
 
 export default function Home() &#123;
-  useEffect(() =&gt; &#123;
-    // Show welcome notification on page load
-    notify('Welcome to Next.js!', &#123;
-      position: 'top-center',
-      duration: 3000
-    &#125;);
-  &#125;, []);
-
-  const handleSubmit = async (e) =&gt; &#123;
+  // SSR-safe: calls are no-ops on the server, no window guards needed
+  const handleSubmit = (e) =&gt; &#123;
     e.preventDefault();
-    
-    try &#123;
-      // Simulate API call
-      await fetch('/api/submit');
-      notify.success('Form submitted successfully!');
-    &#125; catch (error) &#123;
-      notify.error('Failed to submit form');
-    &#125;
+
+    notify.promise(fetch('/api/submit'), &#123;
+      loading: 'Submitting…',
+      success: 'Form submitted successfully!',
+      error: 'Failed to submit form'
+    &#125;);
   &#125;;
 
   return (
@@ -287,21 +282,22 @@ export class AppComponent &#123;
   title = 'angular-notify-zh';
 
   showSuccess() &#123;
-    notify.success('Task completed successfully!');
+    notify.success(&#123; message: 'Task completed successfully!' &#125;);
   &#125;
 
   showError() &#123;
-    notify.error('An error has occurred!');
+    notify.error(&#123; message: 'An error has occurred!' &#125;);
   &#125;
 
   showWarning() &#123;
-    notify.warning('Warning: Please check your input!');
+    notify.warning(&#123; message: 'Warning: Please check your input!' &#125;);
   &#125;
 
   showInfo() &#123;
-    notify.info('Information: Process started', &#123;
-      duration: 6000,
-      position: 'bottom-center'
+    notify.info(&#123;
+      message: 'Information: Process started',
+      time: 6000,
+      position: 'center-bottom'
     &#125;);
   &#125;
 &#125;</code></pre>
@@ -479,12 +475,12 @@ export class AppComponent &#123;
     window.vanillaCode = `<!DOCTYPE html>
 <html>
 <head>
-  <script src="https://unpkg.com/notify-zh@latest/dist/notify-zh.js"><\/script>
+  <script src="https://unpkg.com/notify-zh"><\/script>
 </head>
 <body>
   <script>
-    notify('Hello world!');
-    notify.success('Operation successful!');
+    notify.success({ message: 'Operation successful!' });
+    notify.error({ message: 'Something went wrong' });
   <\/script>
 </body>
 </html>`
@@ -494,16 +490,30 @@ export class AppComponent &#123;
 ---
 <script>
   import notify from 'notify-zh';
-  notify.success('Hello from Astro!');
+  notify.success({ message: 'Hello from Astro!' });
 <\/script>`
 
     window.reactCode = `import notify from 'notify-zh';
 
 function App() {
   const handleClick = () => {
-    notify.success('Hello from React!');
+    notify.success({ message: 'Hello from React!' });
   };
-  return <button onClick={handleClick}>Notify</button>;
+
+  const saveData = () => {
+    notify.promise(fetch('/api/save'), {
+      loading: 'Saving…',
+      success: 'Saved!',
+      error: 'Failed to save'
+    });
+  };
+
+  return (
+    <div>
+      <button onClick={handleClick}>Notify</button>
+      <button onClick={saveData}>Save (promise)</button>
+    </div>
+  );
 }`
 
     window.vueCode = `<template>
@@ -513,16 +523,18 @@ function App() {
 import notify from 'notify-zh';
 export default {
   methods: {
-    show() { notify.success('Hello!'); }
+    show() { notify.success({ message: 'Hello!' }); }
   }
 }
 <\/script>`
 
-    window.nextjsCode = `import notify from 'notify-zh';
+    window.nextjsCode = `'use client';
+
+import notify from 'notify-zh';
 
 export default function Home() {
   return (
-    <button onClick={() => notify.success('Hello!')}>
+    <button onClick={() => notify.success({ message: 'Hello!' })}>
       Notify
     </button>
   );
@@ -537,7 +549,7 @@ import notify from 'notify-zh';
 })
 export class AppComponent {
   show() {
-    notify.success('Hello!');
+    notify.success({ message: 'Hello!' });
   }
 }`
 

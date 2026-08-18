@@ -1,5 +1,6 @@
 # Notify zh ✨
 
+[![CI](https://img.shields.io/github/actions/workflow/status/xavivzla/notify-zh/main.yml?branch=master&style=flat-square&label=CI)](https://github.com/xavivzla/notify-zh/actions/workflows/main.yml)
 [![NPM Version](https://img.shields.io/npm/v/notify-zh?style=flat-square)](https://www.npmjs.com/package/notify-zh)
 [![NPM Bundle Size](https://img.shields.io/bundlephobia/minzip/notify-zh?style=flat-square)](https://bundlephobia.com/result?p=notify-zh)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
