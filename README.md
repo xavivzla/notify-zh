@@ -10,7 +10,7 @@
 
 ![notify-zh demo — success toast, sticky notification with close button, promise loading-to-success, dismissAll](https://raw.githubusercontent.com/xavivzla/notify-zh/master/website/public/demo.gif)
 
-**[Website](https://notify-zh.com)** · **[Try it on StackBlitz](https://stackblitz.com/github/xavivzla/notify-zh/tree/master/examples/vanilla)** · **[Changelog](CHANGELOG.md)** · **[Docs for AI](https://notify-zh.com/llms.txt)**
+**[Website](https://notify-zh.trely.agency)** · **[Try it on StackBlitz](https://stackblitz.com/github/xavivzla/notify-zh/tree/master/examples/vanilla)** · **[Changelog](CHANGELOG.md)** · **[Docs for AI](https://notify-zh.trely.agency/llms.txt)**
 
 ## Table of contents
 
@@ -38,7 +38,7 @@
 - **🖥️ SSR-Safe:** Calls are silent no-ops on the server — no `typeof window` guards needed in Next.js/Nuxt.
 - **♿ Accessible:** Errors/warnings render with `role="alert"`, success/info with `role="status"`.
 - **🎯 TypeScript Ready:** Written in TypeScript with types included.
-- **🤖 AI-Friendly Docs:** [llms.txt](https://notify-zh.com/llms.txt) and [llms-full.txt](https://notify-zh.com/llms-full.txt) for coding assistants.
+- **🤖 AI-Friendly Docs:** [llms.txt](https://notify-zh.trely.agency/llms.txt) and [llms-full.txt](https://notify-zh.trely.agency/llms-full.txt) for coding assistants.
 
 ## 📦 Installation
 
@@ -449,7 +449,7 @@ import type {
 
 If you use Claude, Cursor, Copilot, or any other coding assistant, point it at:
 
-- **[llms.txt](https://notify-zh.com/llms.txt)** — compact overview following the [llms.txt spec](https://llmstxt.org)
-- **[llms-full.txt](https://notify-zh.com/llms-full.txt)** — the complete API reference in one plain-text file, ready to paste into a prompt or index as context
+- **[llms.txt](https://notify-zh.trely.agency/llms.txt)** — compact overview following the [llms.txt spec](https://llmstxt.org)
+- **[llms-full.txt](https://notify-zh.trely.agency/llms-full.txt)** — the complete API reference in one plain-text file, ready to paste into a prompt or index as context
 
 The repo also includes an [AGENTS.md](AGENTS.md) with instructions for AI agents contributing to the library itself.

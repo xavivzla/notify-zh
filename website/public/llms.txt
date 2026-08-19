@@ -13,7 +13,7 @@ Key facts for generating correct code:
 
 ## Docs
 
-- [Full API reference (single file, LLM-friendly)](https://notify-zh.com/llms-full.txt): complete options, config, styling, and framework examples
+- [Full API reference (single file, LLM-friendly)](https://notify-zh.trely.agency/llms-full.txt): complete options, config, styling, and framework examples
 - [README](https://raw.githubusercontent.com/xavivzla/notify-zh/main/README.md): human-oriented documentation
 - [TypeScript types](https://raw.githubusercontent.com/xavivzla/notify-zh/main/src/types/index.ts): exact public type definitions
 
@@ -21,4 +21,4 @@ Key facts for generating correct code:
 
 - [npm package](https://www.npmjs.com/package/notify-zh)
 - [GitHub repository](https://github.com/xavivzla/notify-zh)
-- [Website & live demo](https://notify-zh.com)
+- [Website & live demo](https://notify-zh.trely.agency)

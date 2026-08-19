@@ -4,7 +4,7 @@ notify-zh is a zero-dependency toast/notification library for the browser (~2.7 
 
 - npm: https://www.npmjs.com/package/notify-zh
 - GitHub: https://github.com/xavivzla/notify-zh
-- Website: https://notify-zh.com
+- Website: https://notify-zh.trely.agency
 
 ## Install
 

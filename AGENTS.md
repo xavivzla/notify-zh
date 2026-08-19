@@ -16,7 +16,7 @@ test/index.test.ts  Jest + jsdom test suite
 tsup.config.ts      Build config (ESM/CJS + IIFE)
 example/            Internal dev playground (Bun, imports ../dist)
 examples/           Public per-framework demos (npm install, StackBlitz-openable)
-website/            Docs site (Astro + Tailwind) deployed at https://notify-zh.com
+website/            Docs site (Astro + Tailwind) deployed at https://notify-zh.trely.agency
 ```
 
 `dist/` is generated — never edit it by hand.

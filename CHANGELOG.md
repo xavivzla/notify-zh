@@ -14,7 +14,7 @@ All notable changes to `notify-zh` are documented here.
 - **`maxVisible` config** — caps simultaneous notifications per position; extra ones queue and appear as older ones close.
 - **CDN/IIFE build** — `dist/index.global.js` exposed via `unpkg`/`jsdelivr` fields; usable as `<script src="https://unpkg.com/notify-zh">` → `window.notify`.
 - **Exported types** — `PropsOptions`, `PropsConfig`, `ClassNameOptions`, `PromiseMessages`, `NotificationPosition`.
-- **AI-friendly docs** — `llms.txt` + `llms-full.txt` on https://notify-zh.com and `AGENTS.md` in the repo.
+- **AI-friendly docs** — `llms.txt` + `llms-full.txt` on https://notify-zh.trely.agency and `AGENTS.md` in the repo.
 - **`prefers-reduced-motion` support** in the default styles.
 - **Size guard** — `size-limit` runs in CI (3 KB budget for the ESM bundle).
 - **Release workflow** — publishes to npm with provenance when a `v*` tag is pushed.
