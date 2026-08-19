@@ -52,20 +52,25 @@
 
         <div class="tabs-container">
             <!-- Tab Navigation -->
-            <div class="tabs-nav">
-                <button class="tab-button active" data-tab="vanilla"
-                    >Vanilla HTML</button
+            <div class="tabs-nav" role="tablist" aria-label="Framework examples">
+                <button
+                    class="tab-button active"
+                    data-tab="vanilla"
+                    role="tab"
+                    id="vanilla-tab"
+                    aria-controls="vanilla-panel"
+                    aria-selected="true">Vanilla HTML</button
                 >
-                <button class="tab-button" data-tab="astro">Astro</button>
-                <button class="tab-button" data-tab="react">React</button>
-                <button class="tab-button" data-tab="vue">Vue.js</button>
-                <button class="tab-button" data-tab="nextjs">Next.js</button>
-                <button class="tab-button" data-tab="angular">Angular</button>
+                <button class="tab-button" data-tab="astro" role="tab" id="astro-tab" aria-controls="astro-panel" aria-selected="false">Astro</button>
+                <button class="tab-button" data-tab="react" role="tab" id="react-tab" aria-controls="react-panel" aria-selected="false">React</button>
+                <button class="tab-button" data-tab="vue" role="tab" id="vue-tab" aria-controls="vue-panel" aria-selected="false">Vue.js</button>
+                <button class="tab-button" data-tab="nextjs" role="tab" id="nextjs-tab" aria-controls="nextjs-panel" aria-selected="false">Next.js</button>
+                <button class="tab-button" data-tab="angular" role="tab" id="angular-tab" aria-controls="angular-panel" aria-selected="false">Angular</button>
             </div>
 
             <!-- Tab Content -->
             <!-- Vanilla HTML Tab -->
-            <div class="tab-content active" id="vanilla-panel">
+            <div class="tab-content active" id="vanilla-panel" role="tabpanel" aria-labelledby="vanilla-tab">
                 <div class="code-block">
                     <button
                         class="copy-btn"
@@ -98,7 +103,7 @@
             </div>
 
             <!-- Astro Tab -->
-            <div class="tab-content" id="astro-panel">
+            <div class="tab-content" id="astro-panel" role="tabpanel" aria-labelledby="astro-tab">
                 <div class="code-block">
                     <button
                         class="copy-btn"
@@ -132,7 +137,7 @@
             </div>
 
             <!-- React Tab -->
-            <div class="tab-content" id="react-panel">
+            <div class="tab-content" id="react-panel" role="tabpanel" aria-labelledby="react-tab">
                 <div class="code-block">
                     <button
                         class="copy-btn"
@@ -177,7 +182,7 @@ export default App;</code></pre>
             </div>
 
             <!-- Vue.js Tab -->
-            <div class="tab-content" id="vue-panel">
+            <div class="tab-content" id="vue-panel" role="tabpanel" aria-labelledby="vue-tab">
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyToClipboard(vueCode)"
                         >Copy</button
@@ -220,7 +225,7 @@ export default &#123;
             </div>
 
             <!-- Next.js Tab -->
-            <div class="tab-content" id="nextjs-panel">
+            <div class="tab-content" id="nextjs-panel" role="tabpanel" aria-labelledby="nextjs-tab">
                 <div class="code-block">
                     <button
                         class="copy-btn"
@@ -256,7 +261,7 @@ export default function Home() &#123;
             </div>
 
             <!-- Angular Tab -->
-            <div class="tab-content" id="angular-panel">
+            <div class="tab-content" id="angular-panel" role="tabpanel" aria-labelledby="angular-tab">
                 <div class="code-block">
                     <button
                         class="copy-btn"
@@ -611,13 +616,17 @@ export class AppComponent {
         tabButtons.forEach((button, index) => {
             button.addEventListener('click', () => {
                 // Remove active class from all buttons and contents
-                tabButtons.forEach((btn) => btn.classList.remove('active'))
+                tabButtons.forEach((btn) => {
+                    btn.classList.remove('active')
+                    btn.setAttribute('aria-selected', 'false')
+                })
                 tabContents.forEach((content) =>
                     content.classList.remove('active')
                 )
 
                 // Add active class to clicked button and corresponding content
                 button.classList.add('active')
+                button.setAttribute('aria-selected', 'true')
                 if (tabContents[index]) {
                     tabContents[index].classList.add('active')
                 }

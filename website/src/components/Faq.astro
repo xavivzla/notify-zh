@@ -1,0 +1,134 @@
+---
+// FAQ — mismas preguntas del README (mantener sincronizadas). El JSON-LD
+// FAQPage refleja EXACTAMENTE el contenido visible (requisito de Google).
+const FAQS = [
+    {
+        q: "The toast doesn't appear in Next.js/Nuxt — why?",
+        a: "Since v1.1.0 all calls are SSR-safe no-ops on the server, so nothing crashes — but a toast fired during server render never shows. Fire notifications from client-side events (clicks, effects), and in the App Router use 'use client' components.",
+    },
+    {
+        q: 'Can a notification stay until the user closes it?',
+        a: "Yes: notify.warning({ message: '…', time: Infinity, closable: true }).",
+    },
+    {
+        q: 'How do I use Tailwind or Bootstrap classes?',
+        a: 'Set disableDefaultStyles: true and map your classes via classNames in notify.config(). When a per-type class is set, the library skips its inline background so your class always wins.',
+    },
+    {
+        q: 'Is icon.el safe?',
+        a: 'message and title are always rendered as plain text (XSS-safe). Only icon.el is injected as HTML so you can pass inline SVG — never pass user-generated content to it.',
+    },
+    {
+        q: 'Does it work with a strict CSP (no inline styles)?',
+        a: 'The default styles are injected as a <style> tag, which requires style-src to allow it. With a strict CSP, set disableDefaultStyles: true and style toasts with your own stylesheet classes via classNames.',
+    },
+    {
+        q: "Why doesn't the toast auto-close while I hover it?",
+        a: "That's pauseOnHover (on by default) — the timer resumes when the pointer leaves. Disable with notify.config({ pauseOnHover: false }).",
+    },
+]
+
+const faqJsonLd = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: FAQS.map(({ q, a }) => ({
+        '@type': 'Question',
+        name: q,
+        acceptedAnswer: { '@type': 'Answer', text: a },
+    })),
+})
+---
+
+<section class="faq" id="faq" aria-labelledby="faq-title">
+    <script type="application/ld+json" set:html={faqJsonLd} is:inline />
+    <div class="container">
+        <h2 id="faq-title">Frequently asked questions</h2>
+        <p class="faq-sub">
+            Straight answers about SSR, styling, security and CSP — the same FAQ
+            that ships in the README.
+        </p>
+
+        <div class="faq-list">
+            {
+                FAQS.map(({ q, a }) => (
+                    <details class="faq-item">
+                        <summary>{q}</summary>
+                        <p>{a}</p>
+                    </details>
+                ))
+            }
+        </div>
+    </div>
+</section>
+
+<style>
+    .faq {
+        padding: clamp(56px, 8vw, 96px) 0;
+        border-top: 1px solid var(--line);
+    }
+
+    .faq h2 {
+        text-align: center;
+    }
+
+    .faq-sub {
+        margin: 14px auto 0;
+        max-width: 55ch;
+        text-align: center;
+        color: var(--ink-soft);
+    }
+
+    .faq-list {
+        max-width: 720px;
+        margin: 36px auto 0;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .faq-item {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-card);
+        overflow: hidden;
+    }
+
+    .faq-item summary {
+        padding: 16px 20px;
+        cursor: pointer;
+        color: var(--ink);
+        font-weight: 600;
+        list-style: none;
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        transition: background 0.15s ease-out;
+    }
+
+    .faq-item summary::-webkit-details-marker {
+        display: none;
+    }
+
+    .faq-item summary::before {
+        content: '+';
+        flex-shrink: 0;
+        color: var(--indigo-text);
+        font-weight: 700;
+        font-size: 1.1rem;
+        line-height: 1;
+    }
+
+    .faq-item[open] summary::before {
+        content: '−';
+    }
+
+    .faq-item summary:hover {
+        background: var(--surface-2);
+    }
+
+    .faq-item p {
+        padding: 0 20px 18px 42px;
+        color: var(--ink-soft);
+        font-size: 0.95rem;
+    }
+</style>

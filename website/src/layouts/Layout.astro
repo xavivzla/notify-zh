@@ -19,25 +19,9 @@ const {
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		{/* Solo el SVG existe en public/ — los PNG/manifest referenciados
+		    antes eran 404s. */}
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="32x32"
-			href="/favicon-32x32.png"
-		/>
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="16x16"
-			href="/favicon-16x16.png"
-		/>
-		<link
-			rel="apple-touch-icon"
-			sizes="180x180"
-			href="/apple-touch-icon.png"
-		/>
-		<link rel="manifest" href="/site.webmanifest" />
 		<meta name="generator" content={Astro.generator} />
 
 		<!-- SEO -->
@@ -116,7 +100,8 @@ const {
 					"priceCurrency": "USD"
 				},
 				"keywords": "javascript notifications, toast notifications, web notifications, notification library, zero dependencies",
-				"softwareVersion": "1.0.0",
+				"license": "https://opensource.org/license/mit",
+				"softwareVersion": "1.1.0",
 				"downloadUrl": "https://github.com/xavivzla/notify-zh",
 				"codeRepository": "https://github.com/xavivzla/notify-zh"
 			}

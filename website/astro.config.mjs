@@ -2,9 +2,14 @@
 import { defineConfig } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
+import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
+  // Dominio vivo del sitio (notify-zh.com nunca se conectó) — alimenta el
+  // sitemap; el canonical vive en Layout.astro.
+  site: 'https://notify-zh.trely.agency',
+  integrations: [sitemap()],
   typescript: {
     allowJs: true,
     strict: false,
