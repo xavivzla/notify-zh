@@ -1,249 +1,159 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
+/* Sistema visual de notify-zh — fuente de verdad: public/og-image.png.
+   Ver DESIGN.md. Navy profundo + toasts vivos; los colores de los toasts
+   son los del producto real, no decoración. */
+
 :root {
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #111111;
-  --bg-tertiary: #1a1a1a;
-  --text-primary: #ffffff;
-  --text-secondary: #a1a1aa;
-  --text-muted: #71717a;
-  --accent-primary: #3b82f6;
-  --accent-secondary: #8b5cf6;
-  --border-primary: #27272a;
-  --border-secondary: #3f3f46;
-  --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-  --gradient-secondary: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  --bg: oklch(0.16 0.035 268);
+  --bg-deep: oklch(0.13 0.03 268);
+  --surface: oklch(0.21 0.04 268);
+  --surface-2: oklch(0.25 0.045 268);
+  --line: oklch(0.32 0.05 268);
+  --ink: #ffffff;
+  --ink-soft: oklch(0.8 0.03 268);
+  --ink-mute: oklch(0.65 0.04 268);
+
+  --green: oklch(0.72 0.19 150);
+  --green-deep: oklch(0.55 0.15 150);
+  --indigo: oklch(0.55 0.21 275);
+  --indigo-bright: oklch(0.62 0.21 275);
+  --indigo-chip: oklch(0.3 0.08 275);
+  --indigo-text: oklch(0.86 0.06 275);
+  --orange: oklch(0.75 0.16 65);
+  --red: oklch(0.63 0.21 25);
+  --pink: oklch(0.68 0.21 355);
+
+  --radius-toast: 12px;
+  --radius-card: 14px;
+
+  --shadow-toast: 0 8px 24px rgb(0 0 0 / 0.35);
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Monaco, Consolas, monospace;
+
+  /* z-scale semántica */
+  --z-header: 100;
+  /* la librería renderiza sus toasts con su propio z; no competimos */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  font-family: 'Inter', sans-serif;
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  line-height: 1.6;
-  font-weight: 400;
-}
-
-.gradient-primary {
-  background: var(--gradient-primary);
-}
-
-.gradient-secondary {
-  background: var(--gradient-secondary);
-}
-
-.gradient-success {
-  background: var(--gradient-success);
-}
-
-.gradient-bg {
-  background: var(--gradient-modern);
-}
-
-.glass-effect {
-  backdrop-filter: blur(20px);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-}
-
-.glass-card {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-  transition: all 0.3s ease;
-}
-
-.glass-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-  border-color: rgba(255, 255, 255, 0.25);
-}
-
-.neon-glow {
-  box-shadow: 0 0 20px var(--neon-blue), 0 0 40px var(--neon-blue), 0 0 60px var(--neon-blue);
-  animation: neon-pulse 2s ease-in-out infinite alternate;
-}
-
-.neon-text {
-  text-shadow: 0 0 10px var(--neon-purple), 0 0 20px var(--neon-purple), 0 0 30px var(--neon-purple);
-}
-
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-.float-animation {
-  animation: float 6s ease-in-out infinite;
-}
-
-.pulse-animation {
-  animation: pulse-scale 3s ease-in-out infinite;
-}
-
-.slide-in-left {
-  animation: slideInLeft 0.8s ease-out;
-}
-
-.slide-in-right {
-  animation: slideInRight 0.8s ease-out;
-}
-
-.fade-in-up {
-  animation: fadeInUp 1s ease-out;
-}
-
-.modern-button {
-  background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
-  border: none;
+  font-family: var(--font-sans);
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  background: var(--bg);
+  color: var(--ink-soft);
+  line-height: 1.65;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   position: relative;
-  overflow: hidden;
-  transition: all 0.3s ease;
 }
 
-.modern-button::before {
+/* Glows de las esquinas del og-image: teal abajo-izquierda, violeta
+   arriba-derecha. Fijos, sutiles, nunca animados. */
+body::before {
   content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  transition: left 0.5s;
-}
-
-.modern-button:hover::before {
-  left: 100%;
-}
-
-.modern-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(0, 212, 255, 0.4);
-}
-
-.floating-shapes {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
+  position: fixed;
+  inset: 0;
   z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(640px 480px at 100% 0%, oklch(0.45 0.18 295 / 0.09), transparent 70%),
+    radial-gradient(640px 480px at 0% 100%, oklch(0.6 0.14 175 / 0.08), transparent 70%);
 }
 
-.floating-shapes::before,
-.floating-shapes::after {
-  content: '';
-  position: absolute;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.05);
-  animation: float-shapes 20s linear infinite;
+main {
+  flex: 1;
 }
 
-.floating-shapes::before {
-  width: 300px;
-  height: 300px;
-  top: -150px;
-  left: -150px;
-  animation-delay: -10s;
+.container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
-.floating-shapes::after {
-  width: 200px;
-  height: 200px;
-  bottom: -100px;
-  right: -100px;
-  animation-delay: -5s;
+h1, h2, h3 {
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  text-wrap: balance;
 }
 
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-20px) rotate(5deg);
-  }
+h2 {
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+  font-weight: 800;
 }
 
-@keyframes neon-pulse {
-  from {
-    box-shadow: 0 0 20px var(--neon-blue), 0 0 40px var(--neon-blue);
-  }
-  to {
-    box-shadow: 0 0 30px var(--neon-blue), 0 0 60px var(--neon-blue), 0 0 80px var(--neon-blue);
-  }
+p {
+  text-wrap: pretty;
 }
 
-@keyframes pulse-scale {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
+a {
+  color: inherit;
 }
 
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+::selection {
+  background: var(--indigo);
+  color: #fff;
 }
 
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes float-shapes {
-  0% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  33% {
-    transform: translateY(-30px) rotate(120deg);
-  }
-  66% {
-    transform: translateY(30px) rotate(240deg);
-  }
-  100% {
-    transform: translateY(0px) rotate(360deg);
-  }
-}
-
-/* Scrollbar personalizado */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+:focus-visible {
+  outline: 2px solid var(--indigo-bright);
+  outline-offset: 2px;
   border-radius: 4px;
 }
 
+code, pre, .font-mono {
+  font-family: var(--font-mono);
+  font-feature-settings: 'liga' 1, 'calt' 1;
+}
+
+/* Chips índigo del og-image */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 15px;
+  border-radius: 999px;
+  background: var(--indigo-chip);
+  border: 1px solid oklch(0.4 0.1 275 / 0.5);
+  color: var(--indigo-text);
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Scrollbar discreto acorde al fondo */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 5px;
+}
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink));
+  background: oklch(0.4 0.05 268);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

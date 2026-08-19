@@ -50,12 +50,15 @@ const {
 		<meta name="author" content="Xavier González" />
 		<meta name="robots" content="index, follow" />
 		<meta name="language" content="English" />
-		<meta name="theme-color" content="#2563eb" />
-		<link rel="canonical" href="https://notify-zh.com" />
+		<meta name="theme-color" content="#0c1120" />
+		{/* notify-zh.com no está conectado (DNS sin resolver) — el dominio
+		    vivo es notify-zh.trely.agency; si algún día se conecta el .com,
+		    actualizar acá y en el sitio de Trely. */}
+		<link rel="canonical" href="https://notify-zh.trely.agency" />
 
 		<!-- Open Graph / Facebook -->
 		<meta property="og:type" content="website" />
-		<meta property="og:url" content="https://notify-zh.com" />
+		<meta property="og:url" content="https://notify-zh.trely.agency" />
 		<meta
 			property="og:title"
 			content="Notify-zh - Lightweight JavaScript Notification Library"
@@ -63,14 +66,14 @@ const {
 		<meta property="og:description" content={description} />
 		<meta
 			property="og:image"
-			content="https://notify-zh.com/og-image.png"
+			content="https://notify-zh.trely.agency/og-image.png"
 		/>
 		<meta property="og:site_name" content="Notify-zh" />
 		<meta property="og:locale" content="en_US" />
 
 		<!-- Twitter -->
 		<meta property="twitter:card" content="summary_large_image" />
-		<meta property="twitter:url" content="https://notify-zh.com" />
+		<meta property="twitter:url" content="https://notify-zh.trely.agency" />
 		<meta
 			property="twitter:title"
 			content="Notify-zh - Lightweight JavaScript Notification Library"
@@ -81,14 +84,14 @@ const {
 		/>
 		<meta
 			property="twitter:image"
-			content="https://notify-zh.com/og-image.png"
+			content="https://notify-zh.trely.agency/og-image.png"
 		/>
 
 		<!-- Google Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=JetBrains+Mono:wght@400;600&display=swap"
 			rel="stylesheet"
 		/>
 
@@ -128,39 +131,4 @@ const {
 	</body>
 </html>
 
-<style is:global>
-	:root {
-		--font-family:
-			'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-			sans-serif;
-		--color-primary: #2563eb;
-		--color-text: #333;
-		--color-bg: #fff;
-	}
-
-	* {
-		margin: 0;
-		padding: 0;
-		box-sizing: border-box;
-	}
-
-	body {
-		font-family: var(--font-family);
-		line-height: 1.6;
-		color: var(--color-text);
-		background: var(--color-bg);
-		min-height: 100vh;
-		display: flex;
-		flex-direction: column;
-	}
-
-	main {
-		flex: 1;
-	}
-
-	.container {
-		max-width: 1200px;
-		margin: 0 auto;
-		padding: 0 20px;
-	}
-</style>
+{/* Base styles, tokens y container viven en src/styles/global.css */}

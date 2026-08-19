@@ -1,494 +1,128 @@
 ---
 import Layout from '../layouts/Layout.astro'
 import Hero from '../components/Hero.astro'
-import Usage from "../components/Usage.astro"
-import Comparison from "../components/Comparison.astro"
+import Usage from '../components/Usage.astro'
+import Comparison from '../components/Comparison.astro'
 import Demo from '../components/Demo.astro'
 ---
 
 <Layout>
-	<style>
-		/* Demo Section */
-		.demo-section {
-			padding: 60px 0;
-			background: #f9fafb;
-		}
-
-		.demo-container {
-			max-width: 800px;
-			margin: 0 auto;
-			text-align: center;
-		}
-
-		.demo-title {
-			font-size: 32px;
-			font-weight: 600;
-			margin-bottom: 16px;
-			color: #1f2937;
-		}
-
-		.demo-subtitle {
-			font-size: 18px;
-			color: #6b7280;
-			margin-bottom: 40px;
-		}
-
-		.demo-buttons {
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-			gap: 16px;
-			margin-bottom: 40px;
-		}
-
-		.demo-btn {
-			padding: 12px 24px;
-			border: none;
-			border-radius: 8px;
-			font-size: 14px;
-			font-weight: 500;
-			cursor: pointer;
-			transition: all 0.2s;
-			color: white;
-		}
-
-		.demo-btn:hover {
-			transform: translateY(-1px);
-			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-		}
-
-		.btn-success {
-			background: #10b981;
-		}
-		.btn-error {
-			background: #ef4444;
-		}
-		.btn-warning {
-			background: #f59e0b;
-		}
-		.btn-info {
-			background: #3b82f6;
-		}
-
-		/* Installation Section */
-		.installation {
-			padding: 60px 0;
-		}
-
-		.installation-title {
-			font-size: 32px;
-			font-weight: 600;
-			text-align: center;
-			margin-bottom: 40px;
-			color: #1f2937;
-		}
-
-		.install-methods {
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-			gap: 24px;
-			max-width: 800px;
-			margin: 0 auto;
-		}
-
-		.install-card {
-			padding: 24px;
-			border: 1px solid #e5e7eb;
-			border-radius: 12px;
-			background: white;
-		}
-
-		.install-card h3 {
-			font-size: 18px;
-			font-weight: 600;
-			margin-bottom: 12px;
-			color: #1f2937;
-		}
-
-		.code-block {
-			background: #1f2937;
-			color: #f9fafb;
-			padding: 16px;
-			border-radius: 8px;
-			font-family: 'Monaco', 'Menlo', monospace;
-			font-size: 14px;
-			overflow-x: auto;
-			position: relative;
-		}
-
-		.copy-btn {
-			position: absolute;
-			top: 8px;
-			right: 8px;
-			padding: 4px 8px;
-			background: #374151;
-			color: #d1d5db;
-			border: none;
-			border-radius: 4px;
-			font-size: 12px;
-			cursor: pointer;
-			transition: background 0.2s;
-		}
-
-		.copy-btn:hover {
-			background: #4b5563;
-		}
-
-		/* Usage Section */
-		.usage {
-			padding: 60px 0;
-			background: #f9fafb;
-		}
-
-		.usage-title {
-			font-size: 32px;
-			font-weight: 600;
-			text-align: center;
-			margin-bottom: 40px;
-			color: #1f2937;
-		}
-
-		.usage-example {
-			max-width: 600px;
-			margin: 0 auto;
-		}
-
-		/* Tabs System */
-		.tabs-container {
-			max-width: 800px;
-			margin: 0 auto;
-			background: white;
-			border-radius: 12px;
-			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-			overflow: hidden;
-		}
-
-		.tabs-nav {
-			display: flex;
-			background: #f8fafc;
-			border-bottom: 1px solid #e2e8f0;
-			overflow-x: auto;
-		}
-
-		.tab-button {
-			flex: 1;
-			min-width: 120px;
-			padding: 12px 16px;
-			background: none;
-			border: none;
-			font-size: 14px;
-			font-weight: 500;
-			color: #64748b;
-			cursor: pointer;
-			transition: all 0.2s ease;
-			border-bottom: 2px solid transparent;
-			white-space: nowrap;
-		}
-
-		.tab-button:hover {
-			color: #334155;
-			background: #f1f5f9;
-		}
-
-		.tab-button.active {
-			color: #2563eb;
-			background: white;
-			border-bottom-color: #2563eb;
-		}
-
-		.tab-content {
-			display: none;
-			padding: 0;
-		}
-
-		.tab-content.active {
-			display: block;
-		}
-
-		.tab-content pre {
-			margin: 0;
-			border-radius: 0;
-			border: none;
-		}
-
-		.tab-content code {
-			border-radius: 0;
-		}
-
-		/* Responsive tabs */
-		@media (max-width: 768px) {
-			.tabs-nav {
-				flex-wrap: wrap;
-			}
-
-			.tab-button {
-				flex: none;
-				min-width: auto;
-				padding: 10px 12px;
-				font-size: 13px;
-			}
-		}
-
-		/* Footer */
-		footer {
-			padding: 40px 0;
-			border-top: 1px solid #e5e7eb;
-			text-align: center;
-			color: #6b7280;
-		}
-		/* Support Section */
-		.support-section {
-			padding: 4rem 0;
-			background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-			border-top: 1px solid #e2e8f0;
-		}
-
-		.support-header {
-			text-align: center;
-			margin-bottom: 3rem;
-		}
-
-		.support-icon {
-			width: 3rem;
-			height: 3rem;
-			margin: 0 auto 1rem;
-			color: #ef4444;
-		}
-
-		.support-title {
-			font-size: 2.25rem;
-			font-weight: 700;
-			color: #1f2937;
-			margin-bottom: 1rem;
-		}
-
-		.support-subtitle {
-			font-size: 1.125rem;
-			color: #6b7280;
-			max-width: 600px;
-			margin: 0 auto;
-		}
-
-		.support-options {
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-			gap: 2rem;
-			max-width: 900px;
-			margin: 0 auto 3rem;
-		}
-
-		.support-card {
-			display: flex;
-			align-items: center;
-			gap: 1rem;
-			padding: 1.5rem;
-			background: white;
-			border-radius: 1rem;
-			box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-			transition: all 0.3s ease;
-			text-decoration: none;
-			border: 2px solid transparent;
-		}
-
-		.support-card:hover {
-			transform: translateY(-4px);
-			box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
-		}
-
-		.support-card.github {
-			border-color: #24292f;
-		}
-
-		.support-card.github:hover {
-			background: linear-gradient(135deg, #24292f, #1c2128);
-			color: white;
-		}
-
-		.support-card.coffee {
-			border-color: #ffdd00;
-		}
-
-		.support-card.coffee:hover {
-			background: linear-gradient(135deg, #ffdd00, #ffcc02);
-			color: #1f2937;
-		}
-
-		.support-card-icon {
-			width: 2.5rem;
-			height: 2.5rem;
-			flex-shrink: 0;
-		}
-
-		.support-card.github .support-card-icon {
-			color: #24292f;
-		}
-
-		.support-card.coffee .support-card-icon {
-			color: #ffdd00;
-		}
-
-		.support-card:hover .support-card-icon {
-			color: inherit;
-		}
-
-		.support-card-content h3 {
-			font-size: 1.125rem;
-			font-weight: 600;
-			color: #1f2937;
-			margin-bottom: 0.25rem;
-		}
-
-		.support-card:hover .support-card-content h3 {
-			color: inherit;
-		}
-
-		.support-card-content p {
-			font-size: 0.875rem;
-			color: #6b7280;
-			margin: 0;
-		}
-
-		.support-card:hover .support-card-content p {
-			color: inherit;
-			opacity: 0.9;
-		}
-
-		.support-message {
-			text-align: center;
-			max-width: 600px;
-			margin: 0 auto;
-		}
-
-		.support-message p {
-			font-size: 1rem;
-			color: #6b7280;
-			margin-bottom: 0.5rem;
-		}
-
-		.support-message a {
-			color: #3b82f6;
-			text-decoration: none;
-			font-weight: 600;
-		}
-
-		.support-message a:hover {
-			text-decoration: underline;
-		}
-
-		@media (max-width: 768px) {
-			.support-options {
-				grid-template-columns: 1fr;
-				gap: 1rem;
-			}
-
-			.support-card {
-				padding: 1rem;
-			}
-
-			.support-card-icon {
-				width: 2rem;
-				height: 2rem;
-			}
-
-			.support-title {
-				font-size: 1.875rem;
-			}
-		}
-	</style>
-
 	<Hero />
 
-	<!-- Interactive Configuration Form -->
+	<!-- Interactive playground -->
 	<Demo />
 
-	<!-- Installation Section -->
+	<!-- Installation + usage -->
 	<Usage />
 
-	<!-- Comparison Section -->
+	<!-- Comparison -->
 	<Comparison />
 
-	<!-- Support Section -->
-	<section
-		class="support-section"
-		id="support"
-		aria-labelledby="support-title"
-	>
+	<!-- Support -->
+	<section class="support" id="support" aria-labelledby="support-title">
 		<div class="container">
-			<div class="support-header">
-				<svg class="support-icon" viewBox="0 0 24 24" fill="none">
-					<path
-						d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"></path>
-				</svg>
-				<h2 class="support-title" id="support-title">
-					Support the Project
-				</h2>
-				<p class="support-subtitle">
-					If notify-zh has been useful to you, consider supporting its
-					continued development
-				</p>
-			</div>
+			<h2 id="support-title">Support the project</h2>
+			<p class="support-sub">
+				notify-zh is free and MIT-licensed. If it saved you a dependency,
+				a star or a coffee keeps it moving.
+			</p>
 
-			<div class="support-options">
+			<div class="support-links">
+				<a
+					href="https://github.com/xavivzla/notify-zh"
+					target="_blank"
+					rel="noopener"
+					class="support-link"
+				>
+					⭐ Star on GitHub
+				</a>
 				<a
 					href="https://github.com/sponsors/xavivzla"
 					target="_blank"
 					rel="noopener"
-					class="support-card github"
+					class="support-link"
 				>
-					<svg
-						class="support-card-icon"
-						viewBox="0 0 24 24"
-						fill="currentColor"
-					>
-						<path
-							d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-						></path>
-					</svg>
-					<div class="support-card-content">
-						<h3>GitHub Sponsors</h3>
-						<p>Support development monthly</p>
-					</div>
+					💜 GitHub Sponsors
 				</a>
-
 				<a
 					href="https://buymeacoffee.com/piratacode"
 					target="_blank"
 					rel="noopener"
-					class="support-card coffee"
+					class="support-link"
 				>
-					<svg
-						class="support-card-icon"
-						viewBox="0 0 24 24"
-						fill="currentColor"
-					>
-						<path
-							d="M20.216 6.415l-.132-.666c-.119-.598-.388-1.163-.766-1.613a4.44 4.44 0 0 0-1.364-1.04c-.354-.25-.773-.426-1.214-.518a9.909 9.909 0 0 0-1.85-.104c-.26.003-.52.021-.778.053a27.888 27.888 0 0 0-3.738.543c-.457.1-.917.214-1.375.347-.526.152-1.051.33-1.573.533-.562.219-1.127.473-1.69.751-.619.307-1.237.65-1.846 1.017-.47.283-.933.588-1.38.918-.564.417-1.154.855-1.725 1.333-.119.1-.235.204-.346.313-.1.098-.195.201-.287.307-.326.379-.39.918-.15 1.378.137.262.322.49.548.672.04.033.082.064.125.094.159.114.333.213.515.296.33.15.7.26 1.074.26.517 0 1.009-.174 1.397-.49.185-.151.346-.332.478-.532.13-.198.234-.417.308-.647.037-.115.068-.232.093-.35.007-.033.013-.066.018-.1.025-.165.037-.332.037-.5 0-.668-.27-1.308-.753-1.791a2.89 2.89 0 0 0-1.791-.753c-.5 0-.981.196-1.336.544-.18.176-.317.39-.4.627-.04.114-.068.232-.084.352-.008.06-.013.121-.016.183-.001.03-.001.06-.001.09 0 .417.21.798.559 1.027.174.114.38.18.596.18.5 0 .981-.196 1.336-.544.18-.176.317-.39.4-.627.04-.114.068-.232.084-.352.008-.06.013-.121.016-.183.001-.03.001-.06.001-.09 0-.417-.21-.798-.559-1.027-.174-.114-.38-.18-.596-.18z"
-						></path>
-					</svg>
-					<div class="support-card-content">
-						<h3>Buy Me a Coffee</h3>
-						<p>Buy me a coffee ☕</p>
-					</div>
+					☕ Buy me a coffee
 				</a>
 			</div>
 
-			<div class="support-message">
-				<p>
-					💝 Your support helps keep notify-zh free and constantly
-					improving
-				</p>
-				<p>
-					🚀 You can also contribute code on <a
-						href="https://github.com/xavivzla/notify-zh"
-						target="_blank"
-						rel="noopener">GitHub</a
-					>
-				</p>
-			</div>
+			<p class="support-note">
+				You can also contribute code — issues and PRs welcome on
+				<a
+					href="https://github.com/xavivzla/notify-zh"
+					target="_blank"
+					rel="noopener">GitHub</a
+				>.
+			</p>
 		</div>
 	</section>
-
 </Layout>
+
+<style>
+	.support {
+		padding: clamp(56px, 8vw, 96px) 0;
+		border-top: 1px solid var(--line);
+		text-align: center;
+	}
+
+	.support-sub {
+		margin: 14px auto 0;
+		max-width: 46ch;
+		color: var(--ink-soft);
+	}
+
+	.support-links {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 12px;
+		margin-top: 30px;
+	}
+
+	.support-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 12px 24px;
+		border-radius: 999px;
+		border: 1px solid var(--line);
+		background: var(--surface);
+		color: var(--ink);
+		text-decoration: none;
+		font-weight: 600;
+		font-size: 0.95rem;
+		transition: background 0.15s ease-out, border-color 0.15s ease-out,
+			transform 0.15s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.support-link:hover {
+		background: var(--surface-2);
+		border-color: oklch(0.42 0.06 268);
+		transform: translateY(-1px);
+	}
+
+	.support-note {
+		margin-top: 26px;
+		color: var(--ink-mute);
+		font-size: 0.92rem;
+	}
+
+	.support-note a {
+		color: var(--indigo-text);
+		font-weight: 600;
+		text-decoration: none;
+	}
+
+	.support-note a:hover {
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+</style>

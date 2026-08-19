@@ -1,136 +1,276 @@
-<section class="hero" role="main" aria-labelledby="hero-title">
-    <div class="container">
-        <div class="hero-logo">
-            <img src="/logo.svg" alt="notify-zh" class="hero-logo-img" />
-            <h1 id="hero-title">notify-zh</h1>
-        </div>
-        <p class="subtitle">
-            The modern JavaScript notification library developers love.
-            Lightweight, accessible, zero dependencies. Just ~2.7KB gzipped.
-        </p>
+---
+// Hero — réplica viva del og-image: copy a la izquierda, stack de toasts a
+// la derecha. Los toasts estáticos calcan el render real de la librería;
+// "Fire a toast" dispara los de verdad.
+---
+<section class="hero" aria-labelledby="hero-title">
+    <div class="container hero-grid">
+        <div class="hero-copy">
+            <h1 id="hero-title">notify-zh <span class="sparkle" aria-hidden="true">✨</span></h1>
+            <p class="tagline">
+                Toast notifications in <strong class="kb">~2.7&nbsp;KB</strong>
+                <span class="dot" aria-hidden="true">·</span> zero dependencies
+            </p>
 
-        <div class="features">
-            <div class="feature">
-                <svg
-                    class="feature-icon"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M5 13l4 4L19 7"></path>
-                </svg>
-                Responsive
+            <div class="chips">
+                <span class="chip">Promise API</span>
+                <span class="chip">TypeScript</span>
+                <span class="chip">SSR-safe</span>
+                <span class="chip">Any framework</span>
             </div>
-            <div class="feature">
-                <svg
-                    class="feature-icon"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+
+            <div class="code-pill" aria-label="Import example">
+                <code
+                    ><span class="kw">import</span> notify <span class="kw">from</span>{' '}<span
+                        class="str">'notify-zh'</span
+                    ></code
                 >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                    ></path>
-                </svg>
-                Accessible
             </div>
-            <div class="feature">
-                <svg
-                    class="feature-icon"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+
+            <div class="hero-actions">
+                <button type="button" class="btn-fire" data-hero-fire>Fire a toast</button>
+                <a
+                    href="https://github.com/xavivzla/notify-zh"
+                    target="_blank"
+                    rel="noopener"
+                    class="btn-ghost">GitHub</a
                 >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                </svg>
-                Zero Dependencies
-            </div>
-            <div class="feature">
-                <svg
-                    class="feature-icon"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+                <a
+                    href="https://www.npmjs.com/package/notify-zh"
+                    target="_blank"
+                    rel="noopener"
+                    class="btn-ghost">npm</a
                 >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"
-                    ></path>
-                </svg>
-                Lightweight (~2.7KB)
             </div>
+        </div>
+
+        <div class="hero-toasts" aria-hidden="true">
+            <div class="toast toast-success">
+                <span class="toast-emoji">✅</span> Changes saved!
+            </div>
+            <div class="toast toast-info">
+                Uploading avatar… <span class="toast-x">×</span>
+            </div>
+            <div class="toast toast-warning">Session about to expire</div>
         </div>
     </div>
 </section>
 
+<script is:inline type="module">
+    import notify from '/notify-zh.mjs'
+
+    const MENSAJES = [
+        () => notify.success({ message: 'Changes saved!' }),
+        () => notify.info({ message: 'Uploading avatar…', closable: true }),
+        () => notify.warning({ message: 'Session about to expire' }),
+        () => notify.error({ message: 'Something went wrong' }),
+    ]
+    let siguiente = 0
+
+    document.querySelectorAll('[data-hero-fire]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            MENSAJES[siguiente % MENSAJES.length]()
+            siguiente++
+        })
+    })
+</script>
+
 <style>
-    /* Hero Section */
     .hero {
-        padding: 80px 0 60px;
-        text-align: center;
+        padding: clamp(64px, 9vw, 120px) 0 clamp(48px, 6vw, 88px);
     }
 
-    .hero-logo {
-        display: flex;
+    .hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+        gap: clamp(32px, 5vw, 72px);
         align-items: center;
-        justify-content: center;
-        gap: 20px;
-        margin-bottom: 16px;
     }
 
-    .hero-logo-img {
-        width: 64px;
-        height: 64px;
+    h1 {
+        font-size: clamp(2.75rem, 6vw, 4.5rem);
+        font-weight: 800;
+        letter-spacing: -0.02em;
     }
 
-    .hero h1 {
-        font-size: 48px;
-        font-weight: 700;
-        margin: 0;
-        color: #1f2937;
+    .sparkle {
+        display: inline-block;
+        margin-left: 0.08em;
     }
 
-    .hero .subtitle {
-        font-size: 20px;
-        color: #6b7280;
-        margin-bottom: 40px;
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
+    .tagline {
+        margin-top: 14px;
+        font-size: clamp(1.15rem, 2vw, 1.5rem);
+        color: var(--ink-soft);
     }
 
-    .features {
+    .kb {
+        color: var(--green);
+        font-weight: 800;
+    }
+
+    .dot {
+        margin: 0 0.25em;
+        color: var(--ink-mute);
+    }
+
+    .chips {
         display: flex;
-        justify-content: center;
-        gap: 40px;
-        margin-bottom: 40px;
         flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 26px;
     }
 
-    .feature {
+    .code-pill {
+        display: inline-block;
+        margin-top: 30px;
+        padding: 15px 22px;
+        background: var(--bg-deep);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-toast);
+        font-size: 1rem;
+    }
+
+    .code-pill code {
+        color: var(--ink);
+    }
+
+    .kw {
+        color: var(--pink);
+    }
+
+    .str {
+        color: var(--green);
+    }
+
+    .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 30px;
+    }
+
+    .btn-fire {
+        padding: 12px 26px;
+        border: none;
+        border-radius: 999px;
+        background: var(--indigo);
+        color: #fff;
+        font-family: inherit;
+        font-size: 0.95rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background 0.15s ease-out, transform 0.15s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .btn-fire:hover {
+        background: var(--indigo-bright);
+        transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+        display: inline-flex;
+        align-items: center;
+        padding: 12px 24px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        color: var(--ink);
+        text-decoration: none;
+        font-size: 0.95rem;
+        font-weight: 600;
+        transition: background 0.15s ease-out, border-color 0.15s ease-out;
+    }
+
+    .btn-ghost:hover {
+        background: var(--surface);
+        border-color: oklch(0.42 0.06 268);
+    }
+
+    /* Stack de toasts — calca el render real de la librería (fondo vivo,
+       texto blanco 700, radius 12, shadow) con el desalineo del og-image. */
+    .hero-toasts {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        justify-self: end;
+        width: min(100%, 320px);
+    }
+
+    .toast {
         display: flex;
         align-items: center;
-        gap: 8px;
-        font-size: 16px;
-        color: #4b5563;
+        gap: 10px;
+        padding: 17px 22px;
+        border-radius: var(--radius-toast);
+        color: #fff;
+        font-size: 1.02rem;
+        font-weight: 700;
+        box-shadow: var(--shadow-toast);
+        animation: toast-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) backwards;
     }
 
-    .feature-icon {
-        width: 20px;
-        height: 20px;
-        color: #10b981;
+    /* Colores EXACTOS de la librería (src/index.ts → backgrounds) */
+    .toast-success {
+        background: #13bf5f;
+        animation-delay: 0.1s;
+    }
+
+    .toast-info {
+        background: #4261fb;
+        transform: translateX(-14px);
+        animation-delay: 0.22s;
+    }
+
+    .toast-warning {
+        background: #f09200;
+        transform: translateX(6px);
+        animation-delay: 0.34s;
+    }
+
+    .toast-x {
+        margin-left: auto;
+        font-size: 1.15rem;
+        font-weight: 400;
+        opacity: 0.9;
+    }
+
+    .toast-emoji {
+        font-size: 1rem;
+    }
+
+    @keyframes toast-in {
+        from {
+            opacity: 0;
+            translate: 0 14px;
+        }
+        to {
+            opacity: 1;
+            translate: 0 0;
+        }
+    }
+
+    @media (max-width: 860px) {
+        .hero-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .hero-toasts {
+            justify-self: start;
+            width: min(100%, 300px);
+        }
+
+        .toast-info {
+            transform: translateX(10px);
+        }
+
+        .toast-warning {
+            transform: translateX(-4px);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .toast {
+            animation: none;
+        }
     }
 </style>

@@ -310,15 +310,20 @@ export class AppComponent &#123;
 <style>
     /* Installation Section */
     .installation {
-        padding: 60px 0;
+        padding: clamp(56px, 8vw, 96px) 0;
+        border-top: 1px solid var(--line);
     }
 
     .installation-title {
-        font-size: 32px;
-        font-weight: 600;
         text-align: center;
-        margin-bottom: 40px;
-        color: #1f2937;
+        margin-bottom: 12px;
+    }
+
+    .installation-subtitle {
+        text-align: center;
+        color: var(--ink-soft);
+        max-width: 55ch;
+        margin: 0 auto 40px;
     }
 
     .install-methods {
@@ -331,24 +336,31 @@ export class AppComponent &#123;
 
     .install-card {
         padding: 24px;
-        border: 1px solid #e5e7eb;
-        border-radius: 12px;
-        background: white;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-card);
+        background: var(--surface);
     }
 
     .install-card h3 {
         font-size: 18px;
-        font-weight: 600;
-        margin-bottom: 12px;
-        color: #1f2937;
+        font-weight: 700;
+        margin-bottom: 8px;
+        color: var(--ink);
+    }
+
+    .install-card p {
+        color: var(--ink-soft);
+        font-size: 0.92rem;
+        margin-bottom: 14px;
     }
 
     .code-block {
-        background: #1f2937;
-        color: #f9fafb;
+        background: var(--bg-deep);
+        color: var(--ink);
+        border: 1px solid var(--line);
         padding: 16px;
-        border-radius: 8px;
-        font-family: 'Monaco', 'Menlo', monospace;
+        border-radius: var(--radius-toast);
+        font-family: var(--font-mono);
         font-size: 14px;
         overflow-x: auto;
         position: relative;
@@ -358,53 +370,53 @@ export class AppComponent &#123;
         position: absolute;
         top: 8px;
         right: 8px;
-        padding: 4px 8px;
-        background: #374151;
-        color: #d1d5db;
+        padding: 4px 12px;
+        background: var(--surface-2);
+        color: var(--ink-soft);
         border: none;
-        border-radius: 4px;
+        border-radius: 999px;
+        font-family: inherit;
         font-size: 12px;
+        font-weight: 600;
         cursor: pointer;
-        transition: background 0.2s;
+        transition: color 0.15s ease-out;
     }
 
     .copy-btn:hover {
-        background: #4b5563;
+        color: var(--ink);
     }
 
     /* Usage Section */
     .usage {
-        padding: 60px 0;
-        background: #f9fafb;
+        padding: clamp(56px, 8vw, 96px) 0;
+        border-top: 1px solid var(--line);
     }
 
     .usage-title {
-        font-size: 32px;
-        font-weight: 600;
         text-align: center;
-        margin-bottom: 40px;
-        color: #1f2937;
+        margin-bottom: 12px;
     }
 
-    .usage-example {
-        max-width: 600px;
-        margin: 0 auto;
+    .usage-subtitle {
+        text-align: center;
+        color: var(--ink-soft);
+        max-width: 55ch;
+        margin: 0 auto 40px;
     }
 
     /* Tabs System */
     .tabs-container {
         max-width: 800px;
         margin: 0 auto;
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-card);
         overflow: hidden;
     }
 
     .tabs-nav {
         display: flex;
-        background: #f8fafc;
-        border-bottom: 1px solid #e2e8f0;
+        border-bottom: 1px solid var(--line);
         overflow-x: auto;
     }
 
@@ -414,24 +426,23 @@ export class AppComponent &#123;
         padding: 12px 16px;
         background: none;
         border: none;
+        font-family: inherit;
         font-size: 14px;
-        font-weight: 500;
-        color: #64748b;
+        font-weight: 600;
+        color: var(--ink-mute);
         cursor: pointer;
-        transition: all 0.2s ease;
+        transition: color 0.15s ease-out;
         border-bottom: 2px solid transparent;
         white-space: nowrap;
     }
 
     .tab-button:hover {
-        color: #334155;
-        background: #f1f5f9;
+        color: var(--ink-soft);
     }
 
     .tab-button.active {
-        color: #2563eb;
-        background: white;
-        border-bottom-color: #2563eb;
+        color: var(--ink);
+        border-bottom-color: var(--indigo-bright);
     }
 
     .tab-content {
@@ -441,6 +452,12 @@ export class AppComponent &#123;
 
     .tab-content.active {
         display: block;
+    }
+
+    /* Dentro del contenedor de tabs, el borde lo pone el contenedor */
+    .tab-content .code-block {
+        border: none;
+        border-radius: 0;
     }
 
     .tab-content pre {

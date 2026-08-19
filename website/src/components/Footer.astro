@@ -4,42 +4,47 @@ const currentYear = new Date().getFullYear()
 
 <footer>
     <div class="container">
-        <p>&copy; {currentYear} Notify-zh. MIT License.</p>
-        <p>
-            Created by <a href="https://github.com/xavivzla" target="_blank"
-                >Xavier González</a>
+        <p class="line">
+            &copy; {currentYear} notify-zh · MIT License · Created by
+            <a href="https://github.com/xavivzla" target="_blank" rel="noopener">Xavier González</a>
         </p>
         <p class="ai-docs">
             Docs for AI assistants: <a href="/llms.txt">llms.txt</a> ·
             <a href="/llms-full.txt">llms-full.txt</a> ·
             <a
                 href="https://github.com/xavivzla/notify-zh/blob/master/AGENTS.md"
-                target="_blank">AGENTS.md</a>
+                target="_blank"
+                rel="noopener">AGENTS.md</a>
         </p>
     </div>
 </footer>
 
 <style>
     footer {
-        padding: 40px 0;
-        border-top: 1px solid #e5e7eb;
+        padding: 44px 0;
+        border-top: 1px solid var(--line);
         text-align: center;
-        color: #6b7280;
-        background: #f9fafb;
+        color: var(--ink-mute);
+        font-size: 0.92rem;
     }
 
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
+    .line {
+        color: var(--ink-soft);
+    }
+
+    .ai-docs {
+        margin-top: 8px;
     }
 
     a {
-        color: #2563eb;
+        color: var(--indigo-text);
         text-decoration: none;
+        font-weight: 500;
     }
 
     a:hover {
+        color: var(--ink);
         text-decoration: underline;
+        text-underline-offset: 3px;
     }
 </style>

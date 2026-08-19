@@ -4,23 +4,24 @@
     <div class="container">
         <div class="header-content">
             <a href="/" class="logo">
-                <div class="logo-text">Notify-zh✨</div>
+                <span class="logo-text">notify-zh <span aria-hidden="true">✨</span></span>
             </a>
-            <nav>
+            <nav aria-label="Main">
                 <a href="#demo">Demo</a>
-                <a href="#install">Installation</a>
+                <a href="#install">Install</a>
                 <a href="#usage">Usage</a>
-                <a href="#comparison">Comparison</a>
+                <a href="#comparison">Compare</a>
                 <a
                     href="https://github.com/xavivzla/notify-zh"
                     target="_blank"
+                    rel="noopener"
                     class="github-link"
                 >
                     <svg
-                        height="20"
+                        height="18"
                         viewBox="0 0 16 16"
                         version="1.1"
-                        width="20"
+                        width="18"
                         aria-hidden="true"
                     >
                         <path
@@ -36,61 +37,50 @@
 </header>
 
 <style>
-    /* Header */
     header {
-        padding: 20px 0;
-        border-bottom: 1px solid #eee;
-        background-color: white;
         position: sticky;
         top: 0;
-        z-index: 100;
-    }
-
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
+        z-index: var(--z-header);
+        background: oklch(0.13 0.03 268 / 0.82);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border-bottom: 1px solid var(--line);
     }
 
     .header-content {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding: 14px 0;
     }
 
     .logo {
-        display: flex;
-        align-items: center;
-        gap: 12px;
         text-decoration: none;
     }
 
-    .logo:hover .logo-text {
-        color: #1d4ed8;
-    }
-
     .logo-text {
-        font-size: 24px;
-        font-weight: 700;
-        color: #2563eb;
-        transition: color 0.2s;
+        font-size: 1.2rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: var(--ink);
     }
 
     nav {
         display: flex;
         align-items: center;
-        gap: 24px;
+        gap: 26px;
     }
 
     nav a {
-        color: #6b7280;
+        color: var(--ink-soft);
         text-decoration: none;
         font-weight: 500;
-        transition: color 0.2s;
+        font-size: 0.92rem;
+        transition: color 0.15s ease-out;
     }
 
     nav a:hover {
-        color: #2563eb;
+        color: var(--ink);
     }
 
     .github-link {
@@ -98,25 +88,24 @@
         align-items: center;
         gap: 8px;
         padding: 8px 16px;
-        background: #24292e;
-        color: white !important;
-        text-decoration: none;
-        border-radius: 6px;
-        font-size: 14px;
-        font-weight: 500;
-        transition: background 0.2s;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        color: var(--ink);
+        border-radius: 999px;
+        font-size: 0.88rem;
+        font-weight: 600;
+        transition: background 0.15s ease-out, border-color 0.15s ease-out;
     }
 
     .github-link:hover {
-        background: #1a1e22;
+        color: var(--ink);
+        background: var(--surface-2);
+        border-color: oklch(0.42 0.06 268);
     }
 
     @media (max-width: 768px) {
-        nav {
-            display: none; /* Simplify for mobile for now, or add mobile menu later */
-        }
-        .header-content {
-            justify-content: center;
+        nav a:not(.github-link) {
+            display: none;
         }
     }
 </style>
